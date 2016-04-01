@@ -46,4 +46,10 @@ public class Division {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public Division() {}
+
+    public Division(String name) {
+        this.name = name;
+    }
 }
