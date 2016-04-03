@@ -19,11 +19,16 @@ import static org.hamcrest.Matchers.*;
 
 public class DivisionRestControllerTest extends AbstractRestControllerTest {
 
+    private static final String FIRST_ITEM_NAME = "FIRST_ITEM_NAME";
+    private static final String SECOND_ITEM_NAME = "SECOND_ITEM_NAME";
+    private static final String THIRD_ITEM_NAME = "THIRD_ITEM_NAME";
+    private static final boolean THIRD_ITEM_ENABLED = false;
+
     @Autowired
     private DivisionRepository repo;
-    private Division firstItem = new Division("111");
-    private Division secondItem = new Division("222");
-    private Division thirdItem = new Division("333");
+    private Division firstItem = new Division(FIRST_ITEM_NAME);
+    private Division secondItem = new Division(SECOND_ITEM_NAME);
+    private Division thirdItem = new Division(THIRD_ITEM_NAME);
 
     @Before
     public void setUp() {
@@ -41,13 +46,7 @@ public class DivisionRestControllerTest extends AbstractRestControllerTest {
         then().
                 statusCode(HttpStatus.SC_OK).
                 body("id", hasSize(2)).
-                body(
-                        "name",
-                        hasItems(
-                                firstItem.getName(),
-                                secondItem.getName()
-                        )
-                );
+                body("name", hasItems(FIRST_ITEM_NAME, SECOND_ITEM_NAME));
     }
 
     @Test
@@ -59,17 +58,14 @@ public class DivisionRestControllerTest extends AbstractRestControllerTest {
                 post("/divisions").
         then().
                 statusCode(HttpStatus.SC_OK).
-                body(
-                        "name",
-                        equalTo(thirdItem.getName())
-                ).
+                body("name", equalTo(THIRD_ITEM_NAME)).
                 body("enabled", equalTo(true));
     }
 
     @Test
     public void update() throws Exception {
-        firstItem.setName("444");
-        firstItem.setEnabled(false);
+        firstItem.setName(THIRD_ITEM_NAME);
+        firstItem.setEnabled(THIRD_ITEM_ENABLED);
 
         given().
                 queryParam("id", firstItem.getId()).
@@ -79,13 +75,7 @@ public class DivisionRestControllerTest extends AbstractRestControllerTest {
                 post("/divisions").
         then().
                 statusCode(HttpStatus.SC_OK).
-                body(
-                        "name",
-                        equalTo(firstItem.getName())
-                ).
-                body(
-                        "enabled",
-                        equalTo(firstItem.isEnabled())
-                );
+                body("name", equalTo(THIRD_ITEM_NAME)).
+                body("enabled", equalTo(THIRD_ITEM_ENABLED));
     }
 }
