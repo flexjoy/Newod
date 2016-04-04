@@ -51,6 +51,11 @@
             <version>2.9.0</version>
             <scope>test</scope>
         </dependency>
+        <!--LIQUIBASE-->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

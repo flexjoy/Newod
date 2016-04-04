@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="Version 1 tag" author="flexjoy">
+        <tagDatabase tag="Version 1"/>
+    </changeSet>
+
+    <include file="db/changelog/1.0/2016-04-03--01_create_division_table.xml"/>
+
+</databaseChangeLog>
