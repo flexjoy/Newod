@@ -38,6 +38,11 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <!--MYSQL DATABASE-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
         <!--JUnit-->
         <dependency>
             <groupId>junit</groupId>
