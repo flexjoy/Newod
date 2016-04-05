@@ -16,22 +16,22 @@ import java.util.List;
 @RequestMapping("/divisions")
 public class DivisionController {
 
-    @Autowired
-    private DivisionRepository repo;
+	@Autowired
+	private DivisionRepository repo;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Division> findAll() {
-        return repo.findAll();
-    }
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Division> findAll() {
+		return repo.findAll();
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public Division add(@Valid @RequestBody Division division) {
-        return repo.save(division);
-    }
+	@RequestMapping(method = RequestMethod.POST)
+	public Division add(@Valid @RequestBody Division division) {
+		return repo.save(division);
+	}
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Division update(@PathVariable("id") int id, @Valid @RequestBody Division division) {
-        division.setId(id);
-        return repo.save(division);
-    }
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public Division update(@PathVariable("id") int id, @Valid @RequestBody Division division) {
+		division.setId(id);
+		return repo.save(division);
+	}
 }

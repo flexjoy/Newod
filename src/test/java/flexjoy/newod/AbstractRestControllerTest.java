@@ -13,10 +13,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @IntegrationTest("server.port:0")
 public abstract class AbstractRestControllerTest extends AbstractTest{
 
-    @Value("${local.server.port}")
-    private int serverPort;
+	@Value("${local.server.port}")
+	private int serverPort;
 
-    protected void setUp() {
-        RestAssured.port = serverPort;
-    }
+	protected void setUp() {
+		RestAssured.port = serverPort;
+	}
 }

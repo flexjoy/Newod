@@ -13,43 +13,43 @@ import javax.persistence.*;
 @Table(name = "division")
 public class Division {
 
-    @Id
-    @GeneratedValue
-    private int id;
+	@Id
+	@GeneratedValue
+	private int id;
 
-    @NotEmpty
-    @Length(min = 3, max = 45)
-    private String name;
+	@NotEmpty
+	@Length(min = 3, max = 45)
+	private String name;
 
-    private boolean enabled = true;
+	private boolean enabled = true;
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
-    public Division() {}
+	public Division() {}
 
-    public Division(String name) {
-        this.name = name;
-    }
+	public Division(String name) {
+		this.name = name;
+	}
 }
