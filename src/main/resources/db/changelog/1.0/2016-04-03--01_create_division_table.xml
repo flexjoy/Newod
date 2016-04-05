@@ -4,7 +4,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="create table" author="flexjoy">
+    <changeSet id="create table" author="flexjoy" context="scheme">
         <createTable tableName="division">
             <column name="id" autoIncrement="true" type="int">
                 <constraints primaryKey="true"  />
