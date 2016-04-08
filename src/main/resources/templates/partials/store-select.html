@@ -1,0 +1,10 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<div class="list-group col-md-4">
+		<a href="#" class="list-group-item active" th:text="#{divisions}">Divisions</a>
+		<a href="#" class="list-group-item" th:each="division : ${divisions}" th:object="${division}">
+			<span th:text="${division.name}">Name</span>
+		</a>
+	</div>
+
+</html>
