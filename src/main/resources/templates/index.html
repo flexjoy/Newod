@@ -7,13 +7,32 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
-	<link rel="stylesheet" href="https://yastatic.net/bootstrap/3.3.6/css/bootstrap.min.css" th:href="@{webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" href="https://yastatic.net/bootstrap/3.3.6/css/bootstrap.min.css" th:href="@{webjars/bootstrap/3.3.6/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="../static/css/main.css" th:href="@{css/main.css}">
+
 </head>
 <body>
-	<p>Newod application!</p>
+	<!--Nav bar-->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Newod</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#home" th:text="#{menu.home}">Home</a></li>
+				<li><a href="#stores" th:text="#{menu.stores}">Stores</a></li>
+			</ul>
+		</div>
+	</nav>
+	<!--end Nav bar-->
+
+	<div class="container">
+		<p>Welcome to Newod application!</p>
+	</div>
 
 	<!-- JS -->
 	<script src="https://yastatic.net/jquery/1.11.1/jquery.min.js" th:src="@{webjars/jquery/1.11.1/jquery.min.js}"></script>
 	<script src="https://yastatic.net/bootstrap/3.3.6/js/bootstrap.min.js" th:src="@{webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+	<script src="../static/js/script.js" th:src="@{js/script.js}"></script>
 </body>
 </html>
