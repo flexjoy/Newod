@@ -1,9 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 	<div class="list-group col-md-4">
-		<a href="#" class="list-group-item active" th:text="#{divisions}">Divisions</a>
-		<a href="#" class="list-group-item" ng-repeat="division in divisions">
-			{{division.name}}
+		<span class="list-group-item active" th:inline="text">
+			[[#{divisions}]]
+			<span class="badge">{{divisions.length}}</span>
+		</span>
+		<a href="" class="list-group-item" ng-repeat="division in divisions">
+			{{$index + 1}}. {{division.name}}
 		</a>
 	</div>
 
