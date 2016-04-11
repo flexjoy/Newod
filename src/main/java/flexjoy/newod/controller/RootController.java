@@ -1,9 +1,6 @@
 package flexjoy.newod.controller;
 
-import flexjoy.newod.repository.DivisionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -12,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class RootController {
-
-	@Autowired
-	private DivisionRepository repo;
 
 	@RequestMapping("/")
 	public String index() {
@@ -27,8 +21,7 @@ public class RootController {
 	}
 
 	@RequestMapping("store-select")
-	public String stores(Model model) {
-		model.addAttribute("divisions", repo.findAll());
+	public String stores() {
 		return "partials/store-select";
 	}
 }
