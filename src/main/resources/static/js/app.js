@@ -23,15 +23,3 @@ newodApp.config(function ($routeProvider) {
 	}).
 	otherwise({redirectTo: 'home'});
 });
-
-newodApp.controller('NavBarController', function($scope, $location) {
-	$scope.isActive = function (viewLocation) {
-		return viewLocation === $location.path();
-	};
-});
-
-newodApp.controller('StoreSelectController', function($scope, divisions) {
-	$scope.divisions = divisions.data;
-});
-
-newodApp.controller('HomeController', function($scope) {});
