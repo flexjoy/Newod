@@ -11,3 +11,10 @@
 	</div>
 
 </html>
+
+<script>
+	$(document).on('click', '.list-group a', function() {
+		$(this).siblings('a').removeClass('list-group-item-info');
+		$(this).addClass('list-group-item-info');
+	});
+</script>
