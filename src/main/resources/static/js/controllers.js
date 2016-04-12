@@ -17,4 +17,11 @@ app.controller('StoreSelectController', function($scope, $http, divisions) {
 				$scope.cities = data;
 			});
 	}
+
+	$scope.selectCity = function (city) {
+		$http.get('/city/' + city.id + '/store')
+			.success(function (data) {
+				$scope.stores = data;
+			});
+	}
 });

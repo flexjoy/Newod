@@ -21,9 +21,23 @@
 		</span>
 		<a href=""
 		   class="list-group-item"
-		   ng-repeat="city in cities">
+		   ng-repeat="city in cities"
+		   ng-click="selectCity(city)">
 			{{$index + 1}}. {{city.name}}
 			<span class="label label-danger pull-right" ng-hide="city.enabled" th:text="#{closed}">Closed</span>
+		</a>
+	</div>
+
+	<div class="list-group col-md-4">
+		<span class="list-group-item active" th:inline="text">
+			[[#{stores}]]
+			<span class="badge">{{stores.length}}</span>
+		</span>
+		<a href=""
+		   class="list-group-item"
+		   ng-repeat="store in stores">
+			{{$index + 1}}. {{store.name}}
+			<span class="label label-danger pull-right" ng-hide="store.enabled" th:text="#{closed}">Closed</span>
 		</a>
 	</div>
 
