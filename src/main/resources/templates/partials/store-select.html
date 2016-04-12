@@ -11,6 +11,7 @@
 		   ng-click="$parent.selected = division"
 		   ng-class="{'list-group-item-info':selected == division}">
 			{{$index + 1}}. {{division.name}}
+			<span class="label label-danger pull-right" ng-hide="division.enabled" th:text="#{closed}">Closed</span>
 		</a>
 	</div>
 
