@@ -8,7 +8,7 @@ app.config(function ($routeProvider) {
 			templateUrl: 'store-select',
 			controller: 'StoreSelectController',
 			resolve: {
-				divisions: function ($http) { return $http.get('/divisions'); }
+				divisions: function ($http) { return $http.get('/division'); }
 			}
 		})
 		.when('/home', {

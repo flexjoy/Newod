@@ -42,7 +42,7 @@ public class DivisionRestControllerTest extends AbstractRestControllerTest {
 	@Test
 	public void findAll() throws Exception {
 		when().
-				get("/divisions").
+				get("/division").
 		then().
 				statusCode(HttpStatus.SC_OK).
 				body("id", hasSize(2)).
@@ -55,7 +55,7 @@ public class DivisionRestControllerTest extends AbstractRestControllerTest {
 				body(thirdItem).
 				contentType(ContentType.JSON).
 		when().
-				post("/divisions").
+				post("/division").
 		then().
 				statusCode(HttpStatus.SC_OK).
 				body("name", equalTo(THIRD_ITEM_NAME)).
@@ -72,7 +72,7 @@ public class DivisionRestControllerTest extends AbstractRestControllerTest {
 				body(firstItem).
 				contentType(ContentType.JSON).
 		when().
-				post("/divisions").
+				post("/division").
 		then().
 				statusCode(HttpStatus.SC_OK).
 				body("name", equalTo(THIRD_ITEM_NAME)).
