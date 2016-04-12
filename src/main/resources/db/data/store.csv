@@ -1,0 +1,11 @@
+id~name~enabled~city_id
+1~Store_1 City_1~true~1
+2~Store_2 City_1~false~1
+3~Store_3 City_2~true~2
+4~Store_4 City_3~true~3
+5~Store_5 City_4~true~4
+6~Store_6 City_5~true~5
+7~Store_7 City_6~true~6
+8~Store_8 City_7~true~7
+9~Store_9 City_7~true~7
+

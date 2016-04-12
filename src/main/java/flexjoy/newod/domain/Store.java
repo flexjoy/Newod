@@ -5,15 +5,14 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * @author Sergey Cherepanov on 12.04.2016.
  */
 
 @Entity
-@Table(name = "city")
-public class City {
+@Table(name = "store")
+public class Store {
 
 	@Id
 	@GeneratedValue
@@ -26,13 +25,9 @@ public class City {
 	private boolean enabled = true;
 
 	@ManyToOne
-	@JoinColumn(name = "division_id", nullable = false)
+	@JoinColumn(name = "city_id", nullable = false)
 	@JsonIgnore
-	private Division division;
-
-	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private Set<Store> stores;
+	private City city;
 
 	public int getId() {
 		return id;
@@ -58,19 +53,11 @@ public class City {
 		this.enabled = enabled;
 	}
 
-	public Division getDivision() {
-		return division;
+	public City getCity() {
+		return city;
 	}
 
-	public void setDivision(Division division) {
-		this.division = division;
-	}
-
-	public Set<Store> getStores() {
-		return stores;
-	}
-
-	public void setStores(Set<Store> stores) {
-		this.stores = stores;
+	public void setCity(City city) {
+		this.city = city;
 	}
 }
