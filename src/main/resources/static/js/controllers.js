@@ -8,6 +8,13 @@ app.controller('NavBarController', function($scope, $location) {
 
 app.controller('HomeController', function($scope) {});
 
-app.controller('StoreSelectController', function($scope, divisions) {
+app.controller('StoreSelectController', function($scope, $http, divisions) {
 	$scope.divisions = divisions.data;
+
+	$scope.selectDivision = function (division) {
+		$http.get('/division/' + division.id + '/city')
+			.success(function (data) {
+				$scope.cities = data;
+			});
+	}
 });

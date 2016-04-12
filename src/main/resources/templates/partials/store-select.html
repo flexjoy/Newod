@@ -8,10 +8,25 @@
 		<a href=""
 		   class="list-group-item"
 		   ng-repeat="division in divisions"
-		   ng-click="$parent.selected = division"
+		   ng-click="$parent.selected = division; selectDivision(division)"
 		   ng-class="{'list-group-item-info':selected == division}">
 			{{$index + 1}}. {{division.name}}
 			<span class="label label-danger pull-right" ng-hide="division.enabled" th:text="#{closed}">Closed</span>
+		</a>
+	</div>
+
+	<div class="list-group col-md-4">
+		<span class="list-group-item active" th:inline="text">
+			[[#{cities}]]
+			<span class="badge">{{cities.length}}</span>
+		</span>
+		<a href=""
+		   class="list-group-item"
+		   ng-repeat="city in cities"
+		   ng-click="$parent.selected = city"
+		   ng-class="{'list-group-item-info':selected == city}">
+			{{$index + 1}}. {{city.name}}
+			<span class="label label-danger pull-right" ng-hide="city.enabled" th:text="#{closed}">Closed</span>
 		</a>
 	</div>
 
