@@ -5,16 +5,13 @@
 			[[#{divisions}]]
 			<span class="badge">{{divisions.length}}</span>
 		</span>
-		<a href="" class="list-group-item" ng-repeat="division in divisions">
+		<a href=""
+		   class="list-group-item"
+		   ng-repeat="division in divisions"
+		   ng-click="$parent.selected = division"
+		   ng-class="{'list-group-item-info':selected == division}">
 			{{$index + 1}}. {{division.name}}
 		</a>
 	</div>
 
 </html>
-
-<script>
-	$(document).on('click', '.list-group a', function() {
-		$(this).siblings('a').removeClass('list-group-item-info');
-		$(this).addClass('list-group-item-info');
-	});
-</script>
