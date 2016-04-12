@@ -8,8 +8,7 @@
 		<a href=""
 		   class="list-group-item"
 		   ng-repeat="division in divisions"
-		   ng-click="$parent.selected = division; selectDivision(division)"
-		   ng-class="{'list-group-item-info':selected == division}">
+		   ng-click="selectDivision(division)">
 			{{$index + 1}}. {{division.name}}
 			<span class="label label-danger pull-right" ng-hide="division.enabled" th:text="#{closed}">Closed</span>
 		</a>
@@ -22,12 +21,17 @@
 		</span>
 		<a href=""
 		   class="list-group-item"
-		   ng-repeat="city in cities"
-		   ng-click="$parent.selected = city"
-		   ng-class="{'list-group-item-info':selected == city}">
+		   ng-repeat="city in cities">
 			{{$index + 1}}. {{city.name}}
 			<span class="label label-danger pull-right" ng-hide="city.enabled" th:text="#{closed}">Closed</span>
 		</a>
 	</div>
 
 </html>
+
+<script>
+	$(document).on('click', '.list-group a', function() {
+		$(this).siblings('a').removeClass('list-group-item-warning');
+		$(this).addClass('list-group-item-warning');
+	});
+</script>
