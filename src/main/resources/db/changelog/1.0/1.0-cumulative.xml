@@ -10,5 +10,7 @@
 
 	<include file="db/changelog/1.0/2016-04-03--01_create_division_table.xml"/>
 	<include file="db/changelog/1.0/2016-04-04--02_load_data_to_division_table.xml"/>
+	<include file="db/changelog/1.0/2016-04-12--03_create_city_table.xml"/>
+	<include file="db/changelog/1.0/2016-04-12--04_load_data_to_city_table.xml"/>
 
 </databaseChangeLog>

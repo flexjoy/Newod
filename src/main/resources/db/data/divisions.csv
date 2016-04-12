@@ -1,4 +1,4 @@
-name~enabled
-First division~true
-Second division~true
-Third division~false
+id~name~enabled
+1~First division~true
+2~Second division~true
+3~Third division~false

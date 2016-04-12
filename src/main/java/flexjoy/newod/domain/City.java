@@ -1,19 +1,17 @@
 package flexjoy.newod.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
- * @author Sergey Cherepanov on 01.04.2016
+ * Created by SCherepanov on 12.04.2016.
  */
 
 @Entity
-@Table(name = "division")
-public class Division {
+@Table(name = "city")
+public class City {
 
 	@Id
 	@GeneratedValue
@@ -25,9 +23,12 @@ public class Division {
 
 	private boolean enabled = true;
 
-	@OneToMany(mappedBy = "division", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private Set<City> cities;
+	@ManyToOne
+	@JoinColumn(name = "division_id", nullable = false)
+	private Division division;
+
+	public City() {
+	}
 
 	public int getId() {
 		return id;
@@ -53,17 +54,11 @@ public class Division {
 		this.enabled = enabled;
 	}
 
-	public Set<City> getCities() {
-		return cities;
+	public Division getDivision() {
+		return division;
 	}
 
-	public void setCities(Set<City> cities) {
-		this.cities = cities;
-	}
-
-	public Division() {}
-
-	public Division(String name) {
-		this.name = name;
+	public void setDivision(Division division) {
+		this.division = division;
 	}
 }
