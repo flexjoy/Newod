@@ -16,16 +16,24 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
+				<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 				<a class="navbar-brand" href="/">Newod</a>
 			</div>
-			<ul class="nav navbar-nav" ng-controller="NavBarController">
-				<li ng-class="{active: isActive('/home')}">
-					<a href="#home" th:text="#{home}">Home</a>
-				</li>
-				<li ng-class="{active: isActive('/store-select')}">
-					<a href="#store-select" th:text="#{stores}">Stores</a>
-				</li>
-			</ul>
+			<div class="navbar-collapse collapse" id="navbar">
+				<ul class="nav navbar-nav navbar-right" ng-controller="NavBarController">
+					<li ng-class="{active: isActive('/home')}">
+						<a href="#home" th:text="#{home}">Home</a>
+					</li>
+					<li ng-class="{active: isActive('/store-select')}">
+						<a href="#store-select" th:text="#{stores}">Stores</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</nav>
 	<!--end Nav bar-->
