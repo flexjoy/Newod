@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/division")
+@RequestMapping("division")
 public class DivisionController {
 
 	@Autowired

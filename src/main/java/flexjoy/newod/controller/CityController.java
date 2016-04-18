@@ -2,48 +2,27 @@ package flexjoy.newod.controller;
 
 import flexjoy.newod.domain.City;
 import flexjoy.newod.repository.CityRepository;
-import flexjoy.newod.repository.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @author Sergey Cherepanov on 12.04.2016.
+ * @author Sergey Cherepanov on 18.04.2016.
  */
 
 @RestController
-@RequestMapping("division/{division_id}/city")
+@RequestMapping("city")
 public class CityController {
 
 	@Autowired
-	private DivisionRepository divisionRepository;
-
-	@Autowired
-	private CityRepository cityRepository;
+	private CityRepository repo;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<City> findByDivision_id(
-			@PathVariable("division_id") int division_id) {
-		return cityRepository.findByDivision_id(division_id);
-	}
-
-	@RequestMapping(method = RequestMethod.POST)
-	public City add(
-			@PathVariable("division_id") int division_id,
-			@Valid @RequestBody City city) {
-		city.setDivision(divisionRepository.findOne(division_id));
-		return cityRepository.save(city);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public City update(
-			@PathVariable("division_id") int division_id,
-			@PathVariable("id") int id,
-			@Valid @RequestBody City city) {
-		city.setId(id);
-		city.setDivision(divisionRepository.findOne(division_id));
-		return cityRepository.save(city);
+	public List<City> findAll() {
+		return repo.findAll(new Sort(Sort.Direction.ASC, "name"));
 	}
 }

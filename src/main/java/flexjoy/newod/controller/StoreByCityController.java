@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("city/{city_id}/store")
-public class StoreController {
+public class StoreByCityController {
 
 	@Autowired
 	private CityRepository cityRepository;
