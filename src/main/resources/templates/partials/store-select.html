@@ -1,51 +1,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<div class="list-group col-md-4">
-		<span class="list-group-item active" th:inline="text">
-			[[#{divisions}]]
-			<span class="badge">{{divisions.length}}</span>
-		</span>
-		<a href=""
-		   class="list-group-item"
-		   ng-repeat="division in divisions"
-		   ng-click="selectDivision(division)">
-			{{$index + 1}}. {{division.name}}
-			<span class="label label-danger pull-right" ng-hide="division.enabled" th:text="#{closed}">Closed</span>
-		</a>
+<div class="row">
+	<div class="col-sm-8">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Header
+			</div>
+			<div class="panel-body" ng-repeat="division in divisions | orderBy:'name'">
+					<span class="label label-primary">{{division.name}}</span>
+					<span class="label label-danger" ng-hide="division.enabled" th:text="#{closed}">Closed</span>
+					<div class="city-list">
+						<a href="" class="small"
+							ng-repeat="city in division.cities | orderBy:'name'"
+							ng-class="{closed : !city.enabled}"
+							ng-click="selectCity(city)">
+							{{city.name}}
+						</a>
+					</div>
+			</div>
+		</div>
 	</div>
-
-	<div class="list-group col-md-4">
-		<span class="list-group-item active" th:inline="text">
-			[[#{cities}]]
-			<span class="badge">{{cities.length}}</span>
-		</span>
-		<a href=""
-		   class="list-group-item"
-		   ng-repeat="city in cities"
-		   ng-click="selectCity(city)">
-			{{$index + 1}}. {{city.name}}
-			<span class="label label-danger pull-right" ng-hide="city.enabled" th:text="#{closed}">Closed</span>
-		</a>
+	<div class="col-sm-4">
+		<div class="bs-sidebar affix">
+			<div ng-hide="selectedCity">
+				<h3 th:inline="text">
+					<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
+					[[#{select-city}]]
+				</h3>
+				<hr>
+			</div>
+			<div class="panel panel-default" ng-show="selectedCity">
+				<div class="panel-heading">
+					<span ng-class="{closed : !selectedCity.enabled}">
+						{{selectedCity.name}}
+					</span>
+				</div>
+				<div class="panel-body">
+					<ul class="list-unstyled">
+						<li ng-repeat="store in stores | orderBy:'name'">
+							<a href="" class="small" ng-class="{closed : !store.enabled}">
+								{{store.name}}
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
-
-	<div class="list-group col-md-4">
-		<span class="list-group-item active" th:inline="text">
-			[[#{stores}]]
-			<span class="badge">{{stores.length}}</span>
-		</span>
-		<a href=""
-		   class="list-group-item"
-		   ng-repeat="store in stores">
-			{{$index + 1}}. {{store.name}}
-			<span class="label label-danger pull-right" ng-hide="store.enabled" th:text="#{closed}">Closed</span>
-		</a>
-	</div>
+</div>
 
 </html>
-
-<script>
-	$(document).on('click', '.list-group a', function() {
-		$(this).siblings('a').removeClass('list-group-item-warning');
-		$(this).addClass('list-group-item-warning');
-	});
-</script>

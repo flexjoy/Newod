@@ -1,6 +1,5 @@
 package flexjoy.newod.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -26,7 +25,6 @@ public class Division {
 	private boolean enabled = true;
 
 	@OneToMany(mappedBy = "division", cascade = CascadeType.ALL)
-	@JsonIgnore
 	private Set<City> cities;
 
 	public int getId() {

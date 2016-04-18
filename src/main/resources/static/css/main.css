@@ -1,3 +1,46 @@
 body > .container {
 	padding-top: 70px;	/* Padding for bootsrap navbar-fixed-top */
 }
+
+.city-list {
+	margin-top: 10px;
+}
+
+.city-list > a {
+	margin-right: 15px;
+}
+
+.bs-sidebar.affix {
+	position: static;
+	bottom: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+	top: 70px;
+}
+
+.bs-sidebar ul {
+	margin-bottom: 0;
+}
+
+.bs-sidebar ul > li {
+	margin: 10px 0;
+}
+
+@media (min-width: 992px) {
+	.bs-sidebar.affix {
+		width: 295px;
+		position: fixed;
+	}
+}
+
+@media (min-width: 1200px) {
+	.bs-sidebar.affix {
+		width: 360px;
+	}
+}
+
+.closed {
+	text-decoration: line-through;
+	font-style: italic;
+	color: #aaa;
+}
