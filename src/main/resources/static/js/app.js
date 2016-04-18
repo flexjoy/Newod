@@ -6,10 +6,7 @@ app.config(function ($routeProvider) {
 	$routeProvider
 		.when('/store-select', {
 			templateUrl: 'store-select',
-			controller: 'StoreSelectController',
-			resolve: {
-				divisions: function ($http) { return $http.get('/division'); }
-			}
+			controller: 'StoreSelectController'
 		})
 		.when('/home', {
 			templateUrl: 'home',

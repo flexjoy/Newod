@@ -3,10 +3,17 @@
 <div class="row">
 	<div class="col-sm-8">
 		<div class="panel panel-default">
-			<div class="panel-heading">
-				Header
+			<div class="panel-heading" th:inline="text">
+				<strong>[[#{cities}]]</strong>
+				<div class="pull-right">
+					<span th:text="#{select-by}">Select by:</span>
+					<select ng-model="sort" convert-to-number ng-change="sortChanged()">
+						<option value="0" th:text="#{by-divisions}">Divisions</option>
+						<option value="1" th:text="#{by-alphabet}">Alphabet</option>
+					</select>
+				</div>
 			</div>
-			<div class="panel-body" ng-repeat="division in divisions | orderBy:'name'">
+			<div class="panel-body" ng-repeat="division in divisions | orderBy:'name'" ng-if="sort == 0">
 					<span class="label label-primary">{{division.name}}</span>
 					<span class="label label-danger" ng-hide="division.enabled" th:text="#{closed}">Closed</span>
 					<div class="city-list">
@@ -18,21 +25,33 @@
 						</a>
 					</div>
 			</div>
+			<div class="panel-body" ng-if="sort == 1">
+				<span class="city-list" ng-repeat="city in cities | orderBy:'name'">
+					<div class="city-divider" ng-if="firstLetter(city.name) != firstLetter(cities[$index-1].name)">
+						<span class="label label-primary">{{firstLetter(city.name)}}</span>
+					</div>
+					<a href="" class="small"
+					   ng-class="{closed : !city.enabled}"
+					   ng-click="selectCity(city)">
+						{{city.name}}
+					</a>
+				</span>
+			</div>
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="bs-sidebar affix">
-			<div ng-hide="selectedCity">
+			<div ng-if="!selectedCity">
 				<h3 th:inline="text">
 					<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
 					[[#{select-city}]]
 				</h3>
 				<hr>
 			</div>
-			<div class="panel panel-default" ng-show="selectedCity">
+			<div class="panel panel-default" ng-if="selectedCity">
 				<div class="panel-heading">
 					<span ng-class="{closed : !selectedCity.enabled}">
-						{{selectedCity.name}}
+						<strong>{{selectedCity.name}}</strong>
 					</span>
 				</div>
 				<div class="panel-body">

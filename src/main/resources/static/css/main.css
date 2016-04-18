@@ -8,6 +8,11 @@ body > .container {
 
 .city-list > a {
 	margin-right: 15px;
+	display: inline-block;
+}
+
+.city-divider {
+	margin: 15px 0;
 }
 
 .bs-sidebar.affix {
