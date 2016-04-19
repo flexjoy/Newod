@@ -2,7 +2,7 @@
 	<div class="col-sm-8">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<strong>Города</strong>
+				<strong>ГОРОДА</strong>
 				<div class="pull-right">
 					<span>Сортировка по: </span>
 					<select ng-model="sort" convert-to-number ng-change="sortChanged()">
@@ -12,10 +12,10 @@
 				</div>
 			</div>
 			<div class="panel-body" ng-repeat="division in divisions | orderBy:'name'" ng-if="sort == 0">
-					<span class="label label-primary">{{division.name}}</span>
+					<span class="label label-primary font-base">{{division.name}}</span>
 					<span class="label label-danger" ng-hide="division.enabled">Закрыт</span>
 					<div class="city-list">
-						<a href="" class="small"
+						<a href=""
 							ng-repeat="city in division.cities | orderBy:'name'"
 							ng-class="{closed : !city.enabled}"
 							ng-click="selectCity(city)">
@@ -26,9 +26,9 @@
 			<div class="panel-body" ng-if="sort == 1">
 				<span class="city-list" ng-repeat="city in cities | orderBy:'name'">
 					<div class="city-divider" ng-if="firstLetter(city.name) != firstLetter(cities[$index-1].name)">
-						<span class="label label-primary">{{firstLetter(city.name)}}</span>
+						<span class="label label-primary font-base">{{firstLetter(city.name)}}</span>
 					</div>
-					<a href="" class="small"
+					<a href=""
 					   ng-class="{closed : !city.enabled}"
 					   ng-click="selectCity(city)">
 						{{city.name}}
@@ -41,7 +41,7 @@
 		<div class="bs-sidebar affix">
 			<div ng-if="!selectedCity">
 				<h4>
-					<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
+					<span class="glyphicon glyphicon-triangle-left text-primary" aria-hidden="true"></span>
 					Выберите город
 				</h4>
 				<hr>
@@ -55,7 +55,7 @@
 				<div class="panel-body">
 					<ul class="list-unstyled">
 						<li ng-repeat="store in stores | orderBy:'name'">
-							<a href="#/store/{{store.id}}" class="small" ng-class="{closed : !store.enabled}">
+							<a href="#/store/{{store.id}}" ng-class="{closed : !store.enabled}">
 								{{store.name}}
 							</a>
 						</li>
