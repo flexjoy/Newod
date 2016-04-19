@@ -6,7 +6,11 @@ app.config(function ($routeProvider) {
 	$routeProvider
 		.when('/store-select', {
 			templateUrl: 'partials/store-select.html',
-			controller: 'StoreSelectController'
+			controller: 'StoreSelectController',
+			resolve: {
+				divisions: function ($http) { return $http.get('/division'); },
+				cities: function ($http) { return $http.get('/city'); }
+			}
 		})
 		.when('/home', {
 			templateUrl: 'partials/home.html',

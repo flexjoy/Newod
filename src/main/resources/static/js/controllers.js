@@ -8,7 +8,10 @@ app.controller('NavBarController', function($scope, $location) {
 
 app.controller('HomeController', function($scope) {});
 
-app.controller('StoreSelectController', function($scope, $http) {
+app.controller('StoreSelectController', function($scope, $http, divisions, cities) {
+	
+	$scope.divisions = divisions.data;
+	$scope.cities = cities.data;
 
 	$scope.selectCity = function (city) {
 		$http.get('/city/' + city.id + '/store')
@@ -19,17 +22,7 @@ app.controller('StoreSelectController', function($scope, $http) {
 	}
 
 	$scope.sortChanged = function () {
-		if ($scope.sort == 1) {
-			$http.get('/city')
-				.success(function (data) {
-					$scope.cities = data;
-				});
-		} else {
-			$http.get('/division')
-				.success(function (data) {
-					$scope.divisions = data;
-				});
-		}
+		// TODO save sort to cookie or database
 	}
 
 	$scope.firstLetter = function (name) {
@@ -37,5 +30,4 @@ app.controller('StoreSelectController', function($scope, $http) {
 	}
 
 	$scope.sort = "0"; // sort cities by divisions
-	$scope.sortChanged();
 });
