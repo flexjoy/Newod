@@ -55,7 +55,7 @@
 				<div class="panel-body">
 					<ul class="list-unstyled">
 						<li ng-repeat="store in stores | orderBy:'name'">
-							<a href="" class="small" ng-class="{closed : !store.enabled}">
+							<a href="#/store/{{store.id}}" class="small" ng-class="{closed : !store.enabled}">
 								{{store.name}}
 							</a>
 						</li>

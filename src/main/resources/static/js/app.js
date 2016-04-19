@@ -12,6 +12,15 @@ app.config(function ($routeProvider) {
 				cities: function ($http) { return $http.get('/city'); }
 			}
 		})
+		.when('/store/:id', {
+			templateUrl: 'partials/store.html',
+			controller: 'StoreController',
+			resolve: {
+				store: function ($http, $route) {
+					return $http.get('/store/' + $route.current.params.id);
+				}
+			}
+		})
 		.when('/home', {
 			templateUrl: 'partials/home.html',
 			controller: 'HomeController'

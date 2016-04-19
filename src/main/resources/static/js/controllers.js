@@ -31,3 +31,7 @@ app.controller('StoreSelectController', function($scope, $http, divisions, citie
 
 	$scope.sort = "0"; // sort cities by divisions
 });
+
+app.controller('StoreController', function($scope, store) {
+	$scope.store = store.data;
+});

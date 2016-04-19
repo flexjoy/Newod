@@ -1,6 +1,5 @@
 package flexjoy.newod.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -26,7 +25,6 @@ public class Store {
 
 	@ManyToOne
 	@JoinColumn(name = "city_id", nullable = false)
-	@JsonIgnore
 	private City city;
 
 	public int getId() {
