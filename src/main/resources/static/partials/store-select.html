@@ -1,21 +1,19 @@
-<html xmlns:th="http://www.thymeleaf.org">
-
 <div class="row">
 	<div class="col-sm-8">
 		<div class="panel panel-default">
-			<div class="panel-heading" th:inline="text">
-				<strong>[[#{cities}]]</strong>
+			<div class="panel-heading">
+				<strong>Города</strong>
 				<div class="pull-right">
-					<span th:text="#{select-by}">Select by:</span>
+					<span>Сортировка по: </span>
 					<select ng-model="sort" convert-to-number ng-change="sortChanged()">
-						<option value="0" th:text="#{by-divisions}">Divisions</option>
-						<option value="1" th:text="#{by-alphabet}">Alphabet</option>
+						<option value="0">дивизионам</option>
+						<option value="1">алфавиту</option>
 					</select>
 				</div>
 			</div>
 			<div class="panel-body" ng-repeat="division in divisions | orderBy:'name'" ng-if="sort == 0">
 					<span class="label label-primary">{{division.name}}</span>
-					<span class="label label-danger" ng-hide="division.enabled" th:text="#{closed}">Closed</span>
+					<span class="label label-danger" ng-hide="division.enabled">Закрыт</span>
 					<div class="city-list">
 						<a href="" class="small"
 							ng-repeat="city in division.cities | orderBy:'name'"
@@ -42,10 +40,10 @@
 	<div class="col-sm-4">
 		<div class="bs-sidebar affix">
 			<div ng-if="!selectedCity">
-				<h3 th:inline="text">
+				<h4>
 					<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
-					[[#{select-city}]]
-				</h3>
+					Выберите город
+				</h4>
 				<hr>
 			</div>
 			<div class="panel panel-default" ng-if="selectedCity">
@@ -67,5 +65,3 @@
 		</div>
 	</div>
 </div>
-
-</html>
