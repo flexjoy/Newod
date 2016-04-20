@@ -1,8 +1,10 @@
 <div class="row">
 	<div class="col-sm-8">
+		<h3>Города</h3>
+		<hr>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<strong>ГОРОДА</strong>
+				&nbsp;
 				<div class="pull-right">
 					<span>Сортировка по: </span>
 					<select ng-model="sort" convert-to-number ng-change="sortChanged()">
@@ -39,6 +41,13 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="bs-sidebar affix">
+			<h3>Объекты
+				<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myModal">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				Новый объект
+				</button>
+			</h3>
+			<hr>
 			<div ng-if="!selectedCity">
 				<h4>
 					<span class="glyphicon glyphicon-triangle-left text-primary" aria-hidden="true"></span>
