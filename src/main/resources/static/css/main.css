@@ -2,54 +2,15 @@ body > .container {
 	padding-top: 70px;	/* Padding for bootsrap navbar-fixed-top */
 }
 
-.city-list {
-	margin-top: 10px;
+.nav.navbar-nav.navbar-right {
+	padding-right: 15px;
 }
 
-.city-list > a {
-	margin-right: 15px;
-	display: inline-block;
+.item-count {
+	line-height: 5.5em;
 }
 
-.city-divider {
-	margin: 15px 0;
-}
-
-.font-base {
-	font-size: 1em;
-}
-
-.bs-sidebar.affix {
-	position: static;
-	bottom: 0;
-	overflow-y: auto;
-	overflow-x: hidden;
-	top: 70px;
-}
-
-.bs-sidebar ul {
-	margin-bottom: 0;
-}
-
-.bs-sidebar ul > li {
-	margin: 10px 0;
-}
-
-@media (min-width: 992px) {
-	.bs-sidebar.affix {
-		width: 295px;
-		position: fixed;
-	}
-}
-
-@media (min-width: 1200px) {
-	.bs-sidebar.affix {
-		width: 360px;
-	}
-}
-
-.closed {
-	text-decoration: line-through;
-	font-style: italic;
-	color: #aaa;
+.vertical-align {
+	display: flex;
+	align-items: center;
 }

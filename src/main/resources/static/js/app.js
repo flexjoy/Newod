@@ -1,29 +1,17 @@
 'use strict';
 
-var app = angular.module('App', ['ngRoute']);
+var app = angular.module('App', ['ngRoute', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
 	$routeProvider
-		.when('/store-select', {
-			templateUrl: 'partials/store-select.html',
-			controller: 'StoreSelectController',
-			resolve: {
-				divisions: function ($http) { return $http.get('/division'); },
-				cities: function ($http) { return $http.get('/city'); }
-			}
-		})
-		.when('/store/:id', {
-			templateUrl: 'partials/store.html',
-			controller: 'StoreController',
-			resolve: {
-				store: function ($http, $route) {
-					return $http.get('/store/' + $route.current.params.id);
-				}
-			}
-		})
 		.when('/home', {
 			templateUrl: 'partials/home.html',
 			controller: 'HomeController'
+		})
+		.when('/divisions', {
+			templateUrl: 'partials/divisions.html',
+			controller: 'DivisionController',
+			controllerAs: 'vm'
 		})
 		.otherwise({redirectTo: 'home'});
 });

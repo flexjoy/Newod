@@ -27,7 +27,6 @@ public class City {
 
 	@ManyToOne
 	@JoinColumn(name = "division_id", nullable = false)
-	@JsonIgnore
 	private Division division;
 
 	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)

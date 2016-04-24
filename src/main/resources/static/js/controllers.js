@@ -8,30 +8,42 @@ app.controller('NavBarController', function($scope, $location) {
 
 app.controller('HomeController', function($scope) {});
 
-app.controller('StoreSelectController', function($scope, $http, divisions, cities) {
-	
-	$scope.divisions = divisions.data;
-	$scope.cities = cities.data;
+app.controller('DivisionController', function ($scope, $http) {
 
-	$scope.selectCity = function (city) {
-		$http.get('/city/' + city.id + '/store')
-			.success(function (data) {
-				$scope.stores = data;
-				$scope.selectedCity = city;
-			});
+	var vm = this;
+
+	vm.goToPage = function (number) {
+		var uri = 	'/divisions' +
+					'?page=' + (number - 1) +
+					'&sort=' + vm.sort.field + ',' + vm.sort.direction;
+		$http.get('/api' + uri).success(function (data) {
+			vm.divisions = data.content;
+			vm.page = {
+				size: 				data.size,
+				number: 			data.number,
+				totalElements: 		data.totalElements,
+				numberOfElements: 	data.numberOfElements
+			};
+		});
 	}
 
-	$scope.sortChanged = function () {
-		// TODO save sort to cookie or database
+	vm.sortByField = function (fieldName) {
+		if (fieldName == vm.sort.field) {
+			vm.sort.direction = vm.sort.direction == 'asc' ? 'desc' : 'asc';
+		} else {
+			vm.sort.field = fieldName;
+			vm.sort.direction = 'asc';
+		}
+
+		vm.sort.class = vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down';
+
+		vm.goToPage(vm.page.number + 1);
 	}
 
-	$scope.firstLetter = function (name) {
-		return name && name[0].toUpperCase();
-	}
-
-	$scope.sort = "0"; // sort cities by divisions
-});
-
-app.controller('StoreController', function($scope, store) {
-	$scope.store = store.data;
+	vm.sort = {
+		field: 'name',
+		direction: 'asc',
+		class: 'glyphicon-chevron-up'
+	};
+	vm.goToPage(1);
 });

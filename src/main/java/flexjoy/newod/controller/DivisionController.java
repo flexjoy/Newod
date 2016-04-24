@@ -3,35 +3,24 @@ package flexjoy.newod.controller;
 import flexjoy.newod.domain.Division;
 import flexjoy.newod.repository.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Sergey Cherepanov on 01.04.2016
  */
 
 @RestController
-@RequestMapping("division")
+@RequestMapping("/api")
 public class DivisionController {
 
 	@Autowired
-	private DivisionRepository repo;
+	private DivisionRepository divisionRepository;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Division> findAll() {
-		return repo.findAll();
-	}
-
-	@RequestMapping(method = RequestMethod.POST)
-	public Division add(@Valid @RequestBody Division division) {
-		return repo.save(division);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public Division update(@PathVariable("id") int id, @Valid @RequestBody Division division) {
-		division.setId(id);
-		return repo.save(division);
+	@RequestMapping("/divisions")
+	public Page<Division> findAll(Pageable pageable) {
+		return divisionRepository.findAll(pageable);
 	}
 }
