@@ -24,7 +24,7 @@ app.config(function ($stateProvider) {
 		})
 });
 
-function DivisionsResolve (Division, $q, $stateParams) {
+function DivisionsResolve (Division, $q, $stateParams, AlertService) {
 
 	var deferred = $q.defer();
 	Division.query(
@@ -36,7 +36,7 @@ function DivisionsResolve (Division, $q, $stateParams) {
 			deferred.resolve(data);
 		},
 		function (error) {
-			console.log(error);
+			AlertService.addError(error.statusText);
 			deferred.reject();
 		}
 	);
