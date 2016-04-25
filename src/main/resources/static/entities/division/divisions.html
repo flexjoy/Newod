@@ -1,5 +1,5 @@
 <h2>Дивизионы
-	<button class="btn btn-primary pull-right">
+	<button class="btn btn-primary pull-right" ng-click="vm.testClick()">
 		<span class="glyphicon glyphicon-plus"></span>
 		Add
 	</button>
@@ -12,20 +12,27 @@
 	<th>
 		<a href="" ng-click="vm.sortByField('name')">
 			Name
-			<span ng-if="vm.sort.field == 'name'" class="glyphicon" ng-class="vm.sort.class"></span>
+			<span  class="glyphicon"
+				   ng-if="vm.sort.field == 'name'"
+				   ng-class="vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'">
+			</span>
 		</a>
 	</th>
 	<th class="text-center">
 		<a href="" ng-click="vm.sortByField('enabled')">
 			Enabled
-			<span ng-if="vm.sort.field == 'enabled'" class="glyphicon" ng-class="vm.sort.class"></span> <!--glyphicon-chevron-up-->
+			<span class="glyphicon"
+				  ng-if="vm.sort.field == 'enabled'"
+				  ng-class="vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'">
+
+			</span>
 		</a>
 	</th>
 	<th></th>
 	</thead>
 	<tbody>
 	<tr ng-repeat="division in vm.divisions">
-		<td>{{$index + 1 + vm.page.size * vm.page.number}}</td>
+		<td>{{$index + 1 + vm.page.size * (vm.page.number - 1)}}</td>
 		<td ng-bind="division.name"></td>
 		<td class="text-center">
 			<span ng-if="division.enabled" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
@@ -47,10 +54,10 @@
 </table>
 
 <div class="row vertical-align">
-	<div class="col-md-8">
+	<div class="col-sm-8">
 		<uib-pagination
-				ng-model="currentPage"
-				ng-change="vm.goToPage(currentPage)"
+				ng-model="vm.page.number"
+				ng-change="vm.reload()"
 				total-items="vm.page.totalElements"
 				max-size="5"
 				boundary-link-numbers="true"
@@ -60,12 +67,12 @@
 				next-text="&rsaquo;">
 		</uib-pagination>
 	</div>
-	<div class="col-md-4 text-right">
+	<div class="col-sm-4 text-right">
 		<h4>
-			<span class="label label-default">
-			{{vm.page.size*vm.page.number + 1}}
+			<span class="label label-default" ng-cloak>
+			{{vm.page.size*(vm.page.number - 1) + 1}}
 			-
-			{{vm.page.size*vm.page.number + vm.page.numberOfElements}}
+			{{vm.page.size*(vm.page.number - 1) + vm.page.numberOfElements}}
 			from
 			{{vm.page.totalElements}}
 			</span>

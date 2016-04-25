@@ -1,17 +1,14 @@
 'use strict';
 
-var app = angular.module('App', ['ngRoute', 'ui.bootstrap']);
+var app = angular.module('App', ['ngResource', 'ui.router', 'ui.bootstrap']);
 
-app.config(function ($routeProvider) {
-	$routeProvider
-		.when('/home', {
-			templateUrl: 'partials/home.html',
-			controller: 'HomeController'
+app.config(function ($stateProvider, $urlRouterProvider) {
+
+	$stateProvider
+		.state('home', {
+			url: "/home",
+			templateUrl: "partials/home.html"
 		})
-		.when('/divisions', {
-			templateUrl: 'partials/divisions.html',
-			controller: 'DivisionController',
-			controllerAs: 'vm'
-		})
-		.otherwise({redirectTo: 'home'});
+
+	$urlRouterProvider.otherwise('/home');
 });
