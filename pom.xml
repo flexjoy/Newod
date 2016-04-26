@@ -109,6 +109,12 @@
 			<artifactId>angular-translate-storage-cookie</artifactId>
 			<version>2.5.2</version>
 		</dependency>
+		<!--ANGULAR LOADING BAR-->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-loading-bar</artifactId>
+			<version>0.9.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

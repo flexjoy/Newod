@@ -6,7 +6,8 @@ var app = angular.module('App',
 		'ngCookies',
 		'ui.router',
 		'ui.bootstrap',
-		'pascalprecht.translate'
+		'pascalprecht.translate',
+		'angular-loading-bar'
 	]
 );
 
