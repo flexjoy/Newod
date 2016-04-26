@@ -38,6 +38,7 @@
   "TEXT": {
     "closed": "Закрыт",
     "showing": "Показано ",
-    "from": " из "
+    "from": " из ",
+    "items per page": "Строк на странице"
   }
 }

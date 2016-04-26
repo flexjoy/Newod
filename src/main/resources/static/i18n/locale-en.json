@@ -38,6 +38,7 @@
   "TEXT": {
     "closed": "Closed",
     "showing": "Showing ",
-    "from": " from "
+    "from": " from ",
+    "items per page": "Items per page"
   }
 }

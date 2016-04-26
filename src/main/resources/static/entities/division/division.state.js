@@ -4,13 +4,17 @@ app.config(function ($stateProvider) {
 
 	$stateProvider
 		.state('divisions', {
-			url: "/divisions?page&sort",
+			url: "/divisions?page&size&sort",
 			templateUrl: "entities/division/divisions.html",
 			controller: 'DivisionController',
 			controllerAs: 'vm',
 			params: {
 				page: {
 					value: '1',
+					squash: true
+				},
+				size: {
+					value: '20',
 					squash: true
 				},
 				sort: {
@@ -30,6 +34,7 @@ function DivisionsResolve (Division, $q, $stateParams, AlertService) {
 	Division.query(
 		{
 			page: $stateParams.page - 1,
+			size: $stateParams.size,
 			sort: $stateParams.sort
 		},
 		function (data) {

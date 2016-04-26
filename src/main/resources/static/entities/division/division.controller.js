@@ -3,6 +3,7 @@
 app.controller('DivisionController', function ($scope, $http, $state, $stateParams, Data) {
 
 	var vm = this;
+	vm.sizeArray = [10, 20, 30, 50];
 	vm.divisions = Data.content;
 	vm.page = {
 		size: 				Data.size,
@@ -22,6 +23,7 @@ app.controller('DivisionController', function ($scope, $http, $state, $statePara
 		$state.go($state.$current,
 			{
 				page: vm.page.number,
+				size: vm.page.size,
 				sort: vm.sort.field + ',' + vm.sort.direction
 			}
 		);
