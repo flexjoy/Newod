@@ -1,7 +1,7 @@
-<h2>Дивизионы
+<h2>{{'DIVISION.label.many' | translate}}
 	<button class="btn btn-primary pull-right" ng-click="vm.testClick()">
 		<span class="glyphicon glyphicon-plus"></span>
-		Add
+		{{'ACTION.add' | translate}}
 	</button>
 </h2>
 
@@ -11,7 +11,7 @@
 	<th>#</th>
 	<th>
 		<a href="" ng-click="vm.sortByField('name')">
-			Name
+			{{'ENTITY_FIELD.name' | translate}}
 			<span  class="glyphicon"
 				   ng-if="vm.sort.field == 'name'"
 				   ng-class="vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'">
@@ -20,7 +20,7 @@
 	</th>
 	<th class="text-center">
 		<a href="" ng-click="vm.sortByField('enabled')">
-			Enabled
+			{{'ENTITY_FIELD.enabled' | translate}}
 			<span class="glyphicon"
 				  ng-if="vm.sort.field == 'enabled'"
 				  ng-class="vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'">
@@ -36,17 +36,19 @@
 		<td ng-bind="division.name"></td>
 		<td class="text-center">
 			<span ng-if="division.enabled" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-			<span ng-if="!division.enabled" class="label label-danger">Закрыт</span>
+			<span ng-if="!division.enabled" class="label label-danger">
+				{{'TEXT.closed' | translate}}
+			</span>
 		</td>
 		<td class="text-right">
 			<button type="button" class="btn btn-success btn-sm">
-				<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+				<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {{'ACTION.view' | translate}}
 			</button>
 			<button type="button" class="btn btn-primary btn-sm">
-				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> {{'ACTION.edit' | translate}}
 			</button>
 			<button type="button" class="btn btn-danger btn-sm">
-				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {{'ACTION.delete' | translate}}
 			</button>
 		</td>
 	</tr>
@@ -70,10 +72,11 @@
 	<div class="col-sm-4 text-right">
 		<h4>
 			<span class="label label-default" ng-cloak>
+				{{'TEXT.showing' | translate}}
 			{{vm.page.size*(vm.page.number - 1) + 1}}
 			-
 			{{vm.page.size*(vm.page.number - 1) + vm.page.numberOfElements}}
-			from
+			{{'TEXT.from' | translate}}
 			{{vm.page.totalElements}}
 			</span>
 		</h4>

@@ -1,0 +1,43 @@
+{
+  "LANG": {
+    "label": "Language",
+    "name": {
+      "ru": "Русский",
+      "en": "English"
+    }
+  },
+
+  "MENU": {
+    "home": "Home",
+    "entities": "Entities"
+  },
+
+  "HOME_PAGE": {
+    "content": "This is home page content"
+  },
+
+  "DIVISION": {
+    "label": {
+      "one": "Division",
+      "many": "Divisions"
+    }
+  },
+
+  "ACTION": {
+    "add": "Add",
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+
+  "ENTITY_FIELD": {
+    "name": "Name",
+    "enabled": "Enabled"
+  },
+
+  "TEXT": {
+    "closed": "Closed",
+    "showing": "Showing ",
+    "from": " from "
+  }
+}

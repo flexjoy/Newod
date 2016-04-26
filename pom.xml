@@ -85,6 +85,18 @@
 			<artifactId>angular-ui-router</artifactId>
 			<version>0.2.18</version>
 		</dependency>
+		<!--ANGULAR TRANSLATE-->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-translate</artifactId>
+			<version>2.10.0</version>
+		</dependency>
+		<!--ANGULAR TRANSLATE LOADER STATIC FILES-->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-translate-loader-static-files</artifactId>
+			<version>2.6.1-1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
