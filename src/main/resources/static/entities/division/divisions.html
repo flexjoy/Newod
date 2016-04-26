@@ -72,12 +72,8 @@
 	<div class="col-sm-4 text-right">
 		<h4>
 			<span class="label label-default" ng-cloak>
-				{{'TEXT.showing' | translate}}
-			{{vm.page.size*(vm.page.number - 1) + 1}}
-			-
-			{{vm.page.size*(vm.page.number - 1) + vm.page.numberOfElements}}
-			{{'TEXT.from' | translate}}
-			{{vm.page.totalElements}}
+				{{'TEXT.showing' | translate}} {{vm.page.firstIndex}} - {{vm.page.lastIndex}}
+				{{'TEXT.from' | translate}} {{vm.page.totalElements}}
 			</span>
 		</h4>
 	</div>

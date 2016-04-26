@@ -8,7 +8,9 @@ app.controller('DivisionController', function ($scope, $http, $state, $statePara
 		size: 				Data.size,
 		number: 			Data.number + 1,
 		totalElements: 		Data.totalElements,
-		numberOfElements: 	Data.numberOfElements
+		numberOfElements: 	Data.numberOfElements,
+		firstIndex:			Data.size * Data.number + 1,
+		lastIndex:			Data.size * Data.number + Data.numberOfElements
 	};
 	var sort = $stateParams.sort.split(',');
 	vm.sort = {
