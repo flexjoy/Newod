@@ -1,6 +1,14 @@
 'use strict';
 
-var app = angular.module('App', ['ngResource', 'ui.router', 'ui.bootstrap', 'pascalprecht.translate']);
+var app = angular.module('App',
+	[
+		'ngResource',
+		'ngCookies',
+		'ui.router',
+		'ui.bootstrap',
+		'pascalprecht.translate'
+	]
+);
 
 app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
 
@@ -8,15 +16,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
 		.state('home', {
 			url: "/home",
 			templateUrl: "partials/home.html"
-		})
+		});
 
 	$urlRouterProvider.otherwise('/home');
 
-	$translateProvider.useStaticFilesLoader({
-		prefix: 'i18n/locale-',
-		suffix: '.json'
-	});
-	$translateProvider.preferredLanguage('ru');
-	// Enable escaping of HTML
-	$translateProvider.useSanitizeValueStrategy('escape');
+	$translateProvider
+		.useStaticFilesLoader({
+			prefix: 'i18n/locale-',
+			suffix: '.json'
+		})
+		.preferredLanguage('ru')
+		.useSanitizeValueStrategy('escape')
+		.useLocalStorage();
 });
