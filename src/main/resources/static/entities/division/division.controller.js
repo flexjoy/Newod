@@ -1,32 +1,51 @@
 'use strict';
 
-app.controller('DivisionController', function ($scope, $http, $state, $stateParams, Data) {
+app.controller('DivisionController', function ($scope, $state, $stateParams, Division, $location, AlertService) {
 
 	var vm = this;
 	vm.sizeArray = [10, 20, 30, 50];
-	vm.divisions = Data.content;
-	vm.page = {
-		size: 				Data.size,
-		number: 			Data.number + 1,
-		totalElements: 		Data.totalElements,
-		numberOfElements: 	Data.numberOfElements,
-		firstIndex:			Data.size * Data.number + 1,
-		lastIndex:			Data.size * Data.number + Data.numberOfElements
-	};
-	var sort = $stateParams.sort.split(',');
-	vm.sort = {
-		field: sort[0],
-		direction: sort[1]
-	};
 
 	vm.reload = function () {
-		$state.go($state.$current,
+		$state.go('.',
 			{
 				page: vm.page.number,
 				size: vm.page.size,
 				sort: vm.sort.field + ',' + vm.sort.direction
 			}
 		);
+	}
+
+	vm.getData = function () {
+		Division.query(
+			{
+				page: $stateParams.page - 1,
+				size: $stateParams.size,
+				sort: $stateParams.sort
+			},
+			onSuccess,
+			onError
+		);
+
+		function onSuccess(data) {
+			vm.divisions = data.content;
+			vm.page = {
+				size: 				data.size,
+				number: 			$stateParams.page,
+				totalElements: 		data.totalElements,
+				numberOfElements: 	data.numberOfElements,
+				firstIndex:			data.size * data.number + 1,
+				lastIndex:			data.size * data.number + data.numberOfElements
+			};
+			var sort = $stateParams.sort.split(',');
+			vm.sort = {
+				field: sort[0],
+				direction: sort[1]
+			};
+		};
+
+		function onError(error) {
+			AlertService.addError(error.statusText);
+		};
 	}
 
 	vm.sortByField = function (field) {
@@ -38,4 +57,12 @@ app.controller('DivisionController', function ($scope, $http, $state, $statePara
 		}
 		vm.reload();
 	}
+
+	$scope.$on('$locationChangeSuccess', function() {
+		if ($location.path() == '/divisions') {
+			vm.getData();
+		}
+	});
+
+	vm.getData();
 });

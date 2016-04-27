@@ -10,11 +10,11 @@ app.config(function ($stateProvider) {
 			controllerAs: 'vm',
 			params: {
 				page: {
-					value: '1',
+				 	value: '1',
 					squash: true
 				},
 				size: {
-					value: '20',
+					value: '10',
 					squash: true
 				},
 				sort: {
@@ -22,28 +22,6 @@ app.config(function ($stateProvider) {
 					squash: true
 				}
 			},
-			resolve : {
-				Data: DivisionsResolve
-			}
+			reloadOnSearch: false
 		})
 });
-
-function DivisionsResolve (Division, $q, $stateParams, AlertService) {
-
-	var deferred = $q.defer();
-	Division.query(
-		{
-			page: $stateParams.page - 1,
-			size: $stateParams.size,
-			sort: $stateParams.sort
-		},
-		function (data) {
-			deferred.resolve(data);
-		},
-		function (error) {
-			AlertService.addError(error.statusText);
-			deferred.reject();
-		}
-	);
-	return deferred.promise;
-}
