@@ -27,7 +27,8 @@
     "add": "Add",
     "view": "View",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "cancel": "Cancel"
   },
 
   "ENTITY_FIELD": {
@@ -40,5 +41,11 @@
     "showing": "Showing ",
     "from": " from ",
     "items per page": "Items per page"
+  },
+
+  "DELETE": {
+    "header": "Confirm delete operation",
+    "request": "Are you sure want to delete?",
+    "success": "Deleted successfully"
   }
 }

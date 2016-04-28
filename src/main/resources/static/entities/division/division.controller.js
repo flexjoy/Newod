@@ -1,7 +1,16 @@
 'use strict';
 
-app.controller('DivisionController', function ($scope, $state, $stateParams, Division, $location, AlertService) {
+app.controller('DivisionController', function (
+	$scope,
+	$state,
+	$stateParams,
+	Division,
+	$location,
+	AlertService,
+	$uibModal,
+	$filter) {
 
+	var $translate = $filter('translate');
 	var vm = this;
 	vm.sizeArray = [10, 20, 30, 50];
 
@@ -13,7 +22,7 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 				sort: vm.sort.field + ',' + vm.sort.direction
 			}
 		);
-	}
+	};
 
 	vm.getData = function () {
 		Division.query(
@@ -41,12 +50,12 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 				field: sort[0],
 				direction: sort[1]
 			};
-		};
+		}
 
 		function onError(error) {
-			AlertService.addError(error.statusText);
-		};
-	}
+			AlertService.addError(error.data.error);
+		}
+	};
 
 	vm.sortByField = function (field) {
 		if (vm.sort.field == field) {
@@ -56,7 +65,7 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 			vm.sort.direction = 'asc';
 		}
 		vm.reload();
-	}
+	};
 
 	$scope.$on('$locationChangeSuccess', function() {
 		if ($location.path() == '/divisions') {
@@ -65,4 +74,47 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 	});
 
 	vm.getData();
+
+	vm.delete = function (division) {
+		$uibModal
+			.open({
+				templateUrl: 'entities/division/delete-dialog.html',
+				controller: 'DivisionDeleteController',
+				controllerAs: 'vm',
+				size: 'md',
+				resolve: {
+					name: function () {
+						return division.name;
+					}
+				}
+			})
+			.result.then(
+				function () {
+					Division.delete({id: division.id}, onSuccess, onError);
+				}
+			);
+
+		function onSuccess() {
+			AlertService.addSuccess($translate('DELETE.success'));
+			vm.getData();
+		}
+
+		function onError(error) {
+			AlertService.addError(error.data.error);
+		}
+	}
+});
+
+app.controller('DivisionDeleteController', function ($scope, $uibModalInstance, name) {
+
+	var vm = this;
+	vm.name = name;
+
+	vm.delete = function () {
+		$uibModalInstance.close();
+	};
+
+	vm.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
 });
