@@ -7,11 +7,14 @@ var app = angular.module('App',
 		'ui.router',
 		'ui.bootstrap',
 		'pascalprecht.translate',
-		'angular-loading-bar'
+		'angular-loading-bar',
+		'ngAnimate',
+		'ngSanitize',
+		'ngToast'
 	]
 );
 
-app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $translateProvider, ngToastProvider) {
 
 	$stateProvider
 		.state('home', {
@@ -29,4 +32,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
 		.preferredLanguage('ru')
 		.useSanitizeValueStrategy('escape')
 		.useLocalStorage();
+
+	ngToastProvider.configure({
+		animation: 'fade',
+		verticalPosition: 'bottom'
+	});
 });

@@ -8,7 +8,8 @@ app.controller('DivisionController', function (
 	$location,
 	AlertService,
 	$uibModal,
-	$filter) {
+	$filter,
+	ngToast) {
 
 	var $translate = $filter('translate');
 	var vm = this;
@@ -117,7 +118,13 @@ app.controller('DivisionController', function (
 			})
 			.result.then(
 			function () {
-				AlertService.addSuccess($translate('UPDATE.success'));
+				//AlertService.addSuccess($translate('UPDATE.success'));
+				ngToast.create({
+						//className: 'warning',
+						dismissButton: true,
+						dismissOnClick: false,
+						content: $translate('UPDATE.success')
+				});
 				vm.getData();
 			}
 		);
