@@ -1,0 +1,29 @@
+<div class="modal-header">
+	<h3 class="modal-title">{{'ACTION.edit' | translate}} {{'DIVISION.label.one' | translate}}</h3>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">{{'ENTITY_FIELD.name' | translate}}</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="name"
+					   placeholder="{{'ENTITY_FIELD.name' | translate}}"
+					   ng-model="vm.division.name"
+					   autofocus>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" ng-model="vm.division.enabled"> {{'ENTITY_FIELD.enabled' | translate}}
+					</label>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="vm.update()">{{'ACTION.edit' | translate}}</button>
+	<button class="btn btn-default" type="button" ng-click="vm.cancel()">{{'ACTION.cancel' | translate}}</button>
+</div>

@@ -47,5 +47,9 @@
     "header": "Confirm delete operation",
     "request": "Are you sure want to delete?",
     "success": "Deleted successfully"
+  },
+
+  "UPDATE": {
+    "success": "Updated successfully"
   }
 }

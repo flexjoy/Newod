@@ -5,10 +5,9 @@ import flexjoy.newod.repository.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author Sergey Cherepanov on 01.04.2016
@@ -29,6 +28,11 @@ public class DivisionController {
 	@RequestMapping(value = "/divisions/{id}", method = RequestMethod.GET)
 	public Division findOne(@PathVariable("id") int id) {
 		return divisionRepository.findOne(id);
+	}
+
+	@RequestMapping(value = "/divisions/{id}", method = RequestMethod.PUT)
+	public Division update(@PathVariable("id") int id, @Valid @RequestBody Division division) {
+		return divisionRepository.save(division);
 	}
 
 	@RequestMapping(value = "/divisions/{id}", method = RequestMethod.DELETE)

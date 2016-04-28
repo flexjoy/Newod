@@ -102,7 +102,26 @@ app.controller('DivisionController', function (
 		function onError(error) {
 			AlertService.addError(error.data.error);
 		}
-	}
+	};
+
+	vm.update = function (division) {
+		$uibModal
+			.open({
+				templateUrl: 'entities/division/update-dialog.html',
+				controller: 'DivisionUpdateController',
+				controllerAs: 'vm',
+				size: 'md',
+				resolve: {
+					division: division
+				}
+			})
+			.result.then(
+			function () {
+				AlertService.addSuccess($translate('UPDATE.success'));
+				vm.getData();
+			}
+		);
+	};
 });
 
 app.controller('DivisionDeleteController', function ($scope, $uibModalInstance, name) {
@@ -112,6 +131,27 @@ app.controller('DivisionDeleteController', function ($scope, $uibModalInstance, 
 
 	vm.delete = function () {
 		$uibModalInstance.close();
+	};
+
+	vm.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+});
+
+app.controller('DivisionUpdateController', function ($scope, $uibModalInstance, division, Division, AlertService) {
+
+	var vm = this;
+	vm.division = angular.copy(division);
+
+	vm.update = function () {
+		Division.update({id: vm.division.id}, vm.division, onSuccess, onError);
+		function onSuccess() {
+			$uibModalInstance.close();
+		}
+
+		function onError(error) {
+			AlertService.addError(error.data.error);
+		}
 	};
 
 	vm.cancel = function () {
