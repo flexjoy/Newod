@@ -2,7 +2,7 @@ package flexjoy.newod.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -19,7 +19,7 @@ public class City {
 	@GeneratedValue
 	private int id;
 
-	@NotEmpty
+	@NotBlank
 	@Length(min = 3, max = 45)
 	private String name;
 
