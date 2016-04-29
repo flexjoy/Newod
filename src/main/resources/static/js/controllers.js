@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('NavBarController', function($scope, $location, $translate) {
+app.controller('NavBarController', function($scope, $location, $translate, $http) {
 	
 	$scope.isActive = function (viewLocation) {
 		return viewLocation === $location.path();
@@ -8,5 +8,6 @@ app.controller('NavBarController', function($scope, $location, $translate) {
 
 	$scope.setLanguage = function (locale) {
 		$translate.use(locale);
+		$http.get('/locale/' + locale);
 	}
 });
