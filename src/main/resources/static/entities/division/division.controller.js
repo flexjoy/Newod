@@ -140,6 +140,7 @@ app.controller('DivisionUpdateController', function (
 	division,
 	Division,
 	ToastService,
+	UtilService,
 	$filter) {
 
 	var vm = this;
@@ -155,7 +156,13 @@ app.controller('DivisionUpdateController', function (
 		}
 
 		function onError(error) {
-			ToastService.Error(error.data.error);
+			if (error.data.status == 400) {
+
+				// HTTP status 400 - validation error. We set server side errors to form fields:
+				$scope.errors = UtilService.SetServerErrors($scope.updateForm, error.data.errors);
+			} else {
+				ToastService.Error(error.data.error);
+			}
 		}
 	};
 

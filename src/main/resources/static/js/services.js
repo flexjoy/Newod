@@ -19,3 +19,18 @@ app.service('ToastService', function (ngToast, $filter) {
 		});
 	};
 });
+
+app.service('UtilService', function () {
+	
+	this.SetServerErrors = function (form, errors) {
+		var data = [];
+		angular.forEach(errors, function(error) {
+			form[error.field].$invalid = true;
+			if (data[error.field] == null) {
+				data[error.field] = [];
+			}
+			data[error.field].push(error.defaultMessage);
+		});
+		return data;
+	};
+});

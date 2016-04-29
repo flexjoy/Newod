@@ -14,3 +14,8 @@ body > .container {
 	display: flex;
 	align-items: center;
 }
+
+.form-error {
+	margin-bottom: 0;
+	margin-top: 10px;
+}
