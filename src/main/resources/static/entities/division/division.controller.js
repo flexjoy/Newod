@@ -1,20 +1,25 @@
 'use strict';
 
-app.controller('DivisionController', function (
-	$scope,
-	$state,
-	$stateParams,
-	Division,
-	$location,
-	ToastService,
-	$uibModal,
-	$filter) {
+app.controller('DivisionController', function ($scope, $state, $stateParams, Division, $location, ToastService,
+											   $uibModal) {
 
-	var $translate = $filter('translate');
 	var vm = this;
 	vm.sizeArray = [10, 20, 30, 50];
+	vm.reload = reload;
+	vm.getData = getData;
+	vm.sortByField = sortByField;
+	vm.delete = del;
+	vm.update = update;
 
-	vm.reload = function () {
+	vm.getData();
+
+	$scope.$on('$locationChangeSuccess', function() {
+		if ($location.path() == '/divisions') {
+			vm.getData();
+		}
+	});
+
+	function reload() {
 		$state.go('.',
 			{
 				page: vm.page.number,
@@ -22,18 +27,15 @@ app.controller('DivisionController', function (
 				sort: vm.sort.field + ',' + vm.sort.direction
 			}
 		);
-	};
+	}
 
-	vm.getData = function () {
+	function getData() {
 		Division.query(
 			{
 				page: $stateParams.page - 1,
 				size: $stateParams.size,
 				sort: $stateParams.sort
-			},
-			onSuccess,
-			onError
-		);
+			}, onSuccess, onError);
 
 		function onSuccess(data) {
 			vm.divisions = data.content;
@@ -55,9 +57,9 @@ app.controller('DivisionController', function (
 		function onError(error) {
 			ToastService.Error(error.data.error);
 		}
-	};
+	}
 
-	vm.sortByField = function (field) {
+	function sortByField(field) {
 		if (vm.sort.field == field) {
 			vm.sort.direction = (vm.sort.direction == 'desc') ? 'asc' : 'desc';
 		} else {
@@ -65,17 +67,9 @@ app.controller('DivisionController', function (
 			vm.sort.direction = 'asc';
 		}
 		vm.reload();
-	};
+	}
 
-	$scope.$on('$locationChangeSuccess', function() {
-		if ($location.path() == '/divisions') {
-			vm.getData();
-		}
-	});
-
-	vm.getData();
-
-	vm.delete = function (division) {
+	function del(division) {
 		$uibModal
 			.open({
 				templateUrl: 'entities/division/delete-dialog.html',
@@ -87,9 +81,9 @@ app.controller('DivisionController', function (
 			.result.then(
 				function () { vm.getData();	}
 			);
-	};
+	}
 
-	vm.update = function (division) {
+	function update(division) {
 		$uibModal
 			.open({
 				templateUrl: 'entities/division/update-dialog.html',
@@ -101,22 +95,19 @@ app.controller('DivisionController', function (
 			.result.then(
 				function () { vm.getData(); }
 			);
-	};
+	}
 });
 
-app.controller('DivisionDeleteController', function (
-	$scope,
-	$uibModalInstance,
-	division,
-	Division,
-	ToastService,
-	$filter) {
+app.controller('DivisionDeleteController', function ($scope, $uibModalInstance,	division, Division,	ToastService,
+													 $filter) {
 
 	var vm = this;
 	var $translate = $filter('translate');
 	vm.division = division;
+	vm.delete = del;
+	vm.cancel = cancel;
 
-	vm.delete = function () {
+	function del() {
 		Division.delete({id: division.id}, onSuccess, onError);
 
 		function onSuccess() {
@@ -127,27 +118,23 @@ app.controller('DivisionDeleteController', function (
 		function onError(error) {
 			ToastService.Error(error.data.error);
 		}
-	};
+	}
 
-	vm.cancel = function () {
+	function cancel() {
 		$uibModalInstance.dismiss('cancel');
-	};
+	}
 });
 
-app.controller('DivisionUpdateController', function (
-	$scope,
-	$uibModalInstance,
-	division,
-	Division,
-	ToastService,
-	UtilService,
-	$filter) {
+app.controller('DivisionUpdateController', function ($scope, $uibModalInstance, division, Division, ToastService,
+													 UtilService, $filter) {
 
 	var vm = this;
 	var $translate = $filter('translate');
 	vm.division = angular.copy(division);
+	vm.update = update;
+	vm.cancel = cancel;
 
-	vm.update = function () {
+	function update() {
 		Division.update({id: vm.division.id}, vm.division, onSuccess, onError);
 
 		function onSuccess() {
@@ -164,9 +151,9 @@ app.controller('DivisionUpdateController', function (
 				ToastService.Error(error.data.error);
 			}
 		}
-	};
+	}
 
-	vm.cancel = function () {
+	function cancel() {
 		$uibModalInstance.dismiss('cancel');
-	};
+	}
 });

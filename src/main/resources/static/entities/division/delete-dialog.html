@@ -1,11 +1,13 @@
 <div class="modal-header">
 	<h3 class="modal-title">{{'DELETE.header' | translate}}</h3>
 </div>
+
 <div class="modal-body">
 	<h4><small>{{'DELETE.request' | translate}} </small>
 		<span class="label label-danger">{{vm.division.name}}</span>
 	</h4>
 </div>
+
 <div class="modal-footer">
 	<button class="btn btn-danger" type="button" ng-click="vm.delete()">{{'ACTION.delete' | translate}}</button>
 	<button class="btn btn-default" type="button" ng-click="vm.cancel()">{{'ACTION.cancel' | translate}}</button>

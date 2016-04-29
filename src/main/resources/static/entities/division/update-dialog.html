@@ -1,10 +1,14 @@
 <div class="modal-header">
 	<h3 class="modal-title">{{'ACTION.edit' | translate}} {{'DIVISION.label.one' | translate}}</h3>
 </div>
+
 <div class="modal-body">
+
 	<form class="form-horizontal" name="updateForm">
+
 		<div class="form-group" ng-class="{'has-error' : updateForm.name.$invalid}">
 			<label class="col-sm-3 control-label">{{'ENTITY_FIELD.name' | translate}}</label>
+
 			<div class="col-sm-9">
 				<input type="text" class="form-control" name="name"
 					   placeholder="{{'ENTITY_FIELD.name' | translate}}"
@@ -15,8 +19,10 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="form-group">
 			<label class="col-sm-3 control-label">{{'ENTITY_FIELD.enabled' | translate}}</label>
+
 			<div class="col-sm-9">
 				<div class="checkbox">
 					<label>
@@ -25,8 +31,11 @@
 				</div>
 			</div>
 		</div>
+
 	</form>
+
 </div>
+
 <div class="modal-footer">
 	<button class="btn btn-primary" type="button" ng-click="vm.update()" ng-disabled="updateForm.$pristine">
 		{{'ACTION.edit' | translate}}
