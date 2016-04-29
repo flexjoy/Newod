@@ -1,25 +1,21 @@
 'use strict';
 
-app.service('AlertService', function () {
-	var alerts = [];
+app.service('ToastService', function (ngToast, $filter) {
+	var $translate = $filter('translate');
 
-	this.getAlerts = function () {
-		return alerts;
-	}
+	this.Success = function (msg) {
+		var message = '<strong>' + $translate('STATUS.success') + ': </strong>' + msg;
+		ngToast.create({
+			className: 'success',
+			content: message
+		});
+	};
 
-	this.addSuccess = function (message) {
-		var alert = {
-			type: 'success',
-			msg: message
-		}
-		alerts.push(alert);
-	}
-
-	this.addError = function (message) {
-		var alert = {
-			type: 'danger',
-			msg: message
-		}
-		alerts.push(alert);
-	}
+	this.Error = function (msg) {
+		var message = '<strong>' + $translate('STATUS.error') + ': </strong>' + msg;
+		ngToast.create({
+			className: 'danger',
+			content: message
+		});
+	};
 });

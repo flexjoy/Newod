@@ -10,12 +10,3 @@ app.controller('NavBarController', function($scope, $location, $translate) {
 		$translate.use(locale);
 	}
 });
-
-app.controller('AlertController', function($scope, AlertService) {
-
-	$scope.alerts = AlertService.getAlerts();
-
-	$scope.closeAlert = function(index) {
-		$scope.alerts.splice(index, 1);
-	};
-});

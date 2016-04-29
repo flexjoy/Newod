@@ -6,10 +6,9 @@ app.controller('DivisionController', function (
 	$stateParams,
 	Division,
 	$location,
-	AlertService,
+	ToastService,
 	$uibModal,
-	$filter,
-	ngToast) {
+	$filter) {
 
 	var $translate = $filter('translate');
 	var vm = this;
@@ -54,7 +53,7 @@ app.controller('DivisionController', function (
 		}
 
 		function onError(error) {
-			AlertService.addError(error.data.error);
+			ToastService.Error(error.data.error);
 		}
 	};
 
@@ -96,12 +95,12 @@ app.controller('DivisionController', function (
 			);
 
 		function onSuccess() {
-			AlertService.addSuccess($translate('DELETE.success'));
+			ToastService.Success($translate('TEXT.deleted'));
 			vm.getData();
 		}
 
 		function onError(error) {
-			AlertService.addError(error.data.error);
+			ToastService.Error(error.data.error);
 		}
 	};
 
@@ -118,13 +117,7 @@ app.controller('DivisionController', function (
 			})
 			.result.then(
 			function () {
-				//AlertService.addSuccess($translate('UPDATE.success'));
-				ngToast.create({
-						//className: 'warning',
-						dismissButton: true,
-						dismissOnClick: false,
-						content: $translate('UPDATE.success')
-				});
+				ToastService.Success($translate('TEXT.updated'));
 				vm.getData();
 			}
 		);
@@ -145,7 +138,7 @@ app.controller('DivisionDeleteController', function ($scope, $uibModalInstance, 
 	};
 });
 
-app.controller('DivisionUpdateController', function ($scope, $uibModalInstance, division, Division, AlertService) {
+app.controller('DivisionUpdateController', function ($scope, $uibModalInstance, division, Division, ToastService) {
 
 	var vm = this;
 	vm.division = angular.copy(division);
@@ -157,7 +150,7 @@ app.controller('DivisionUpdateController', function ($scope, $uibModalInstance, 
 		}
 
 		function onError(error) {
-			AlertService.addError(error.data.error);
+			ToastService.Error(error.data.error);
 		}
 	};
 

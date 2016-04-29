@@ -35,6 +35,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider, ngT
 
 	ngToastProvider.configure({
 		animation: 'fade',
-		verticalPosition: 'bottom'
+		verticalPosition: 'bottom',
+		dismissButton: true,
+		dismissOnClick: false,
+		timeout: 5000
 	});
 });
