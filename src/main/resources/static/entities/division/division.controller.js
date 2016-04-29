@@ -82,26 +82,11 @@ app.controller('DivisionController', function (
 				controller: 'DivisionDeleteController',
 				controllerAs: 'vm',
 				size: 'md',
-				resolve: {
-					name: function () {
-						return division.name;
-					}
-				}
+				resolve: { division: division }
 			})
 			.result.then(
-				function () {
-					Division.delete({id: division.id}, onSuccess, onError);
-				}
+				function () { vm.getData();	}
 			);
-
-		function onSuccess() {
-			ToastService.Success($translate('TEXT.deleted'));
-			vm.getData();
-		}
-
-		function onError(error) {
-			ToastService.Error(error.data.error);
-		}
 	};
 
 	vm.update = function (division) {
@@ -111,26 +96,37 @@ app.controller('DivisionController', function (
 				controller: 'DivisionUpdateController',
 				controllerAs: 'vm',
 				size: 'md',
-				resolve: {
-					division: division
-				}
+				resolve: { division: division }
 			})
 			.result.then(
-			function () {
-				ToastService.Success($translate('TEXT.updated'));
-				vm.getData();
-			}
-		);
+				function () { vm.getData(); }
+			);
 	};
 });
 
-app.controller('DivisionDeleteController', function ($scope, $uibModalInstance, name) {
+app.controller('DivisionDeleteController', function (
+	$scope,
+	$uibModalInstance,
+	division,
+	Division,
+	ToastService,
+	$filter) {
 
 	var vm = this;
-	vm.name = name;
+	var $translate = $filter('translate');
+	vm.division = division;
 
 	vm.delete = function () {
-		$uibModalInstance.close();
+		Division.delete({id: division.id}, onSuccess, onError);
+
+		function onSuccess() {
+			ToastService.Success($translate('TEXT.deleted'));
+			$uibModalInstance.close();
+		}
+
+		function onError(error) {
+			ToastService.Error(error.data.error);
+		}
 	};
 
 	vm.cancel = function () {
@@ -138,14 +134,23 @@ app.controller('DivisionDeleteController', function ($scope, $uibModalInstance, 
 	};
 });
 
-app.controller('DivisionUpdateController', function ($scope, $uibModalInstance, division, Division, ToastService) {
+app.controller('DivisionUpdateController', function (
+	$scope,
+	$uibModalInstance,
+	division,
+	Division,
+	ToastService,
+	$filter) {
 
 	var vm = this;
+	var $translate = $filter('translate');
 	vm.division = angular.copy(division);
 
 	vm.update = function () {
 		Division.update({id: vm.division.id}, vm.division, onSuccess, onError);
+
 		function onSuccess() {
+			ToastService.Success($translate('TEXT.updated'));
 			$uibModalInstance.close();
 		}
 
