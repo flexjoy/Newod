@@ -15,6 +15,10 @@ body > .container {
 	align-items: center;
 }
 
+.vertical-offset {
+	margin-top: 1.5em;
+}
+
 .form-error {
 	margin-bottom: 0;
 	margin-top: 10px;

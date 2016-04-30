@@ -21,8 +21,12 @@ public class DivisionController {
 	private DivisionRepository divisionRepository;
 
 	@RequestMapping(value = "/divisions", method = RequestMethod.GET)
-	public Page<Division> findAll(Pageable pageable) {
-		return divisionRepository.findAll(pageable);
+	public Page<Division> findAll(Pageable pageable, @RequestParam String search) {
+		if (search.isEmpty()) {
+			return divisionRepository.findAll(pageable);
+		} else {
+			return divisionRepository.findByNameStartsWithIgnoreCase(search, pageable);
+		}
 	}
 
 	@RequestMapping(value = "/divisions", method = RequestMethod.POST)

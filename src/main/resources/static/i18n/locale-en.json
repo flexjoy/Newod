@@ -43,7 +43,8 @@
     "items per page": "Items per page",
     "deleted": "entity deleted",
     "updated": "entity updated",
-    "added": "entity added"
+    "added": "entity added",
+    "search": "Search..."
   },
 
   "DELETE": {

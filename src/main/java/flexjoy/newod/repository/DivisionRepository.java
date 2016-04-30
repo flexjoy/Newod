@@ -12,5 +12,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface DivisionRepository extends JpaRepository<Division, Integer> {
 
-	Page<Division> findByNameStartsWith(@Param("name") String name, Pageable pageable);
+	Page<Division> findByNameStartsWithIgnoreCase(@Param("name") String name, Pageable pageable);
 }

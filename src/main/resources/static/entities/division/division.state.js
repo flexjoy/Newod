@@ -4,7 +4,7 @@ app.config(function ($stateProvider) {
 
 	$stateProvider
 		.state('divisions', {
-			url: "/divisions?page&size&sort",
+			url: "/divisions?page&size&sort&search",
 			templateUrl: "entities/division/divisions.html",
 			controller: 'DivisionController',
 			controllerAs: 'vm',
@@ -19,6 +19,10 @@ app.config(function ($stateProvider) {
 				},
 				sort: {
 					value: 'name,asc',
+					squash: true
+				},
+				search: {
+					value: '',
 					squash: true
 				}
 			},

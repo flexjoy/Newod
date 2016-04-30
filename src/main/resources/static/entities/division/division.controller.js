@@ -10,7 +10,7 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 	vm.sortByField = sortByField;
 	vm.delete = del;
 	vm.action = action;
-
+	vm.clear = clear;
 	vm.getData();
 
 	$scope.$on('$locationChangeSuccess', function() {
@@ -24,9 +24,16 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 			{
 				page: vm.page.number,
 				size: vm.page.size,
-				sort: vm.sort.field + ',' + vm.sort.direction
+				sort: vm.sort.field + ',' + vm.sort.direction,
+				search: vm.search
 			}
 		);
+	}
+
+	function clear() {
+		vm.page.number = 1;
+		vm.search = null;
+		vm.reload();
 	}
 
 	function getData() {
@@ -34,7 +41,8 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 			{
 				page: $stateParams.page - 1,
 				size: $stateParams.size,
-				sort: $stateParams.sort
+				sort: $stateParams.sort,
+				search: $stateParams.search
 			}, onSuccess, onError);
 
 		function onSuccess(data) {
@@ -52,6 +60,7 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 				field: sort[0],
 				direction: sort[1]
 			};
+			vm.search = $stateParams.search;
 		}
 
 		function onError(error) {
