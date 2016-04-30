@@ -9,7 +9,7 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 	vm.getData = getData;
 	vm.sortByField = sortByField;
 	vm.delete = del;
-	vm.update = update;
+	vm.action = action;
 
 	vm.getData();
 
@@ -83,11 +83,11 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 			);
 	}
 
-	function update(division) {
+	function action(division) {
 		$uibModal
 			.open({
-				templateUrl: 'entities/division/update-dialog.html',
-				controller: 'DivisionUpdateController',
+				templateUrl: 'entities/division/add-or-update-dialog.html',
+				controller: 'DivisionAddOrUpdateController',
 				controllerAs: 'vm',
 				size: 'md',
 				resolve: { division: division }
@@ -125,32 +125,58 @@ app.controller('DivisionDeleteController', function ($scope, $uibModalInstance,	
 	}
 });
 
-app.controller('DivisionUpdateController', function ($scope, $uibModalInstance, division, Division, ToastService,
-													 UtilService, $filter) {
+app.controller('DivisionAddOrUpdateController', function ($scope, $uibModalInstance, division, Division, ToastService,
+														  UtilService, $filter) {
 
 	var vm = this;
 	var $translate = $filter('translate');
-	vm.division = angular.copy(division);
-	vm.update = update;
+
+	/**
+	 *  If division is null - this is add operation
+	 */
+	vm.isAdd = !division;
+
+	if (vm.isAdd) {
+		vm.division = {enabled: true};
+		vm.concreteAction = add;
+		vm.successMessage = $translate('TEXT.added');
+		vm.actionLabel = $translate('ACTION.add');
+	} else {
+		vm.division = angular.copy(division);
+		vm.concreteAction = update;
+		vm.successMessage = $translate('TEXT.updated');
+		vm.actionLabel = $translate('ACTION.update');
+	}
+
+	vm.action = action;
 	vm.cancel = cancel;
+
+	function add() {
+		Division.save(vm.division, onSuccess, onError);
+	}
 
 	function update() {
 		Division.update({id: vm.division.id}, vm.division, onSuccess, onError);
+	}
 
-		function onSuccess() {
-			ToastService.Success($translate('TEXT.updated'));
-			$uibModalInstance.close();
+	function onSuccess() {
+		ToastService.Success(vm.successMessage);
+		$uibModalInstance.close();
+	}
+
+	function onError(error) {
+		if (error.data.status == 400) {
+			/** HTTP status 400 - validation error.
+			 *  We set server side errors to form fields:
+			 */
+			$scope.errors = UtilService.SetServerErrors($scope.updateForm, error.data.errors);
+		} else {
+			ToastService.Error(error.data.error);
 		}
+	}
 
-		function onError(error) {
-			if (error.data.status == 400) {
-
-				// HTTP status 400 - validation error. We set server side errors to form fields:
-				$scope.errors = UtilService.SetServerErrors($scope.updateForm, error.data.errors);
-			} else {
-				ToastService.Error(error.data.error);
-			}
-		}
+	function action() {
+		vm.concreteAction();
 	}
 
 	function cancel() {

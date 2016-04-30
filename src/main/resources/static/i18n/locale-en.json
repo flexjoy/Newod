@@ -26,7 +26,7 @@
   "ACTION": {
     "add": "Add",
     "view": "View",
-    "edit": "Edit",
+    "update": "Edit",
     "delete": "Delete",
     "cancel": "Cancel"
   },
@@ -42,7 +42,8 @@
     "from": " from ",
     "items per page": "Items per page",
     "deleted": "entity deleted",
-    "updated": "entity updated"
+    "updated": "entity updated",
+    "added": "entity added"
   },
 
   "DELETE": {

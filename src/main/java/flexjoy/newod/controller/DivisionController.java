@@ -20,9 +20,14 @@ public class DivisionController {
 	@Autowired
 	private DivisionRepository divisionRepository;
 
-	@RequestMapping("/divisions")
+	@RequestMapping(value = "/divisions", method = RequestMethod.GET)
 	public Page<Division> findAll(Pageable pageable) {
 		return divisionRepository.findAll(pageable);
+	}
+
+	@RequestMapping(value = "/divisions", method = RequestMethod.POST)
+	public Division add(@Valid @RequestBody Division division) {
+		return divisionRepository.save(division);
 	}
 
 	@RequestMapping(value = "/divisions/{id}", method = RequestMethod.GET)

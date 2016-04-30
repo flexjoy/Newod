@@ -1,10 +1,10 @@
 <div class="modal-header">
-	<h3 class="modal-title">{{'ACTION.edit' | translate}} {{'DIVISION.label.one' | translate}}</h3>
+	<h3 class="modal-title">{{vm.actionLabel}} {{'DIVISION.label.one' | translate}}</h3>
 </div>
 
 <div class="modal-body">
 
-	<form class="form-horizontal" name="updateForm">
+	<form class="form-horizontal" name="updateForm" ng-submit="vm.action()">
 
 		<div class="form-group" ng-class="{'has-error' : updateForm.name.$invalid}">
 			<label class="col-sm-3 control-label">{{'ENTITY_FIELD.name' | translate}}</label>
@@ -37,8 +37,8 @@
 </div>
 
 <div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="vm.update()" ng-disabled="updateForm.$pristine">
-		{{'ACTION.edit' | translate}}
+	<button class="btn btn-primary" type="button" ng-click="vm.action()" ng-disabled="updateForm.$pristine">
+		{{vm.actionLabel}}
 	</button>
 	<button class="btn btn-default" type="button" ng-click="vm.cancel()">
 		{{'ACTION.cancel' | translate}}
