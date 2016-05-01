@@ -1,0 +1,20 @@
+<form name="searchForm" class="form-inline ">
+	<div class="form-group">
+		<input type="text" class="form-control" ng-model="vm.search"
+			   placeholder="{{'TEXT.search' | translate}}">
+	</div>
+
+	<button class="btn btn-info btn-sm" ng-click="vm.reload()">
+		<span class="glyphicon glyphicon-search"></span>
+	</button>
+
+	<button class="btn btn-info btn-sm" ng-click="vm.clear()" ng-if="vm.search">
+		<span class="glyphicon glyphicon-remove"></span>
+	</button>
+
+	<button class="btn btn-primary btn-sm" ng-click="vm.action()">
+		<span class="glyphicon glyphicon-plus"></span>
+		{{'ACTION.add' | translate}}
+	</button>
+</form>
+

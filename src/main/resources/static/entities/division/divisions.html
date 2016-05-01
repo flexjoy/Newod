@@ -4,25 +4,9 @@
 	</div>
 
 	<div class="col-xs-6 text-right vertical-offset">
-		<form name="searchForm" class="form-inline ">
-			<div class="form-group">
-				<input type="text" class="form-control" ng-model="vm.search"
-					   placeholder="{{'TEXT.search' | translate}}">
-			</div>
-			<button class="btn btn-info btn-sm" ng-click="vm.reload()">
-				<span class="glyphicon glyphicon-search"></span>
-			</button>
-			<button class="btn btn-info btn-sm" ng-click="vm.clear()" ng-if="vm.search">
-				<span class="glyphicon glyphicon-remove"></span>
-			</button>
-			<button class="btn btn-primary btn-sm" ng-click="vm.action()">
-				<span class="glyphicon glyphicon-plus"></span>
-				{{'ACTION.add' | translate}}
-			</button>
-		</form>
+		<newod-search-form></newod-search-form>
 	</div>
 </div>
-
 <br>
 <table class="table table-striped" ng-cloak>
 	<thead>
@@ -69,30 +53,4 @@
 	</tbody>
 </table>
 
-<div class="row vertical-align">
-	<div class="col-xs-4">
-		<uib-pagination
-				ng-model="vm.page.number"
-				ng-change="vm.reload()"
-				total-items="vm.page.totalElements"
-				max-size="5"
-				boundary-link-numbers="true"
-				rotate="false"
-				items-per-page="vm.page.size"
-				previous-text="&lsaquo;"
-				next-text="&rsaquo;">
-		</uib-pagination>
-	</div>
-	<div class="col-xs-4 text-center">
-		{{'TEXT.items per page' | translate}}
-		<select ng-model="vm.page.size" ng-options="c for c in vm.sizeArray" ng-change="vm.reload()"></select>
-	</div>
-	<div class="col-xs-4 text-right">
-		<h4>
-			<span class="label label-default" ng-cloak ng-if="vm.page.totalElements > 0">
-				{{'TEXT.showing' | translate}} {{vm.page.firstIndex}} - {{vm.page.lastIndex}}
-				{{'TEXT.from' | translate}} {{vm.page.totalElements}}
-			</span>
-		</h4>
-	</div>
-</div>
+<newod-pagination></newod-pagination>
