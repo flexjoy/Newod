@@ -39,8 +39,8 @@
   "TEXT": {
     "closed": "Closed",
     "showing": "Showing ",
-    "from": " from ",
-    "items per page": "Items per page",
+    "from": " of ",
+    "items per page": "Rows per page",
     "deleted": "entity deleted",
     "updated": "entity updated",
     "added": "entity added",
