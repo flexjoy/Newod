@@ -75,6 +75,7 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 			vm.sort.field = field;
 			vm.sort.direction = 'asc';
 		}
+		vm.page.number = 1;
 		vm.reload();
 	}
 

@@ -75,6 +75,7 @@ app.controller('CityController', function ($scope, $state, $stateParams, City, D
 			vm.sort.field = field;
 			vm.sort.direction = 'asc';
 		}
+		vm.page.number = 1;
 		vm.reload();
 	}
 
