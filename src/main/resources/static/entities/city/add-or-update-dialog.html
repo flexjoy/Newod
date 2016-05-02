@@ -1,0 +1,54 @@
+<div class="modal-header">
+	<h3 class="modal-title">{{vm.actionLabel}} {{'CITY.label.one' | translate}}</h3>
+</div>
+
+<div class="modal-body">
+
+	<form class="form-horizontal" name="updateForm" ng-submit="vm.action()">
+
+		<div class="form-group" ng-class="{'has-error' : updateForm.name.$invalid}">
+			<label class="col-sm-3 control-label">{{'ENTITY_FIELD.name' | translate}}</label>
+
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="name"
+					   placeholder="{{'ENTITY_FIELD.name' | translate}}"
+					   ng-model="vm.city.name" autofocus>
+
+				<div class="alert alert-danger form-error" role="alert" ng-if="updateForm.name.$invalid">
+					<div ng-repeat="error in errors.name">{{error}}</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">{{'ENTITY_FIELD.enabled' | translate}}</label>
+
+			<div class="col-sm-9">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" ng-model="vm.city.enabled">
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">{{'DIVISION.label.one' | translate}}</label>
+
+			<div class="col-sm-9">
+				<select class="form-control" ng-model="vm.city.division" ng-options="division.name for division in vm.divisions track by division.id"></select>
+			</div>
+		</div>
+
+	</form>
+
+</div>
+
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="vm.action()" ng-disabled="updateForm.$pristine">
+		{{vm.actionLabel}}
+	</button>
+	<button class="btn btn-default" type="button" ng-click="vm.cancel()">
+		{{'ACTION.cancel' | translate}}
+	</button>
+</div>

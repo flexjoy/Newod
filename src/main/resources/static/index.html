@@ -2,7 +2,7 @@
 <html ng-app="App">
 	<head>
 		<title>Newod</title>
-		<meta charset=UTF-8">
+		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,6 +37,7 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="#/divisions">{{'DIVISION.label.many' | translate}}</a></li>
+								<li><a href="#/cities">{{'CITY.label.many' | translate}}</a></li>
 							</ul>
 						</li>
 						<li class="dropdown">
@@ -86,5 +87,9 @@
 		<script src="entities/division/division.state.js"></script>
 		<script src="entities/division/division.service.js"></script>
 		<script src="entities/division/division.controller.js"></script>
+
+		<script src="entities/city/city.state.js"></script>
+		<script src="entities/city/city.service.js"></script>
+		<script src="entities/city/city.controller.js"></script>
 	</body>
 </html>

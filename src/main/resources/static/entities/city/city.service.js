@@ -1,8 +1,8 @@
 'use strict';
 
-app.factory('Division', function($resource) {
+app.factory('City', function($resource) {
 
-	var resourceUrl = 'api/divisions/:id';
+	var resourceUrl = 'api/cities/:id';
 	return	$resource(
 		resourceUrl,
 		{
@@ -15,11 +15,6 @@ app.factory('Division', function($resource) {
 			},
 			update: {
 				method: 'PUT'
-			},
-			getAll: {
-				method: 'GET',
-				isArray: true,
-				url: 'api/divisions/all'
 			}
 		}
 	);

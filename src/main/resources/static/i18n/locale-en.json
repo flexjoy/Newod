@@ -23,6 +23,13 @@
     }
   },
 
+  "CITY": {
+    "label": {
+      "one": "City",
+      "many": "Cities"
+    }
+  },
+
   "ACTION": {
     "add": "Add",
     "view": "View",
