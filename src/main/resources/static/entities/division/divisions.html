@@ -3,11 +3,10 @@
 	<newod-search-form></newod-search-form>
 </h2>
 <br>
-<table ng-table="vm.tp" class="table table-bordered" show-filter="showFilter" template-pagination="partials/ng-table/pager.html" style="background: white">
-	<tr ng-repeat="division in $data"
-		ng-click="vm.setSelected(division)"
-		ng-class="{'alert-warning' : vm.entity.id == division.id}"
-		style="cursor: pointer">
+<table ng-table="vm.tp" class="table table-bordered entity-table" show-filter="showFilter"
+	   template-pagination="partials/ng-table/pager.html">
+	<tr	ng-repeat="division in $data" ng-click="vm.setSelected(division)"
+		ng-class="{'alert-warning' : vm.entity.id == division.id}">
 		<td width="10%" data-title="'#'">
 			{{vm.firstRow + $index}}
 		</td>

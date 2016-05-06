@@ -27,3 +27,11 @@ body > .container {
 .ng-pager-text {
 	line-height: 2.5em;
 }
+
+table.entity-table {
+	background-color: white;
+}
+
+table.entity-table > tbody > tr {
+	cursor: pointer;
+}
