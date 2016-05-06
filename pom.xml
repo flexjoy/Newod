@@ -127,6 +127,12 @@
 			<artifactId>ng-table</artifactId>
 			<version>1.0.0-beta.9</version>
 		</dependency>
+		<!--Specification-arg-resolver-->
+		<dependency>
+			<groupId>net.kaczmarzyk</groupId>
+			<artifactId>specification-arg-resolver</artifactId>
+			<version>0.8.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

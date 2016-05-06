@@ -35,7 +35,8 @@
     "view": "Просмотр",
     "update": "Изменить",
     "delete": "Удалить",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "filter": "Фильтр"
   },
 
   "ENTITY_FIELD": {

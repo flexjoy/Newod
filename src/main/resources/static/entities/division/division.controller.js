@@ -9,12 +9,22 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 		{ id: "false", 	title: $translate('TEXT.closed') }
 	];
 
+	//$scope.showFilter = false;
+	vm.toggleFilter = function () {
+		//$scope.showFilter = !$scope.showFilter;
+		console.log($scope.showFilter);
+		if (!$scope.showFilter && Object.keys(vm.tp.filter()).length > 0) {
+			vm.tp.filter({});
+		}
+	}
+
 	vm.tp = new ngTableParams({
 		page: 1,
 		count: 10,
 		sorting: { name: 'asc' }
 	}, {
 		counts: [10,15,25,50],
+		filterOptions: { filterDelay: 0 },
 		getData: function(params) {
 
 			vm.entity = null;

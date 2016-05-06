@@ -2,8 +2,7 @@
 
 	<!--ADD action button-->
 	<button class="btn btn-success btn-sm" ng-click="vm.action(true)">
-		<span class="glyphicon glyphicon-plus"></span>
-		{{'ACTION.add' | translate}}
+		<span class="glyphicon glyphicon-plus"></span> {{'ACTION.add' | translate}}
 	</button>
 
 	<!--UPDATE action button-->
@@ -17,12 +16,13 @@
 	</button>
 
 	<!--SHOW FILTER button-->
-	<button type="button" class="btn btn-info btn-sm" ng-click="vm.tp.filter({});filter = !filter">
-		<span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+	<button type="button" class="btn btn-info btn-sm" ng-model="showFilter" uib-btn-checkbox
+			ng-click="vm.toggleFilter()">
+		<span class="glyphicon glyphicon-filter" aria-hidden="true"></span> {{'ACTION.filter' | translate}}
 	</button>
 
 	<!--CLEAR FILTER button-->
-	<button type="button" class="btn btn-info btn-sm" ng-click="vm.tp.filter({})" ng-show="filter">
+	<button type="button" class="btn btn-info btn-sm" ng-click="vm.tp.filter({})" ng-show="showFilter">
 		<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
 	</button>
 
