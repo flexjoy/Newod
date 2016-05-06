@@ -15,7 +15,9 @@ var app = angular.module('App',
 	]
 );
 
-app.config(function ($stateProvider, $urlRouterProvider, $translateProvider, ngToastProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $translateProvider, ngToastProvider, $httpProvider) {
+
+	$httpProvider.defaults.headers.common.Pragma = 'no-cache';
 
 	$stateProvider
 		.state('home', {
