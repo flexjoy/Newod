@@ -31,7 +31,7 @@
   },
 
   "ACTION": {
-    "add": "Add",
+    "add": "Add new",
     "view": "View",
     "update": "Edit",
     "delete": "Delete",
