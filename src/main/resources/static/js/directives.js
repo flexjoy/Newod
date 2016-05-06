@@ -8,14 +8,6 @@ app.directive('newodSearchForm', function() {
 	};
 });
 
-app.directive('newodPagination', function() {
-	return {
-		restrict: 'E',
-		replace: true,
-		templateUrl: 'partials/pagination.html'
-	};
-});
-
 app.directive('newodActionButtons', function() {
 	return {
 		restrict: 'E',

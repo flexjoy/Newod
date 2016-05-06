@@ -37,7 +37,8 @@
 </div>
 
 <div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="vm.action()" ng-disabled="updateForm.$pristine">
+	<button class="btn" type="button" ng-click="vm.action()" ng-disabled="updateForm.$pristine"
+			ng-class="vm.division.id ? 'btn-primary' : 'btn-success'">
 		{{vm.actionLabel}}
 	</button>
 	<button class="btn btn-default" type="button" ng-click="vm.cancel()">

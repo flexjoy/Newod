@@ -1,111 +1,88 @@
 'use strict';
 
 app.controller('DivisionController', function ($scope, $state, $stateParams, Division, $location, ToastService,
-											   $uibModal) {
-
+											   $uibModal, ngTableParams) {
 	var vm = this;
-	vm.sizeArray = [10, 20, 30, 50];
-	vm.reload = reload;
-	vm.getData = getData;
-	vm.sortByField = sortByField;
-	vm.delete = del;
-	vm.action = action;
-	vm.clear = clear;
-	vm.getData();
 
-	$scope.$on('$locationChangeSuccess', function() {
-		if ($location.path() == '/divisions') {
-			vm.getData();
+	vm.tp = new ngTableParams({
+		page: 1,
+		count: 10,
+		sorting: { name: 'asc' }
+	}, {
+		counts: [10,15,25,50],
+		getData: function(params) {
+
+			vm.entity = null;
+
+			var sortingProp = Object.keys(params.sorting());
+			var sort = sortingProp[0] + ',' + params.sorting()[sortingProp[0]];
+			var queryParams = {
+				page:	params.page() - 1,
+				size:	params.count(),
+				sort:	sort
+			};
+
+			return Division.get(queryParams).$promise.then(
+				function(data) {
+					params.total(data.totalElements);
+					vm.firstRow = (params.page() - 1) * params.count() + 1;
+					return data.content;
+				},
+				function (error) {
+					ToastService.Error(error.data.error);
+				}
+			);
 		}
 	});
 
-	function reload() {
-		$state.go('.',
-			{
-				page: vm.page.number,
-				size: vm.page.size,
-				sort: vm.sort.field + ',' + vm.sort.direction,
-				search: vm.search
-			}
-		);
-	}
+	vm.setSelected = function (division) {
+		vm.entity = division;
+	};
 
-	function clear() {
-		vm.page.number = 1;
-		vm.search = null;
-		vm.reload();
-	}
-
-	function getData() {
-		Division.query(
-			{
-				page: $stateParams.page - 1,
-				size: $stateParams.size,
-				sort: $stateParams.sort,
-				search: $stateParams.search
-			}, onSuccess, onError);
-
-		function onSuccess(data) {
-			vm.divisions = data.content;
-			vm.page = {
-				size: 				data.size,
-				number: 			$stateParams.page,
-				totalElements: 		data.totalElements,
-				numberOfElements: 	data.numberOfElements,
-				firstIndex:			data.size * data.number + 1,
-				lastIndex:			data.size * data.number + data.numberOfElements
-			};
-			var sort = $stateParams.sort.split(',');
-			vm.sort = {
-				field: sort[0],
-				direction: sort[1]
-			};
-			vm.search = $stateParams.search;
-		}
-
-		function onError(error) {
-			ToastService.Error(error.data.error);
-		}
-	}
-
-	function sortByField(field) {
-		if (vm.sort.field == field) {
-			vm.sort.direction = (vm.sort.direction == 'desc') ? 'asc' : 'desc';
-		} else {
-			vm.sort.field = field;
-			vm.sort.direction = 'asc';
-		}
-		vm.page.number = 1;
-		vm.reload();
-	}
-
-	function del(division) {
+	vm.delete = function () {
 		$uibModal
 			.open({
 				templateUrl: 'entities/division/delete-dialog.html',
 				controller: 'DivisionDeleteController',
 				controllerAs: 'vm',
 				size: 'md',
-				resolve: { division: division }
+				resolve: { division: vm.entity }
 			})
 			.result.then(
-				function () { vm.getData();	}
+				function () { reloadPage();	}
 			);
+	};
+
+	function reloadPage () {
+		vm.tp.reload().then(
+			function(data) {
+				if (data.length === 0 && vm.tp.total() > 0) {
+					vm.tp.page(vm.tp.page() - 1);
+					vm.tp.reload();
+				}
+			},
+			function (error) {
+				ToastService.Error(error.data.error);
+			}
+		);
 	}
 
-	function action(division) {
+	vm.action = function (data) {
 		$uibModal
 			.open({
 				templateUrl: 'entities/division/add-or-update-dialog.html',
 				controller: 'DivisionAddOrUpdateController',
 				controllerAs: 'vm',
 				size: 'md',
-				resolve: { division: division }
+				resolve: {
+					division: vm.entity,
+					isAdd : data
+				}
 			})
 			.result.then(
-				function () { vm.getData(); }
+				function () { reloadPage();	}
 			);
-	}
+	};
 });
 
 app.controller('DivisionDeleteController', function ($scope, $uibModalInstance,	division, Division,	ToastService,
@@ -136,17 +113,16 @@ app.controller('DivisionDeleteController', function ($scope, $uibModalInstance,	
 });
 
 app.controller('DivisionAddOrUpdateController', function ($scope, $uibModalInstance, division, Division, ToastService,
-														  UtilService, $filter) {
+														  UtilService, $filter, isAdd) {
 
 	var vm = this;
 	var $translate = $filter('translate');
 
 	/**
-	 *  If division is null - this is add operation
+	 *  If isAdd is true - this is add operation
 	 */
-	vm.isAdd = !division;
 
-	if (vm.isAdd) {
+	if (isAdd) {
 		vm.division = {enabled: true};
 		vm.concreteAction = add;
 		vm.successMessage = $translate('TEXT.added');

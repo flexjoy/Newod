@@ -10,7 +10,8 @@ var app = angular.module('App',
 		'angular-loading-bar',
 		'ngAnimate',
 		'ngSanitize',
-		'ngToast'
+		'ngToast',
+		'ngTable'
 	]
 );
 

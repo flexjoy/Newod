@@ -2,25 +2,9 @@
 
 app.factory('Division', function($resource) {
 
-	var resourceUrl = 'api/divisions/:id';
-	return	$resource(
-		resourceUrl,
+	return	$resource('api/divisions/:id', { id: '@id' },
 		{
-			id: '@_id'
-		},
-		{
-			query: 	{
-				method: 'GET',
-				isArray: false
-			},
-			update: {
-				method: 'PUT'
-			},
-			getAll: {
-				method: 'GET',
-				isArray: true,
-				url: 'api/divisions/all'
-			}
+			update: { method: 'PUT' }
 		}
 	);
 });

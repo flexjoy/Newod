@@ -5,11 +5,9 @@ import flexjoy.newod.repository.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author Sergey Cherepanov on 01.04.2016
@@ -22,19 +20,9 @@ public class DivisionController {
 	@Autowired
 	private DivisionRepository divisionRepository;
 
-	@RequestMapping(value = "/divisions/all", method = RequestMethod.GET)
-	public List<Division> findAll() {
-		Sort sort = new Sort(Sort.Direction.ASC, "name");
-		return  divisionRepository.findAll(sort);
-	}
-
 	@RequestMapping(value = "/divisions", method = RequestMethod.GET)
-	public Page<Division> findPage(Pageable pageable, @RequestParam String search) {
-		if (search.isEmpty()) {
-			return divisionRepository.findAll(pageable);
-		} else {
-			return divisionRepository.findByNameStartsWithIgnoreCase(search, pageable);
-		}
+	public Page<Division> findPage(Pageable pageable) {
+		return divisionRepository.findAll(pageable);
 	}
 
 	@RequestMapping(value = "/divisions", method = RequestMethod.POST)

@@ -121,6 +121,12 @@
 			<artifactId>ngtoast</artifactId>
 			<version>1.5.6</version>
 		</dependency>
+		<!--ngTable-->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>ng-table</artifactId>
+			<version>1.0.0-beta.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>

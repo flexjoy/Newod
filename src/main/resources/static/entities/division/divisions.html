@@ -1,51 +1,21 @@
-<div class="row">
-	<div class="col-xs-6">
-		<h2>{{'DIVISION.label.many' | translate}}</h2>
-	</div>
-
-	<div class="col-xs-6 text-right vertical-offset">
-		<newod-search-form></newod-search-form>
-	</div>
-</div>
+<h2>
+	{{'DIVISION.label.many' | translate}}
+	<newod-search-form></newod-search-form>
+</h2>
 <br>
-<table class="table table-striped" ng-cloak>
-	<thead>
-	<th>#</th>
-	<th>
-		<a href="" ng-click="vm.sortByField('name')">
-			{{'ENTITY_FIELD.name' | translate}}
-			<span  class="glyphicon"
-				   ng-if="vm.sort.field == 'name'"
-				   ng-class="vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'">
-			</span>
-		</a>
-	</th>
-	<th class="text-center">
-		<a href="" ng-click="vm.sortByField('enabled')">
-			{{'ENTITY_FIELD.enabled' | translate}}
-			<span class="glyphicon"
-				  ng-if="vm.sort.field == 'enabled'"
-				  ng-class="vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'">
-			</span>
-		</a>
-	</th>
-	<th></th>
-	</thead>
-	<tbody>
-	<tr ng-repeat="division in vm.divisions">
-		<td>{{$index + 1 + vm.page.size * (vm.page.number - 1)}}</td>
-		<td ng-bind="division.name"></td>
-		<td class="text-center">
-			<span ng-if="division.enabled" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-			<span ng-if="!division.enabled" class="label label-danger">
-				{{'TEXT.closed' | translate}}
-			</span>
+<table ng-table="vm.tp" class="table table-bordered" style="background: white">
+	<tr ng-repeat="division in $data"
+		ng-click="vm.setSelected(division)"
+		ng-class="{'alert-warning' : vm.entity.id == division.id}"
+		style="cursor: pointer">
+		<td width="10%" data-title="'#'">
+			{{vm.firstRow + $index}}
 		</td>
-		<td class="text-right">
-			<newod-action-buttons entity="division"></newod-action-buttons>
+		<td  width="70%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'">
+			{{division.name}}
+		</td>
+		<td align="center" data-title="'Enabled'" sortable="'enabled'">
+			{{division.enabled}}
 		</td>
 	</tr>
-	</tbody>
 </table>
-
-<newod-pagination></newod-pagination>
