@@ -4,7 +4,8 @@ app.service('ToastService', function (ngToast, $filter) {
 	var $translate = $filter('translate');
 
 	this.Success = function (msg) {
-		var message = '<strong>' + $translate('STATUS.success') + ': </strong>' + msg;
+		var message = '<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> <strong>' +
+			$translate('STATUS.success') + ': </strong>' + msg;
 		ngToast.create({
 			className: 'success',
 			content: message
@@ -12,7 +13,8 @@ app.service('ToastService', function (ngToast, $filter) {
 	};
 
 	this.Error = function (msg) {
-		var message = '<strong>' + $translate('STATUS.error') + ': </strong>' + msg;
+		var message = '<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> <strong>' +
+			$translate('STATUS.error') + ': </strong>' + msg;
 		ngToast.create({
 			className: 'danger',
 			content: message
