@@ -1,8 +1,13 @@
 'use strict';
 
 app.controller('DivisionController', function ($scope, $state, $stateParams, Division, $location, ToastService,
-											   $uibModal, ngTableParams) {
+											   $uibModal, ngTableParams, $filter) {
 	var vm = this;
+	var $translate = $filter('translate');
+	vm.enabled_select = [
+		{ id: "true", 	title: $translate('ENTITY_FIELD.enabled') },
+		{ id: "false", 	title: $translate('TEXT.closed') }
+	];
 
 	vm.tp = new ngTableParams({
 		page: 1,
@@ -21,6 +26,13 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 				size:	params.count(),
 				sort:	sort
 			};
+
+			var filterProp = Object.keys(params.filter());
+			if (filterProp.length > 0) {
+				filterProp.forEach(function (field) {
+					queryParams[field] = params.filter()[field];
+				})
+			}
 
 			return Division.get(queryParams).$promise.then(
 				function(data) {

@@ -3,7 +3,7 @@
 	<newod-search-form></newod-search-form>
 </h2>
 <br>
-<table ng-table="vm.tp" class="table table-bordered" style="background: white">
+<table ng-table="vm.tp" class="table table-bordered" show-filter="filter" style="background: white">
 	<tr ng-repeat="division in $data"
 		ng-click="vm.setSelected(division)"
 		ng-class="{'alert-warning' : vm.entity.id == division.id}"
@@ -11,10 +11,12 @@
 		<td width="10%" data-title="'#'">
 			{{vm.firstRow + $index}}
 		</td>
-		<td  width="70%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'">
+		<td  width="70%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'"
+			 filter="{name: 'text'}">
 			{{division.name}}
 		</td>
-		<td align="center" data-title="'Enabled'" sortable="'enabled'">
+		<td align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
+			filter="{enabled: 'select'}" filter-data="vm.enabled_select">
 			{{division.enabled}}
 		</td>
 	</tr>

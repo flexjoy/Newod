@@ -16,5 +16,15 @@
 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {{'ACTION.delete' | translate}}
 	</button>
 
+	<!--SHOW FILTER button-->
+	<button type="button" class="btn btn-info btn-sm" ng-click="vm.tp.filter({});filter = !filter">
+		<span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+	</button>
+
+	<!--CLEAR FILTER button-->
+	<button type="button" class="btn btn-info btn-sm" ng-click="vm.tp.filter({})" ng-show="filter">
+		<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+	</button>
+
 </div>
 
