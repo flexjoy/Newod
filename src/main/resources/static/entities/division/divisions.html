@@ -1,23 +1,32 @@
+<!--Header and action buttons-->
 <h2>
 	{{'DIVISION.label.many' | translate}}
-	<newod-table-action-buttons></newod-table-action-buttons>
+	<div class="pull-right">
+		<newod-table-action-buttons></newod-table-action-buttons>
+	</div>
 </h2>
 <br>
+
+<!--Entity table-->
 <table ng-table="vm.tp" class="table table-bordered entity-table" show-filter="showFilter"
 	   template-pagination="partials/ng-table/pager.html">
 	<tr	ng-repeat="division in $data" ng-click="vm.setSelected(division)"
 		ng-class="{'alert-warning' : vm.entity.id == division.id}">
+
 		<td width="10%" data-title="'#'">
 			{{vm.firstRow + $index}}
 		</td>
+
 		<td  width="70%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'"
 			 filter="{name: 'text'}">
 			{{division.name}}
 		</td>
+
 		<td align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
 			filter="{enabled: 'select'}" filter-data="vm.enabled_select">
 			<span aria-hidden="true" class="glyphicon glyphicon-ok text-success" ng-if="division.enabled"></span>
 			<span ng-if="!division.enabled" class="label label-danger">{{'TEXT.closed' | translate}}</span>
 		</td>
+
 	</tr>
 </table>

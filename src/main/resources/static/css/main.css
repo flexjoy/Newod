@@ -6,19 +6,6 @@ body > .container {
 	padding-right: 15px;
 }
 
-.item-count {
-	line-height: 5.5em;
-}
-
-.vertical-align {
-	display: flex;
-	align-items: center;
-}
-
-.vertical-offset {
-	margin-top: 1.5em;
-}
-
 .form-error {
 	margin-bottom: 0;
 	margin-top: 10px;

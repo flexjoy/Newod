@@ -1,22 +1,13 @@
 'use strict';
 
-app.controller('DivisionController', function ($scope, $state, $stateParams, Division, $location, ToastService,
-											   $uibModal, ngTableParams, $filter) {
+app.controller('DivisionController', function ($scope, Division, ToastService, $uibModal, ngTableParams,
+											   ngTableService) {
 	var vm = this;
-	var $translate = $filter('translate');
-	vm.enabled_select = [
-		{ id: "true", 	title: $translate('ENTITY_FIELD.enabled') },
-		{ id: "false", 	title: $translate('TEXT.closed') }
-	];
-
-	//$scope.showFilter = false;
-	vm.toggleFilter = function () {
-		//$scope.showFilter = !$scope.showFilter;
-		console.log($scope.showFilter);
-		if (!$scope.showFilter && Object.keys(vm.tp.filter()).length > 0) {
-			vm.tp.filter({});
-		}
-	}
+	vm.enabled_select = ngTableService.GetEnabledSelect();
+	vm.toggleFilter = toggleFilter;
+	vm.setSelected = setSelected;
+	vm.delete = del;
+	vm.action = action;
 
 	vm.tp = new ngTableParams({
 		page: 1,
@@ -27,8 +18,10 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 		filterOptions: { filterDelay: 0 },
 		getData: function(params) {
 
+			// reset selected entity
 			vm.entity = null;
 
+			// convert ngTable params to backend pagable params
 			var sortingProp = Object.keys(params.sorting());
 			var sort = sortingProp[0] + ',' + params.sorting()[sortingProp[0]];
 			var queryParams = {
@@ -57,67 +50,64 @@ app.controller('DivisionController', function ($scope, $state, $stateParams, Div
 		}
 	});
 
-	vm.setSelected = function (division) {
-		vm.entity = division;
-	};
+	// clear filter if user off the filter and filter value is not empty
+	function toggleFilter () {
+		var filterProp = Object.keys(vm.tp.filter());
+		if (!$scope.showFilter && filterProp.length > 0) {
+			vm.tp.filter({});
+		}
+	}
 
-	vm.delete = function () {
-		$uibModal
-			.open({
-				templateUrl: 'entities/division/delete-dialog.html',
-				controller: 'DivisionDeleteController',
-				controllerAs: 'vm',
-				size: 'md',
-				resolve: { division: vm.entity }
-			})
-			.result.then(
-				function () { reloadPage();	}
-			);
-	};
+	// store selected entity for CRUD actions
+	function setSelected (entity) {
+		vm.entity = entity;
+	}
 
-	function reloadPage () {
-		vm.tp.reload().then(
-			function(data) {
-				if (data.length === 0 && vm.tp.total() > 0) {
-					vm.tp.page(vm.tp.page() - 1);
-					vm.tp.reload();
-				}
-			},
-			function (error) {
-				ToastService.Error(error.data.error);
+	// delete entity dialog
+	function del (entity) {
+		$uibModal.open({
+			templateUrl: 'entities/division/delete-dialog.html',
+			controller: 'DivisionDeleteController',
+			controllerAs: 'vm',
+			size: 'md',
+			resolve: { division: entity }
+		})
+		.result.then(
+			function () {
+				ngTableService.ReloadPage(vm.tp);
 			}
 		);
 	}
 
-	vm.action = function (data) {
-		$uibModal
-			.open({
-				templateUrl: 'entities/division/add-or-update-dialog.html',
-				controller: 'DivisionAddOrUpdateController',
-				controllerAs: 'vm',
-				size: 'md',
-				resolve: {
-					division: vm.entity,
-					isAdd : data
-				}
-			})
-			.result.then(
-				function () { reloadPage();	}
-			);
-	};
+	// add or update entity dialog
+	function action (entity) {
+		$uibModal.open({
+			templateUrl: 'entities/division/action-dialog.html',
+			controller: 'DivisionActionController',
+			controllerAs: 'vm',
+			size: 'md',
+			resolve: { division: entity	}
+		})
+		.result.then(
+			function () {
+				ngTableService.ReloadPage(vm.tp);
+			}
+		);
+	}
 });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.controller('DivisionDeleteController', function ($scope, $uibModalInstance,	division, Division,	ToastService,
 													 $filter) {
-
 	var vm = this;
 	var $translate = $filter('translate');
 	vm.division = division;
 	vm.delete = del;
 	vm.cancel = cancel;
 
+	// delete division
 	function del() {
-		Division.delete({id: division.id}, onSuccess, onError);
+		Division.delete({ id: division.id }, onSuccess, onError);
 
 		function onSuccess() {
 			ToastService.Success($translate('TEXT.deleted'));
@@ -133,18 +123,15 @@ app.controller('DivisionDeleteController', function ($scope, $uibModalInstance,	
 		$uibModalInstance.dismiss('cancel');
 	}
 });
-
-app.controller('DivisionAddOrUpdateController', function ($scope, $uibModalInstance, division, Division, ToastService,
-														  UtilService, $filter, isAdd) {
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.controller('DivisionActionController', function ($scope, $uibModalInstance, division, Division, ToastService,
+														  UtilService, $filter) {
 	var vm = this;
 	var $translate = $filter('translate');
 
-	/**
-	 *  If isAdd is true - this is add operation
-	 */
-
-	if (isAdd) {
+	// if division is null - this is add operation
+	var isAddOperation = !division;
+	if (isAddOperation) {
 		vm.division = {enabled: true};
 		vm.concreteAction = add;
 		vm.successMessage = $translate('TEXT.added');
@@ -159,12 +146,14 @@ app.controller('DivisionAddOrUpdateController', function ($scope, $uibModalInsta
 	vm.action = action;
 	vm.cancel = cancel;
 
+	// add new division
 	function add() {
 		Division.save(vm.division, onSuccess, onError);
 	}
 
+	// update division
 	function update() {
-		Division.update({id: vm.division.id}, vm.division, onSuccess, onError);
+		Division.update({ id: vm.division.id }, vm.division, onSuccess, onError);
 	}
 
 	function onSuccess() {
@@ -174,9 +163,7 @@ app.controller('DivisionAddOrUpdateController', function ($scope, $uibModalInsta
 
 	function onError(error) {
 		if (error.data.status == 400) {
-			/** HTTP status 400 - validation error.
-			 *  We set server side errors to form fields:
-			 */
+			// HTTP status 400 - validation error. We set server side errors to form fields:
 			$scope.errors = UtilService.SetServerErrors($scope.updateForm, error.data.errors);
 		} else {
 			ToastService.Error(error.data.error);
