@@ -4,9 +4,23 @@ app.config(function ($stateProvider) {
 
 	$stateProvider
 		.state('divisions', {
-			url: "/divisions?page&size&sort",
+			url: "/divisions?page&size&sort&name&enabled",
 			templateUrl: "entities/division/divisions.html",
 			controller: 'DivisionController',
-			controllerAs: 'vm'
+			controllerAs: 'vm',
+			params: {
+				page: {
+					value: '1',
+					squash: true
+				},
+				size: {
+					value: '10',
+					squash: true
+				},
+				sort: {
+					value: 'name,asc',
+					squash: true
+				}
+			}
 		})
 });

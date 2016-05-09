@@ -68,4 +68,54 @@ app.service('ngTableService', function ($filter, ToastService) {
 			}
 		);
 	};
+
+	// convert state params from path to ngTable params
+	this.StateParamsToParameters = function (stateParams) {
+		var result = {};
+		var filter = {};
+		var params = Object.keys(stateParams);
+		params.forEach(function (key) {
+			switch (key) {
+				case 'page':
+					result.page = stateParams.page;
+					break;
+				case 'size':
+					result.count = stateParams.size;
+					break;
+				case 'sort':
+					var sort = stateParams.sort.split(',');
+					var sorting = {};
+					sorting[sort[0]] = sort[1];
+					result.sorting = sorting;
+					break;
+				default:
+					if (stateParams[key]) {
+						filter[key] = stateParams[key];
+					}
+			}
+		});
+		if (Object.keys(filter).length > 0) {
+			result.filter = filter;
+		}
+		return result;
+	};
+
+	// convert ngTable params to state params
+	this.ParametersToStateParams = function (params) {
+		var sortingProp = Object.keys(params.sorting());
+		var sort = sortingProp[0] + ',' + params.sorting()[sortingProp[0]];
+		var queryParams = {
+			page:	params.page() - 1,
+			size:	params.count(),
+			sort:	sort
+		};
+
+		var filterProp = Object.keys(params.filter());
+		if (filterProp.length > 0) {
+			filterProp.forEach(function (field) {
+				queryParams[field] = params.filter()[field];
+			})
+		}
+		return queryParams;
+	};
 });

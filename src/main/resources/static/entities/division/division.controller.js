@@ -1,19 +1,21 @@
 'use strict';
 
 app.controller('DivisionController', function ($scope, Division, ToastService, $uibModal, ngTableParams,
-											   ngTableService) {
+											   ngTableService, $state) {
 	var vm = this;
 	vm.enabled_select = ngTableService.GetEnabledSelect();
 	vm.toggleFilter = toggleFilter;
 	vm.setSelected = setSelected;
 	vm.delete = del;
 	vm.action = action;
+	var initParams = ngTableService.StateParamsToParameters($state.params);
+	if (initParams.filter) {
+		$scope.showFilter = true;
+	} else {
 
-	vm.tp = new ngTableParams({
-		page: 1,
-		count: 10,
-		sorting: { name: 'asc' }
-	}, {
+	}
+
+	vm.tp = new ngTableParams( initParams, {
 		counts: [10,15,25,50],
 		filterOptions: { filterDelay: 0 },
 		getData: function(params) {
@@ -21,26 +23,14 @@ app.controller('DivisionController', function ($scope, Division, ToastService, $
 			// reset selected entity
 			vm.entity = null;
 
-			// convert ngTable params to backend pagable params
-			var sortingProp = Object.keys(params.sorting());
-			var sort = sortingProp[0] + ',' + params.sorting()[sortingProp[0]];
-			var queryParams = {
-				page:	params.page() - 1,
-				size:	params.count(),
-				sort:	sort
-			};
-
-			var filterProp = Object.keys(params.filter());
-			if (filterProp.length > 0) {
-				filterProp.forEach(function (field) {
-					queryParams[field] = params.filter()[field];
-				})
-			}
+			var queryParams = ngTableService.ParametersToStateParams(params);
 
 			return Division.get(queryParams).$promise.then(
 				function(data) {
 					params.total(data.totalElements);
 					vm.firstRow = (params.page() - 1) * params.count() + 1;
+					queryParams.page++;
+					$state.go('.', queryParams, { notify: false });
 					return data.content;
 				},
 				function (error) {
