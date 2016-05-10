@@ -17,15 +17,15 @@ import static org.hamcrest.Matchers.*;
  * @author Sergey Cherepanov on 01.04.2016
  */
 
-public class DivisionRestControllerTest extends AbstractRestControllerTest {
+public class DivisionControllerTest extends AbstractRestControllerTest {
 
-	private static final String FIRST_ITEM_NAME = "FIRST_ITEM_NAME";
-	private static final String SECOND_ITEM_NAME = "SECOND_ITEM_NAME";
-	private static final String THIRD_ITEM_NAME = "THIRD_ITEM_NAME";
+	private static final String FIRST_ITEM_NAME = "first";
+	private static final String SECOND_ITEM_NAME = "second";
+	private static final String THIRD_ITEM_NAME = "third";
 	private static final boolean THIRD_ITEM_ENABLED = false;
 
 	@Autowired
-	private DivisionRepository repo;
+	private DivisionRepository divisionRepository;
 	private Division firstItem = new Division(FIRST_ITEM_NAME);
 	private Division secondItem = new Division(SECOND_ITEM_NAME);
 	private Division thirdItem = new Division(THIRD_ITEM_NAME);
@@ -34,19 +34,29 @@ public class DivisionRestControllerTest extends AbstractRestControllerTest {
 	public void setUp() {
 		super.setUp();
 
-		repo.deleteAll();
-		repo.save(firstItem);
-		repo.save(secondItem);
+		divisionRepository.deleteAll();
+		divisionRepository.save(firstItem);
+		divisionRepository.save(secondItem);
 	}
 
 	@Test
 	public void findAll() throws Exception {
 		when().
-				get("/division").
+				get("/api/divisions/all").
 		then().
 				statusCode(HttpStatus.SC_OK).
 				body("id", hasSize(2)).
 				body("name", hasItems(FIRST_ITEM_NAME, SECOND_ITEM_NAME));
+	}
+
+	@Test
+	public void findPage() throws Exception {
+		when().
+				get("/api/divisions").
+		then().
+				statusCode(HttpStatus.SC_OK).
+				body("content.id", hasSize(2)).
+				body("content.name", hasItems(FIRST_ITEM_NAME, SECOND_ITEM_NAME));
 	}
 
 	@Test
@@ -55,10 +65,22 @@ public class DivisionRestControllerTest extends AbstractRestControllerTest {
 				body(thirdItem).
 				contentType(ContentType.JSON).
 		when().
-				post("/division").
+				post("/api/divisions").
 		then().
 				statusCode(HttpStatus.SC_OK).
 				body("name", equalTo(THIRD_ITEM_NAME)).
+				body("enabled", equalTo(true));
+	}
+
+	@Test
+	public void findOne() throws Exception {
+		given().
+				pathParam("id", firstItem.getId()).
+		when().
+				get("/api/divisions/{id}").
+		then().
+				statusCode(HttpStatus.SC_OK).
+				body("name", equalTo(FIRST_ITEM_NAME)).
 				body("enabled", equalTo(true));
 	}
 
@@ -68,14 +90,24 @@ public class DivisionRestControllerTest extends AbstractRestControllerTest {
 		firstItem.setEnabled(THIRD_ITEM_ENABLED);
 
 		given().
-				queryParam("id", firstItem.getId()).
+				pathParam("id", firstItem.getId()).
 				body(firstItem).
 				contentType(ContentType.JSON).
 		when().
-				post("/division").
+				put("/api/divisions/{id}").
 		then().
 				statusCode(HttpStatus.SC_OK).
 				body("name", equalTo(THIRD_ITEM_NAME)).
 				body("enabled", equalTo(THIRD_ITEM_ENABLED));
+	}
+
+	@Test
+	public void delete() throws Exception {
+		given().
+				pathParam("id", firstItem.getId()).
+		when().
+				delete("/api/divisions/{id}").
+		then().
+				statusCode(HttpStatus.SC_OK);
 	}
 }
