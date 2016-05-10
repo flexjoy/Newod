@@ -119,9 +119,10 @@ app.controller('DivisionDeleteController', function ($scope, $uibModalInstance,	
 		$uibModalInstance.dismiss('cancel');
 	}
 });
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.controller('DivisionActionController', function ($scope, $uibModalInstance, division, Division, ToastService,
-														  UtilService, $filter) {
+													 UtilService, $filter) {
 	var vm = this;
 	var $translate = $filter('translate');
 
