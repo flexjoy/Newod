@@ -69,7 +69,7 @@ app.service('ngTableService', function ($filter, ToastService) {
 		);
 	};
 
-	// convert state params from path to ngTable params
+	// convert $state.params from path to ngTable params
 	this.StateParamsToParameters = function (stateParams) {
 		var result = {};
 		var filter = {};
@@ -100,7 +100,7 @@ app.service('ngTableService', function ($filter, ToastService) {
 		return result;
 	};
 
-	// convert ngTable params to state params
+	// convert ngTable params to $state.params
 	this.ParametersToStateParams = function (params) {
 		var sortingProp = Object.keys(params.sorting());
 		var sort = sortingProp[0] + ',' + params.sorting()[sortingProp[0]];

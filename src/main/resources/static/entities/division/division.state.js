@@ -21,6 +21,13 @@ app.config(function ($stateProvider) {
 					value: 'name,asc',
 					squash: true
 				}
+			},
+			resolve : {
+
+				// convert $state.params from path to ngTable initial params
+				initParams: function (ngTableService, $stateParams) {
+					return ngTableService.StateParamsToParameters($stateParams);
+				}
 			}
 		})
 });

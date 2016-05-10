@@ -1,18 +1,17 @@
 'use strict';
 
 app.controller('DivisionController', function ($scope, Division, ToastService, $uibModal, ngTableParams,
-											   ngTableService, $state) {
+											   ngTableService, $state, initParams) {
 	var vm = this;
 	vm.enabled_select = ngTableService.GetEnabledSelect();
 	vm.toggleFilter = toggleFilter;
 	vm.setSelected = setSelected;
 	vm.delete = del;
 	vm.action = action;
-	var initParams = ngTableService.StateParamsToParameters($state.params);
+
+	// show filter row if filter parameters are present
 	if (initParams.filter) {
 		$scope.showFilter = true;
-	} else {
-
 	}
 
 	vm.tp = new ngTableParams( initParams, {
@@ -23,14 +22,21 @@ app.controller('DivisionController', function ($scope, Division, ToastService, $
 			// reset selected entity
 			vm.entity = null;
 
-			var queryParams = ngTableService.ParametersToStateParams(params);
+			// clear $state.params
+			var stateParams = Object.keys($state.params);
+			stateParams.forEach(function (key) {
+				$state.params[key] = undefined;
+			});
 
-			return Division.get(queryParams).$promise.then(
+			//convert ngTable params to $state.params
+			$state.params = angular.extend($state.params, ngTableService.ParametersToStateParams(params));
+
+			return Division.get($state.params).$promise.then(
 				function(data) {
 					params.total(data.totalElements);
 					vm.firstRow = (params.page() - 1) * params.count() + 1;
-					queryParams.page++;
-					$state.go('.', queryParams, { notify: false });
+					$state.params.page++;
+					$state.go('.', $state.params, { notify: false });
 					return data.content;
 				},
 				function (error) {
