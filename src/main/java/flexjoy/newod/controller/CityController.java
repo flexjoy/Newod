@@ -30,7 +30,7 @@ public class CityController {
 			@Spec(path = "name", spec = Like.class),
 			@Spec(path = "enabled", spec = Equal.class),
 			@Spec(path = "division.id", params = "division", spec = Equal.class)}) Specification spec) {
-			return cityRepository.findAll(spec, pageable);
+		return cityRepository.findAll(spec, pageable);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
