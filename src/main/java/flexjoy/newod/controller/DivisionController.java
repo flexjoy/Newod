@@ -19,35 +19,35 @@ import javax.validation.Valid;
  */
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/divisions")
 public class DivisionController {
 
 	@Autowired
 	private DivisionRepository divisionRepository;
 
-	@RequestMapping(value = "/divisions", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public Page<Division> findPage(Pageable pageable, @And({
 			@Spec(path = "name", spec = Like.class),
 			@Spec(path = "enabled", spec = Equal.class)}) Specification spec) {
 		return divisionRepository.findAll(spec, pageable);
 	}
 
-	@RequestMapping(value = "/divisions", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public Division add(@Valid @RequestBody Division division) {
 		return divisionRepository.save(division);
 	}
 
-	@RequestMapping(value = "/divisions/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Division findOne(@PathVariable("id") int id) {
 		return divisionRepository.findOne(id);
 	}
 
-	@RequestMapping(value = "/divisions/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public Division update(@PathVariable("id") int id, @Valid @RequestBody Division division) {
 		return divisionRepository.save(division);
 	}
 
-	@RequestMapping(value = "/divisions/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") int id) {
 		divisionRepository.delete(id);
 	}
