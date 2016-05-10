@@ -2,9 +2,14 @@ package flexjoy.newod.controller;
 
 import flexjoy.newod.domain.City;
 import flexjoy.newod.repository.CityRepository;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
+import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,37 +19,36 @@ import javax.validation.Valid;
  */
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/cities")
 public class CityController {
 
 	@Autowired
 	private CityRepository cityRepository;
 
-	@RequestMapping(value = "/cities", method = RequestMethod.GET)
-	public Page<City> findPage(Pageable pageable, @RequestParam String search) {
-		if (search.isEmpty()) {
-			return cityRepository.findAll(pageable);
-		} else {
-			return cityRepository.findByNameStartsWithIgnoreCase(search, pageable);
-		}
+	@RequestMapping(method = RequestMethod.GET)
+	public Page<City> findPage(Pageable pageable, @And({
+			@Spec(path = "name", spec = Like.class),
+			@Spec(path = "enabled", spec = Equal.class),
+			@Spec(path = "division.id", params = "division", spec = Equal.class)}) Specification spec) {
+			return cityRepository.findAll(spec, pageable);
 	}
 
-	@RequestMapping(value = "/cities", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public City add(@Valid @RequestBody City city) {
 		return cityRepository.save(city);
 	}
 
-	@RequestMapping(value = "/cities/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public City findOne(@PathVariable("id") int id) {
 		return cityRepository.findOne(id);
 	}
 
-	@RequestMapping(value = "/cities/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public City update(@PathVariable("id") int id, @Valid @RequestBody City city) {
 		return cityRepository.save(city);
 	}
 
-	@RequestMapping(value = "/cities/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") int id) {
 		cityRepository.delete(id);
 	}

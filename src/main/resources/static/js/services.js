@@ -25,6 +25,7 @@ app.service('ToastService', function (ngToast, $filter) {
 	};
 });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.service('UtilService', function () {
 
 	// show server side validation errors in the form
@@ -43,7 +44,8 @@ app.service('UtilService', function () {
 	};
 });
 
-app.service('ngTableService', function ($filter, ToastService) {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.service('ngTableService', function ($filter, ToastService, Division) {
 	var $translate = $filter('translate');
 
 	// return select array for `enabled` entity table field
@@ -52,6 +54,21 @@ app.service('ngTableService', function ($filter, ToastService) {
 			{ id: "true", 	title: $translate('ENTITY_FIELD.enabled') },
 			{ id: "false", 	title: $translate('TEXT.closed') }
 		];
+	};
+
+	// return select array for `division` entity table field
+	this.GetDivisionSelect = function () {
+		var divisionSelect = [];
+		var divisions = Division.getAll(function () {
+			divisions.forEach(function (division) {
+				var entry = {
+					id: 	division.id.toString(),
+					title: 	division.name
+				};
+				divisionSelect.push(entry);
+			});
+		});
+		return divisionSelect;
 	};
 
 	// reload ngTable page

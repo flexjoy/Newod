@@ -1,61 +1,37 @@
-<div class="row">
-	<div class="col-xs-6">
-		<h2>{{'CITY.label.many' | translate}}</h2>
+<!--Header and action buttons-->
+<h2>
+	{{'CITY.label.many' | translate}}
+	<div class="pull-right">
+		<newod-table-action-buttons></newod-table-action-buttons>
 	</div>
-
-	<div class="col-xs-6 text-right vertical-offset">
-		<newod-search-form></newod-search-form>
-	</div>
-</div>
+</h2>
 <br>
-<table class="table table-striped" ng-cloak>
-	<thead>
-	<th>#</th>
-	<th>
-		<a href="" ng-click="vm.sortByField('name')">
-			{{'ENTITY_FIELD.name' | translate}}
-			<span  class="glyphicon"
-				   ng-if="vm.sort.field == 'name'"
-				   ng-class="vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'">
-			</span>
-		</a>
-	</th>
-	<th class="text-center">
-		<a href="" ng-click="vm.sortByField('enabled')">
-			{{'ENTITY_FIELD.enabled' | translate}}
-			<span class="glyphicon"
-				  ng-if="vm.sort.field == 'enabled'"
-				  ng-class="vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'">
-			</span>
-		</a>
-	</th>
-	<th>
-		<a href="" ng-click="vm.sortByField('division')">
-			{{'DIVISION.label.one' | translate}}
-			<span class="glyphicon"
-				  ng-if="vm.sort.field == 'division'"
-				  ng-class="vm.sort.direction == 'asc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'">
-			</span>
-		</a>
-	</th>
-	<th></th>
-	</thead>
-	<tbody>
-	<tr ng-repeat="city in vm.cities">
-		<td>{{$index + 1 + vm.page.size * (vm.page.number - 1)}}</td>
-		<td ng-bind="city.name"></td>
-		<td class="text-center">
-			<span ng-if="city.enabled" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-			<span ng-if="!city.enabled" class="label label-danger">
-				{{'TEXT.closed' | translate}}
-			</span>
-		</td>
-		<td ng-bind="city.division.name"></td>
-		<td class="text-right">
-			<newod-action-buttons entity="city"></newod-action-buttons>
-		</td>
-	</tr>
-	</tbody>
-</table>
 
-<newod-pagination></newod-pagination>
+<!--Entity table-->
+<table ng-table="vm.tp" class="table table-bordered entity-table" show-filter="showFilter"
+	   template-pagination="partials/ng-table/pager.html">
+	<tr	ng-repeat="city in $data" ng-click="vm.setSelected(city)"
+		   ng-class="{'alert-warning' : vm.entity.id == city.id}">
+
+		<td width="10%" data-title="'#'">
+			{{vm.firstRow + $index}}
+		</td>
+
+		<td  width="40%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'"
+			 filter="{name: 'text'}">
+			{{city.name}}
+		</td>
+
+		<td width="12%" align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
+			filter="{enabled: 'select'}" filter-data="vm.enabled_select">
+			<span aria-hidden="true" class="glyphicon glyphicon-ok text-success" ng-if="city.enabled"></span>
+			<span ng-if="!city.enabled" class="label label-danger">{{'TEXT.closed' | translate}}</span>
+		</td>
+
+		<td data-title="'DIVISION.label.one' | translate" sortable="'division'"
+			filter="{division: 'select'}" filter-data="vm.division_select">
+			{{city.division.name}}
+		</td>
+
+	</tr>
+</table>

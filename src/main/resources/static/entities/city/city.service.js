@@ -2,20 +2,9 @@
 
 app.factory('City', function($resource) {
 
-	var resourceUrl = 'api/cities/:id';
-	return	$resource(
-		resourceUrl,
+	return	$resource('api/cities/:id',	{ id: '@id'	},
 		{
-			id: '@_id'
-		},
-		{
-			query: 	{
-				method: 'GET',
-				isArray: false
-			},
-			update: {
-				method: 'PUT'
-			}
+			update: { method: 'PUT'	}
 		}
 	);
 });

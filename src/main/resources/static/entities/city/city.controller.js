@@ -1,124 +1,111 @@
 'use strict';
 
-app.controller('CityController', function ($scope, $state, $stateParams, City, Division, $location, ToastService,
-										   $uibModal, $http) {
-
+app.controller('CityController', function ($scope, City, Division, ToastService, $uibModal, ngTableParams,
+										   ngTableService, $state, initParams) {
 	var vm = this;
-	vm.sizeArray = [10, 20, 30, 50];
-	vm.reload = reload;
-	vm.getData = getData;
-	vm.sortByField = sortByField;
+	vm.enabled_select = ngTableService.GetEnabledSelect();
+	vm.division_select = ngTableService.GetDivisionSelect();
+	vm.toggleFilter = toggleFilter;
+	vm.setSelected = setSelected;
 	vm.delete = del;
 	vm.action = action;
-	vm.clear = clear;
-	vm.getData();
 
-	$scope.$on('$locationChangeSuccess', function() {
-		if ($location.path() == '/cities') {
-			vm.getData();
+	// show filter row if filter parameters are present
+	if (initParams.filter) {
+		$scope.showFilter = true;
+	}
+
+	vm.tp = new ngTableParams( initParams, {
+		counts: [10,15,25,50],
+		filterOptions: { filterDelay: 0 },
+		getData: function(params) {
+
+			// reset selected entity
+			vm.entity = null;
+
+			// clear $state.params
+			var stateParams = Object.keys($state.params);
+			stateParams.forEach(function (key) {
+				$state.params[key] = undefined;
+			});
+
+			//convert ngTable params to $state.params
+			$state.params = angular.extend($state.params, ngTableService.ParametersToStateParams(params));
+
+			return City.get($state.params).$promise.then(
+				function(data) {
+					params.total(data.totalElements);
+					vm.firstRow = (params.page() - 1) * params.count() + 1;
+					$state.params.page++;
+					$state.go('.', $state.params, { notify: false });
+					return data.content;
+				},
+				function (error) {
+					ToastService.Error(error.data.error);
+				}
+			);
 		}
 	});
 
-	function reload() {
-		$state.go('.',
-			{
-				page: vm.page.number,
-				size: vm.page.size,
-				sort: vm.sort.field + ',' + vm.sort.direction,
-				search: vm.search
+	// clear filter if user off the filter and filter value is not empty
+	function toggleFilter () {
+		var filterProp = Object.keys(vm.tp.filter());
+		if (!$scope.showFilter && filterProp.length > 0) {
+			vm.tp.filter({});
+		}
+	}
+
+	// store selected entity for CRUD actions
+	function setSelected (entity) {
+		vm.entity = entity;
+	}
+
+	// delete entity dialog
+	function del (entity) {
+		$uibModal.open({
+			templateUrl: 'partials/delete-dialog.html',
+			controller: 'CityDeleteController',
+			controllerAs: 'vm',
+			size: 'md',
+			resolve: { city: entity	}
+		})
+		.result.then(
+			function () {
+				ngTableService.ReloadPage(vm.tp);
 			}
 		);
 	}
 
-	function clear() {
-		vm.page.number = 1;
-		vm.search = null;
-		vm.reload();
-	}
-
-	function getData() {
-		City.query(
-			{
-				page: $stateParams.page - 1,
-				size: $stateParams.size,
-				sort: $stateParams.sort,
-				search: $stateParams.search
-			}, onSuccess, onError);
-
-		function onSuccess(data) {
-			vm.cities = data.content;
-			vm.page = {
-				size: 				data.size,
-				number: 			$stateParams.page,
-				totalElements: 		data.totalElements,
-				numberOfElements: 	data.numberOfElements,
-				firstIndex:			data.size * data.number + 1,
-				lastIndex:			data.size * data.number + data.numberOfElements
-			};
-			var sort = $stateParams.sort.split(',');
-			vm.sort = {
-				field: sort[0],
-				direction: sort[1]
-			};
-			vm.search = $stateParams.search;
-		}
-
-		function onError(error) {
-			ToastService.Error(error.data.error);
-		}
-	}
-
-	function sortByField(field) {
-		if (vm.sort.field == field) {
-			vm.sort.direction = (vm.sort.direction == 'desc') ? 'asc' : 'desc';
-		} else {
-			vm.sort.field = field;
-			vm.sort.direction = 'asc';
-		}
-		vm.page.number = 1;
-		vm.reload();
-	}
-
-	function del(city) {
-		$uibModal
-			.open({
-				templateUrl: 'entities/city/delete-dialog.html',
-				controller: 'CityDeleteController',
-				controllerAs: 'vm',
-				size: 'md',
-				resolve: { city: city }
-			})
-			.result.then(
-			function () { vm.getData();	}
-		);
-	}
-
-	function action(city) {
-		$uibModal
-			.open({
-				templateUrl: 'entities/city/add-or-update-dialog.html',
-				controller: 'CityAddOrUpdateController',
-				controllerAs: 'vm',
-				size: 'md',
-				resolve: {
-					city: city,
-					divisions: Division.getAll().$promise
-				}
-			})
-			.result.then(
-			function () { vm.getData(); }
+	// add or update entity dialog
+	function action (entity) {
+		$uibModal.open({
+			templateUrl: 'entities/city/action-dialog.html',
+			controller: 'CityActionController',
+			controllerAs: 'vm',
+			size: 'md',
+			resolve: {
+				city: entity,
+				divisions: Division.getAll().$promise
+			}
+		})
+		.result.then(
+			function () {
+				ngTableService.ReloadPage(vm.tp);
+			}
 		);
 	}
 });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.controller('CityDeleteController', function ($scope, $uibModalInstance,	city, City,	ToastService, $filter) {
 
 	var vm = this;
 	var $translate = $filter('translate');
-	vm.city = city;
+	vm.entityLabel = city.name;
 	vm.delete = del;
 	vm.cancel = cancel;
 
+	// delete city
 	function del() {
 		City.delete({id: city.id}, onSuccess, onError);
 
@@ -137,19 +124,16 @@ app.controller('CityDeleteController', function ($scope, $uibModalInstance,	city
 	}
 });
 
-app.controller('CityAddOrUpdateController', function ($scope, $uibModalInstance, city, divisions, City, ToastService,
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.controller('CityActionController', function ($scope, $uibModalInstance, city, divisions, City, ToastService,
 													  UtilService, $filter) {
-
 	var vm = this;
 	var $translate = $filter('translate');
 	vm.divisions = divisions;
 
-	/**
-	 *  If city is null - this is add operation
-	 */
-	vm.isAdd = !city;
-
-	if (vm.isAdd) {
+	// if city is null - this is add operation
+	var isAddOperation = !city;
+	if (isAddOperation) {
 		vm.city = {enabled: true, division: vm.divisions[0]};
 		vm.concreteAction = add;
 		vm.successMessage = $translate('TEXT.added');
@@ -169,7 +153,7 @@ app.controller('CityAddOrUpdateController', function ($scope, $uibModalInstance,
 	}
 
 	function update() {
-		City.update({id: vm.city.id}, vm.city, onSuccess, onError);
+		City.update({ id: vm.city.id }, vm.city, onSuccess, onError);
 	}
 
 	function onSuccess() {
@@ -179,9 +163,7 @@ app.controller('CityAddOrUpdateController', function ($scope, $uibModalInstance,
 
 	function onError(error) {
 		if (error.data.status == 400) {
-			/** HTTP status 400 - validation error.
-			 *  We set server side errors to form fields:
-			 */
+			// HTTP status 400 - validation error. We set server side errors to form fields:
 			$scope.errors = UtilService.SetServerErrors($scope.updateForm, error.data.errors);
 		} else {
 			ToastService.Error(error.data.error);

@@ -4,7 +4,7 @@ app.config(function ($stateProvider) {
 
 	$stateProvider
 		.state('cities', {
-			url: "/cities?page&size&sort&search",
+			url: "/cities?page&size&sort&name&enabled&division",
 			templateUrl: "entities/city/cities.html",
 			controller: 'CityController',
 			controllerAs: 'vm',
@@ -20,12 +20,14 @@ app.config(function ($stateProvider) {
 				sort: {
 					value: 'name,asc',
 					squash: true
-				},
-				search: {
-					value: '',
-					squash: true
 				}
 			},
-			reloadOnSearch: false
+			resolve : {
+
+				// convert $state.params from path to ngTable initial params
+				initParams: function (ngTableService, $stateParams) {
+					return ngTableService.StateParamsToParameters($stateParams);
+				}
+			}
 		})
 });
