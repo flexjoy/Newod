@@ -62,7 +62,7 @@ app.controller('DivisionController', function ($scope, Division, ToastService, $
 	// delete entity dialog
 	function del (entity) {
 		$uibModal.open({
-			templateUrl: 'entities/division/delete-dialog.html',
+			templateUrl: 'partials/delete-dialog.html',
 			controller: 'DivisionDeleteController',
 			controllerAs: 'vm',
 			size: 'md',
@@ -97,7 +97,7 @@ app.controller('DivisionDeleteController', function ($scope, $uibModalInstance,	
 													 $filter) {
 	var vm = this;
 	var $translate = $filter('translate');
-	vm.division = division;
+	vm.entityLabel = division.name;
 	vm.delete = del;
 	vm.cancel = cancel;
 
