@@ -45,6 +45,7 @@
   },
 
   "TEXT": {
+    "actions": "Actions",
     "closed": "Closed",
     "showing": "Showing ",
     "from": " of ",
