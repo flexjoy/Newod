@@ -9,10 +9,12 @@ import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author Sergey Cherepanov on 01.05.2016.
@@ -24,6 +26,16 @@ public class CityController {
 
 	@Autowired
 	private CityRepository cityRepository;
+
+	/**
+	 * Get all cities sort by 'name' without pagination.
+	 * @return cities list
+	 */
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public List<City> findAll() {
+		Sort sort = new Sort(Sort.Direction.ASC, "name");
+		return cityRepository.findAll(sort);
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public Page<City> findPage(Pageable pageable, @And({

@@ -1,0 +1,42 @@
+<!--Header and action buttons-->
+<h2>
+	{{'STORE.label.many' | translate}}
+	<div class="pull-right">
+		<newod-table-action-buttons></newod-table-action-buttons>
+	</div>
+</h2>
+<br>
+
+<!--Entity table-->
+<table ng-table="vm.tp" class="table table-bordered table-striped entity-table" show-filter="showFilter"
+	   template-pagination="partials/ng-table/pager.html">
+	<tr	ng-repeat="store in $data">
+
+		<td data-title="'#'">
+			{{vm.firstRow + $index}}
+		</td>
+
+		<td  width="37%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'"
+			 filter="{name: 'text'}">
+			{{store.name}}
+		</td>
+
+		<td width="12%" align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
+			filter="{enabled: 'select'}" filter-data="vm.enabled_select">
+			<span aria-hidden="true" class="glyphicon glyphicon-ok text-success" ng-if="store.enabled"></span>
+			<span ng-if="!store.enabled" class="label label-danger">{{'TEXT.closed' | translate}}</span>
+		</td>
+
+		<td width="37%" data-title="'CITY.label.one' | translate" sortable="'city'"
+			filter="{city: 'select'}" filter-data="vm.city_select">
+			<a href="#/cities?name={{store.city.name}}">
+				{{store.city.name}}
+			</a>
+		</td>
+
+		<td align="center" data-title="'TEXT.actions' | translate">
+			<newod-table-action-menu entity="store"></newod-table-action-menu>
+		</td>
+
+	</tr>
+</table>

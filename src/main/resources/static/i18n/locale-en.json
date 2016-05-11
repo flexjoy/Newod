@@ -30,6 +30,13 @@
     }
   },
 
+  "STORE": {
+    "label": {
+      "one": "Store",
+      "many": "Stores"
+    }
+  },
+
   "ACTION": {
     "add": "Create new",
     "view": "View",

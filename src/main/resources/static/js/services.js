@@ -45,7 +45,7 @@ app.service('UtilService', function () {
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.service('ngTableService', function ($filter, ToastService, Division) {
+app.service('ngTableService', function ($filter, ToastService, Division, City) {
 	var $translate = $filter('translate');
 
 	// return select array for `enabled` entity table field
@@ -69,6 +69,21 @@ app.service('ngTableService', function ($filter, ToastService, Division) {
 			});
 		});
 		return divisionSelect;
+	};
+
+	// return select array for `city` entity table field
+	this.GetCitySelect = function () {
+		var citySelect = [];
+		var cities = City.getAll(function () {
+			cities.forEach(function (city) {
+				var entry = {
+					id: 	city.id.toString(),
+					title: 	city.name
+				};
+				citySelect.push(entry);
+			});
+		});
+		return citySelect;
 	};
 
 	// reload ngTable page
