@@ -16,7 +16,7 @@ app.controller('CityController', function ($scope, City, Division, ToastService,
 
 	vm.tp = new ngTableParams( initParams, {
 		counts: [10,15,25,50],
-		filterOptions: { filterDelay: 0 },
+		filterOptions: { filterDelay: 100 },
 		getData: function(params) {
 
 			// clear $state.params
