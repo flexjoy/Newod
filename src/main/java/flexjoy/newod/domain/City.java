@@ -72,4 +72,11 @@ public class City {
 	public void setStores(Set<Store> stores) {
 		this.stores = stores;
 	}
+
+	public City(String name, Division division) {
+		this.name = name;
+		this.division = division;
+	}
+
+	public City() {}
 }
