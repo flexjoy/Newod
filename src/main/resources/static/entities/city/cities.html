@@ -16,18 +16,18 @@
 			{{vm.firstRow + $index}}
 		</td>
 
-		<td  width="38%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'"
+		<td  width="37%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'"
 			 filter="{name: 'text'}">
 			{{city.name}}
 		</td>
 
-		<td width="10%" align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
+		<td width="12%" align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
 			filter="{enabled: 'select'}" filter-data="vm.enabled_select">
 			<span aria-hidden="true" class="glyphicon glyphicon-ok text-success" ng-if="city.enabled"></span>
 			<span ng-if="!city.enabled" class="label label-danger">{{'TEXT.closed' | translate}}</span>
 		</td>
 
-		<td width="38%" data-title="'DIVISION.label.one' | translate" sortable="'division'"
+		<td width="37%" data-title="'DIVISION.label.one' | translate" sortable="'division'"
 			filter="{division: 'select'}" filter-data="vm.division_select">
 			<a href="#/divisions?name={{city.division.name}}">
 				{{city.division.name}}
