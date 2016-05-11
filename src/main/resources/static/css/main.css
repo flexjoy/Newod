@@ -18,7 +18,3 @@ body > .container {
 table.entity-table {
 	background-color: white;
 }
-
-table.entity-table > tbody > tr {
-	cursor: pointer;
-}

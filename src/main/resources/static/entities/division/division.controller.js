@@ -5,7 +5,6 @@ app.controller('DivisionController', function ($scope, Division, ToastService, $
 	var vm = this;
 	vm.enabled_select = ngTableService.GetEnabledSelect();
 	vm.toggleFilter = toggleFilter;
-	vm.setSelected = setSelected;
 	vm.delete = del;
 	vm.action = action;
 
@@ -18,9 +17,6 @@ app.controller('DivisionController', function ($scope, Division, ToastService, $
 		counts: [10,15,25,50],
 		filterOptions: { filterDelay: 0 },
 		getData: function(params) {
-
-			// reset selected entity
-			vm.entity = null;
 
 			// clear $state.params
 			var stateParams = Object.keys($state.params);
@@ -52,11 +48,6 @@ app.controller('DivisionController', function ($scope, Division, ToastService, $
 		if (!$scope.showFilter && filterProp.length > 0) {
 			vm.tp.filter({});
 		}
-	}
-
-	// store selected entity for CRUD actions
-	function setSelected (entity) {
-		vm.entity = entity;
 	}
 
 	// delete entity dialog
@@ -127,8 +118,7 @@ app.controller('DivisionActionController', function ($scope, $uibModalInstance, 
 	var $translate = $filter('translate');
 
 	// if division is null - this is add operation
-	var isAddOperation = !division;
-	if (isAddOperation) {
+	if (!division) {
 		vm.division = {enabled: true};
 		vm.concreteAction = add;
 		vm.successMessage = $translate('TEXT.added');

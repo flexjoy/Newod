@@ -8,29 +8,32 @@
 <br>
 
 <!--Entity table-->
-<table ng-table="vm.tp" class="table table-bordered entity-table" show-filter="showFilter"
+<table ng-table="vm.tp" class="table table-bordered table-striped entity-table" show-filter="showFilter"
 	   template-pagination="partials/ng-table/pager.html">
-	<tr	ng-repeat="city in $data" ng-click="vm.setSelected(city)"
-		   ng-class="{'alert-warning' : vm.entity.id == city.id}">
+	<tr	ng-repeat="city in $data">
 
-		<td width="10%" data-title="'#'">
+		<td data-title="'#'">
 			{{vm.firstRow + $index}}
 		</td>
 
-		<td  width="40%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'"
+		<td  width="38%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'"
 			 filter="{name: 'text'}">
 			{{city.name}}
 		</td>
 
-		<td width="12%" align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
+		<td width="10%" align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
 			filter="{enabled: 'select'}" filter-data="vm.enabled_select">
 			<span aria-hidden="true" class="glyphicon glyphicon-ok text-success" ng-if="city.enabled"></span>
 			<span ng-if="!city.enabled" class="label label-danger">{{'TEXT.closed' | translate}}</span>
 		</td>
 
-		<td data-title="'DIVISION.label.one' | translate" sortable="'division'"
+		<td width="38%" data-title="'DIVISION.label.one' | translate" sortable="'division'"
 			filter="{division: 'select'}" filter-data="vm.division_select">
 			{{city.division.name}}
+		</td>
+
+		<td align="center" data-title="'TEXT.actions' | translate">
+			<newod-table-action-menu entity="city"></newod-table-action-menu>
 		</td>
 
 	</tr>

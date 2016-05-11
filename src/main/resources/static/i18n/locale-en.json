@@ -31,7 +31,7 @@
   },
 
   "ACTION": {
-    "add": "Add new",
+    "add": "Create new",
     "view": "View",
     "update": "Edit",
     "delete": "Delete",
@@ -45,6 +45,7 @@
   },
 
   "TEXT": {
+    "actions": "Actions",
     "closed": "Closed",
     "showing": "Showing ",
     "from": " of ",
