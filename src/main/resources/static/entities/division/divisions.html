@@ -18,7 +18,9 @@
 
 		<td width="70%" data-title="'ENTITY_FIELD.name' | translate" sortable="'name'"
 			 filter="{name: 'text'}">
-			{{division.name}}
+			<a href="#/cities?division={{division.id}}">
+				{{division.name}}
+			</a>
 		</td>
 
 		<td width="15%" align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"

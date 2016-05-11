@@ -29,7 +29,9 @@
 
 		<td width="38%" data-title="'DIVISION.label.one' | translate" sortable="'division'"
 			filter="{division: 'select'}" filter-data="vm.division_select">
-			{{city.division.name}}
+			<a href="#/divisions?name={{city.division.name}}">
+				{{city.division.name}}
+			</a>
 		</td>
 
 		<td align="center" data-title="'TEXT.actions' | translate">
