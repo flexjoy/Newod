@@ -23,9 +23,10 @@
 			</a>
 		</td>
 
-		<td  width="37%" data-title="'CITY.label.one' | translate" sortable="'name'"
-			 filter="{name: 'text'}">
-			{{city.name}}
+		<td  width="37%" data-title="'CITY.label.one' | translate" sortable="'name'" filter="{name: 'text'}">
+			<a href="#/stores?city={{city.id}}">
+				{{city.name}}
+			</a>
 		</td>
 
 		<td width="12%" align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
