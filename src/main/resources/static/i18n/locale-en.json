@@ -53,6 +53,7 @@
 
   "TEXT": {
     "actions": "Actions",
+    "active": "Active",
     "closed": "Closed",
     "showing": "Showing ",
     "from": " of ",

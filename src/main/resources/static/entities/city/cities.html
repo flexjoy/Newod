@@ -31,8 +31,7 @@
 
 		<td width="12%" align="center" data-title="'ENTITY_FIELD.enabled' | translate" sortable="'enabled'"
 			filter="{enabled: 'select'}" filter-data="vm.enabled_select">
-			<span aria-hidden="true" class="glyphicon glyphicon-ok text-success" ng-if="city.enabled"></span>
-			<span ng-if="!city.enabled" class="label label-danger">{{'TEXT.closed' | translate}}</span>
+			<newod-display-enabled entity="city"></newod-display-enabled>
 		</td>
 
 		<td align="center" data-title="'TEXT.actions' | translate">

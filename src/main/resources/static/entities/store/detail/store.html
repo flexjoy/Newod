@@ -7,8 +7,7 @@
 		&lsaquo;
 		{{store.city.division.name}}
 	<div class="pull-right">
-		<span aria-hidden="true" class="glyphicon glyphicon-ok text-success" ng-if="store.enabled"></span>
-		<span ng-if="!store.enabled" class="label label-danger">{{'TEXT.closed' | translate}}</span>
+		<newod-display-enabled entity="store"></newod-display-enabled>
 	</div>
 	</small>
 </h2>

@@ -27,3 +27,14 @@ app.directive('newodTableActionMenu', function() {
 		}
 	};
 });
+
+app.directive('newodDisplayEnabled', function() {
+	return {
+		restrict: 'E',
+		replace: true,
+		templateUrl: 'partials/directive/displayEnabled.html',
+		link: function (scope, element, attrs) {
+			scope.entity = scope.$eval(attrs.entity);
+		}
+	};
+});
