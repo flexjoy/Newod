@@ -6,6 +6,10 @@
 
 	<changeSet id="load data" author="flexjoy" context="development">
 		<loadData encoding="UTF-8" file="db/data/divisions.csv" tableName="division" separator="~" />
+		<loadData encoding="UTF-8" file="db/data/city.csv" tableName="city" separator="~" />
+		<loadData encoding="UTF-8" file="db/data/store.csv" tableName="store" separator="~" />
+		<loadData encoding="UTF-8" file="db/data/phonetype.csv" tableName="phonetype" separator="~" />
+		<loadData encoding="UTF-8" file="db/data/phone.csv" tableName="phone" separator="~" />
 	</changeSet>
 
 </databaseChangeLog>
