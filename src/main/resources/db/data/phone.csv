@@ -1,0 +1,5 @@
+id~phonetype_id~number~note
+1~1~8 (123) 456-78-90~Landline number
+2~2~123~Internal 3 digit
+3~2~4567~Internal 4 digit
+4~3~+7 (098) 765-43-21~Mobile number

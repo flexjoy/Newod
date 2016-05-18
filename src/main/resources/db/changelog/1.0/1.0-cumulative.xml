@@ -14,5 +14,9 @@
 	<include file="db/changelog/1.0/2016-04-12--04_load_data_to_city_table.xml"/>
 	<include file="db/changelog/1.0/2016-04-12--05_create_store_table.xml"/>
 	<include file="db/changelog/1.0/2016-04-12--06_load_data_to_store_table.xml"/>
+	<include file="db/changelog/1.0/2016-05-18--07_create_phonetype_table.xml"/>
+	<include file="db/changelog/1.0/2016-05-18--08_load_data_to_phonetype_table.xml"/>
+	<include file="db/changelog/1.0/2016-05-18--09_create_phone_table.xml"/>
+	<include file="db/changelog/1.0/2016-05-18--10_load_data_to_phone_table.xml"/>
 
 </databaseChangeLog>

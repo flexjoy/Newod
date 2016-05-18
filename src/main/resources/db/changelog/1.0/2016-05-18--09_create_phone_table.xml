@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="create table" author="flexjoy" context="scheme">
+		<createTable tableName="phone">
+			<column name="id" autoIncrement="true" type="int">
+				<constraints primaryKey="true"  />
+			</column>
+			<column name="number" type="varchar(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="note" type="varchar(255)"> </column>
+			<column name="phonetype_id" type="int">
+				<constraints nullable="false"  references="phonetype(id)" foreignKeyName="fk_phonetype_phone"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>
