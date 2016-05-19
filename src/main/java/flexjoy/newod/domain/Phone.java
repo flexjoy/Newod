@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author Sergey Cherepanov on 18.05.2016.
@@ -27,6 +28,9 @@ public class Phone {
 	@ManyToOne
 	@JoinColumn(name = "phonetype_id", nullable = false)
 	private PhoneType type;
+
+	@ManyToMany(mappedBy = "phones")
+	private Set<Store> stores;
 
 	public int getId() {
 		return id;
@@ -58,5 +62,13 @@ public class Phone {
 
 	public void setType(PhoneType type) {
 		this.type = type;
+	}
+
+	public Set<Store> getStores() {
+		return stores;
+	}
+
+	public void setStores(Set<Store> stores) {
+		this.stores = stores;
 	}
 }

@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 /**
  * @author Sergey Cherepanov on 12.04.2016.
@@ -37,6 +38,9 @@ public class Store {
 
 	@Length(max = 255)
 	private String note;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<Phone> phones;
 
 	public int getId() {
 		return id;
@@ -92,6 +96,14 @@ public class Store {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public Set<Phone> getPhones() {
+		return phones;
+	}
+
+	public void setPhones(Set<Phone> phones) {
+		this.phones = phones;
 	}
 
 	public City getCity() {
