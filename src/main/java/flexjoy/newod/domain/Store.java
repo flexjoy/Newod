@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 /**
  * @author Sergey Cherepanov on 12.04.2016.
@@ -27,6 +28,16 @@ public class Store {
 	@JoinColumn(name = "city_id", nullable = false)
 	private City city;
 
+	@Length(max = 150)
+	private String address;
+
+	private Date opendate;
+
+	private Date closedate;
+
+	@Length(max = 255)
+	private String note;
+
 	public int getId() {
 		return id;
 	}
@@ -49,6 +60,38 @@ public class Store {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getOpendate() {
+		return opendate;
+	}
+
+	public void setOpendate(Date opendate) {
+		this.opendate = opendate;
+	}
+
+	public Date getClosedate() {
+		return closedate;
+	}
+
+	public void setClosedate(Date closedate) {
+		this.closedate = closedate;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	public City getCity() {

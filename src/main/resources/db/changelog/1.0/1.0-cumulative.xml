@@ -13,6 +13,7 @@
 	<include file="db/changelog/1.0/2016-04-12--03_create_store_table.xml"/>
 	<include file="db/changelog/1.0/2016-05-18--04_create_phonetype_table.xml"/>
 	<include file="db/changelog/1.0/2016-05-18--05_create_phone_table.xml"/>
+	<include file="db/changelog/1.0/2016-05-18--06_add_columns_to_store_table.xml"/>
 
 	<include file="db/changelog/1.0/load_test_data.xml"/>
 
