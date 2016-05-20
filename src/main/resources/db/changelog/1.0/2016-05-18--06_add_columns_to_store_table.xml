@@ -7,8 +7,8 @@
 	<changeSet id="add columns: address, opendate, closedate, note " author="flexjoy" context="scheme">
 		<addColumn tableName="store">
 			<column name="address" type="varchar(150)"/>
-			<column name="opendate" type="date"/>
-			<column name="closedate" type="date"/>
+			<column name="opendate" type="datetime"/>
+			<column name="closedate" type="datetime"/>
 			<column name="note" type="varchar(255)"/>
 		</addColumn>
 	</changeSet>
