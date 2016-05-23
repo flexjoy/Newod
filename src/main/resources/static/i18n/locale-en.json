@@ -9,7 +9,11 @@
 
   "MENU": {
     "home": "Home",
-    "entities": "Entities"
+    "entities": "Entities",
+    "contacts": "Contacts",
+    "files": "Files",
+    "connections": "Connections",
+    "equipment": "Equipment"
   },
 
   "HOME_PAGE": {
@@ -43,7 +47,9 @@
     "update": "Edit",
     "delete": "Delete",
     "cancel": "Cancel",
-    "filter": "Filter"
+    "filter": "Filter",
+    "save": "Save",
+    "reset": "Reset"
   },
 
   "ENTITY_FIELD": {
@@ -61,7 +67,8 @@
     "deleted": "entity deleted",
     "updated": "entity updated",
     "added": "entity added",
-    "search": "Search..."
+    "search": "Search...",
+    "changed": "Changed"
   },
 
   "DELETE": {

@@ -1,0 +1,37 @@
+<!--Header-->
+<h2 class="text-success" ng-class="{'text-danger' : !store.enabled}">
+	{{store.name}}
+	<small>
+		<div class="pull-right">
+			<newod-display-enabled entity="store"></newod-display-enabled>
+		</div>
+	</small>
+</h2>
+<br>
+<br>
+<uib-tabset active="active">
+	<uib-tab index="0">
+		<uib-tab-heading>
+			<i class="glyphicon glyphicon-home"></i> {{'MENU.contacts' | translate}}
+		</uib-tab-heading>
+		<div ng-include="'entities/store-detail/partials/contacts.html'"></div>
+	</uib-tab>
+	<uib-tab index="1">
+		<uib-tab-heading>
+			<i class="glyphicon glyphicon-paperclip"></i> {{'MENU.files' | translate}}
+		</uib-tab-heading>
+		{{'MENU.files' | translate}}
+	</uib-tab>
+	<uib-tab index="2">
+		<uib-tab-heading>
+			<i class="glyphicon glyphicon-globe"></i> {{'MENU.connections' | translate}}
+		</uib-tab-heading>
+		{{'MENU.connections' | translate}}
+	</uib-tab>
+	<uib-tab index="3">
+		<uib-tab-heading>
+			<i class="glyphicon glyphicon-cog"></i> {{'MENU.equipment' | translate}}
+		</uib-tab-heading>
+		{{'MENU.equipment' | translate}}
+	</uib-tab>
+</uib-tabset>
