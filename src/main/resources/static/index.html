@@ -17,10 +17,15 @@
 	<body>
 		<!--Nav bar-->
 		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="navbar-header">
 					<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
 						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<button type="button" class="sidebar-toggle navbar-toggle" id="menu-toggle">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -58,8 +63,39 @@
 		<!--end Nav bar-->
 
 		<toast></toast>
-		<div class="container">
-			<div class="well main" ui-view></div>
+
+		<div class="wrapper" ng-cloak>
+
+			<!-- Sidebar -->
+			<div class="sidebar-header navbar-default">
+				<div class="form-group">
+					<label>{{'CITY.label.one' | translate}}</label>
+					<small>
+						<a href="" class="pull-right">[{{'ACTION.add' | translate}}]</a>
+					</small>
+					<select class="form-control">
+						<option>--Select city--</option>
+						<option>City 1</option>
+						<option>City 2</option>
+					</select>
+				</div>
+				<label>{{'STORE.label.many' | translate}}</label>
+				<small>
+					<a href="" class="pull-right">[{{'ACTION.add' | translate}}]</a>
+				</small>
+			</div>
+			<div class="sidebar-list navbar-default">
+				<ul class="sidebar-nav">
+					<li><a href="#">Store 1</a></li>
+					<li><a href="#">Store 2</a></li>
+					<li><a href="#">Store 3</a></li>
+				</ul>
+			</div>
+
+			<!-- Page Content -->
+			<div class="page-content">
+				<div class="container-fluid main" ui-view></div>
+			</div>
 		</div>
 
 		<!-- Webjars JavaScript -->
@@ -101,5 +137,14 @@
 		<script src="entities/store/store.controller.js"></script>
 
 		<script src="entities/store-detail/state.js"></script>
+
+		<!-- Menu Toggle Script -->
+		<script>
+			$("#menu-toggle").click(function(e) {
+				e.preventDefault();
+				$(".wrapper").toggleClass("toggled");
+				$(".navbar-fixed-top").toggleClass("toggled");
+			});
+		</script>
 	</body>
 </html>

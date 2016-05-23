@@ -19,12 +19,8 @@ table.entity-table {
 	background-color: white;
 }
 
-.main {
-	background: none;
-}
-
 .main.ng-enter {
-	transition: .5s;
+	transition: 0.5s;
 	opacity: 0;
 }
 
@@ -39,3 +35,113 @@ table.entity-table {
 .bg-white {
 	background-color: white!important;
 }
+
+/* Sidebar Styles ----------------------------------------------------------------------------------------------------*/
+
+.sidebar-toggle {
+	display: block;
+	position: fixed;
+	margin-left: 240px;
+	margin-right: 0;
+}
+
+.navbar-fixed-top {
+	transition: all 0.5s ease;
+}
+
+.wrapper {
+	padding-left: 0;
+	padding-top: 51px;
+	transition: all 0.5s ease;
+}
+
+.wrapper.toggled {
+	padding-left: 300px;
+}
+
+.sidebar-header, .sidebar-list {
+	z-index: 1000;
+	position: fixed;
+	width: 300px;
+	margin-left: -300px;
+	transition: all 0.5s ease;
+	border-right: 1px solid #e7e7e7;
+	left: 0;
+}
+
+.sidebar-header {
+	height: 120px;
+	padding: 20px;
+}
+
+.sidebar-list {
+	top: 171px;
+	height: calc(100% - 171px);
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.sidebar-list label {
+	padding: 0 20px;
+}
+
+.wrapper.toggled .sidebar-header, .wrapper.toggled .sidebar-list {
+	left: 300px;
+}
+
+.page-content {
+	width: 100%;
+	position: absolute;
+	padding: 15px 0;
+}
+
+.wrapper.toggled .page-content {
+	position: absolute;
+	margin-right: -300px;
+}
+
+.sidebar-nav {
+	top: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sidebar-nav li a {
+	display: block;
+	padding: 10px 20px;
+}
+
+.sidebar-nav li a:hover {
+	background-color: #e7e7e7;
+	text-decoration: none;
+}
+
+.sidebar-nav li a:active, a:focus, a:visited {
+	text-decoration: none;
+}
+
+@media(min-width:768px) {
+	.wrapper {
+		padding-left: 300px;
+	}
+
+	.wrapper.toggled {
+		padding-left: 0;
+	}
+
+	.sidebar-header, .sidebar-list {
+		left: 300px;
+	}
+
+	.wrapper.toggled .sidebar-header, .wrapper.toggled .sidebar-list {
+		left: 0;
+	}
+
+	.page-content {
+		padding: 20px;
+		position: relative;
+	}
+}
+
+/* End Sidebar Styles ------------------------------------------------------------------------------------------------*/
