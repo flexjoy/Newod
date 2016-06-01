@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author Sergey Cherepanov on 11.05.2016.
@@ -24,6 +25,11 @@ public class StoreController {
 
 	@Autowired
 	private StoreRepository storeRepository;
+
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public List<Store> findAll(@RequestParam("city") int id) {
+		return storeRepository.findByCityId(id);
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public Page<Store> findPage(Pageable pageable, @And({
