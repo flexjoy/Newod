@@ -72,6 +72,7 @@ table.entity-table {
 .sidebar-header {
 	height: 120px;
 	padding: 20px;
+	border-bottom: 1px dotted #ddd;
 }
 
 .sidebar-list {
@@ -102,19 +103,23 @@ table.entity-table {
 
 .sidebar-nav {
 	top: 0;
-	margin: 0;
+	margin: 0 0 30px;
 	padding: 0;
 	list-style: none;
 }
 
+.sidebar-nav li {
+	border-bottom: 1px dotted #ddd;
+}
+
 .sidebar-nav li a {
 	display: block;
-	padding: 10px 20px;
+	padding: 5px 20px;
 }
 
 .sidebar-nav li a:hover {
-	background-color: #e7e7e7;
 	text-decoration: none;
+	background-color: white;
 }
 
 .sidebar-nav li a:active, a:focus, a:visited {
@@ -145,3 +150,11 @@ table.entity-table {
 }
 
 /* End Sidebar Styles ------------------------------------------------------------------------------------------------*/
+
+.update {
+	background-color: #fcf8e3;
+}
+
+.update-remove {
+	transition: background-color 1s linear;
+}

@@ -42,14 +42,15 @@
   },
 
   "ACTION": {
-    "add": "Create new",
+    "add": "Create",
     "view": "View",
     "update": "Edit",
     "delete": "Delete",
     "cancel": "Cancel",
     "filter": "Filter",
     "save": "Save",
-    "reset": "Reset"
+    "reset": "Reset",
+    "refresh" : "Refresh"
   },
 
   "ENTITY_FIELD": {
@@ -68,7 +69,8 @@
     "updated": "entity updated",
     "added": "entity added",
     "search": "Search...",
-    "changed": "Changed"
+    "changed": "Changed",
+    "select": "Select"
   },
 
   "DELETE": {

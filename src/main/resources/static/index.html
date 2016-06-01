@@ -67,29 +67,47 @@
 		<div class="wrapper" ng-cloak>
 
 			<!-- Sidebar -->
-			<div class="sidebar-header navbar-default">
-				<div class="form-group">
-					<label>{{'CITY.label.one' | translate}}</label>
-					<small>
-						<a href="" class="pull-right">[{{'ACTION.add' | translate}}]</a>
-					</small>
-					<select class="form-control">
-						<option>--Select city--</option>
-						<option>City 1</option>
-						<option>City 2</option>
-					</select>
+			<div ng-controller="SidebarController as vm">
+				<div class="sidebar-header navbar-default">
+					<div class="form-group">
+						<label>{{'CITY.label.one' | translate}}</label>
+						<small class="pull-right">
+							<a href="">{{'ACTION.add' | translate}}</a>
+							|
+							<a href="" ng-click="vm.refreshCities()">
+								{{'ACTION.refresh' | translate}}
+							</a>
+						</small>
+						<select class="form-control"
+								ng-class="citiesBg"
+								ng-change="vm.changeCity(city)"
+								ng-model="city"
+								ng-options="city.name for city in cities track by city.id">
+							<option value="">-- {{'TEXT.select' | translate}} {{'CITY.label.one' | translate}} --</option>
+						</select>
+					</div>
+
+					<div class="form-group" ng-show="city.id">
+						<label>{{'STORE.label.many' | translate}}</label>
+						<small class="pull-right">
+							<a href="">{{'ACTION.add' | translate}}</a>
+							|
+							<a href="" ng-click="vm.refreshStores(city)">
+								{{'ACTION.refresh' | translate}}
+							</a>
+						</small>
+					</div>
 				</div>
-				<label>{{'STORE.label.many' | translate}}</label>
-				<small>
-					<a href="" class="pull-right">[{{'ACTION.add' | translate}}]</a>
-				</small>
-			</div>
-			<div class="sidebar-list navbar-default">
-				<ul class="sidebar-nav">
-					<li><a href="#">Store 1</a></li>
-					<li><a href="#">Store 2</a></li>
-					<li><a href="#">Store 3</a></li>
-				</ul>
+
+				<div class="sidebar-list navbar-default">
+					<ul class="sidebar-nav" ng-class="storesBg">
+						<li ng-repeat="store in stores">
+							<a href="#/stores/{{store.id}}" ng-class="{'text-danger' : !store.enabled}">
+								{{store.name}}
+							</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 
 			<!-- Page Content -->
