@@ -17,11 +17,10 @@ app.controller('NavBarController', function($scope, $location, $translate, $http
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.controller('SidebarController', function($scope, $timeout, City, Store, ToastService) {
 	
-	var vm = this;
-	vm.changeCity = changeCity;
-	vm.refreshCities = refreshCities;
-	vm.refreshStores = refreshStores;
-	vm.refreshCities();
+	this.changeCity = changeCity;
+	this.refreshCities = refreshCities;
+	this.refreshStores = refreshStores;
+	this.refreshCities();
 
 	// user change city in select dropdown
 	function changeCity (city) {

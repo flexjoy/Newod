@@ -26,6 +26,8 @@ app.config(function ($stateProvider) {
 					Store.update(store, function () {
 						ToastService.Success($translate('TEXT.updated'));
 						form.$setPristine();
+						$scope.$parent.city = store.city;
+						$scope.sb.changeCity(store.city);
 					}, onError);
 				}
 
