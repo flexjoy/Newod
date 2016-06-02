@@ -55,7 +55,11 @@
 
   "ENTITY_FIELD": {
     "name": "Name",
-    "enabled": "Enabled"
+    "enabled": "Enabled",
+    "address": "Address",
+    "open_date": "Open",
+    "close_date": "Closed",
+    "note": "Note"
   },
 
   "TEXT": {

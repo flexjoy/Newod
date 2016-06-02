@@ -55,7 +55,11 @@
 
   "ENTITY_FIELD": {
     "name": "Наименование",
-    "enabled": "Активен"
+    "enabled": "Активен",
+    "address": "Адрес",
+    "open_date": "Открыт",
+    "close_date": "Закрыт",
+    "note": "Примечание"
   },
 
   "TEXT": {
