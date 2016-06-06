@@ -4,12 +4,7 @@
 // NavBarController 																								  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.controller('NavBarController', function($scope, $location, $translate, $http) {
-
-	// fix reset active link in navbar
-	$scope.isActive = function (viewLocation) {
-		return viewLocation === $location.path();
-	};
+app.controller('NavBarController', function($scope, $translate, $http) {
 
 	// set language for backend
 	$scope.setLanguage = function (locale) {
