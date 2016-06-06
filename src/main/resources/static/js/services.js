@@ -151,3 +151,43 @@ app.service('ngTableService', function ($filter, ToastService, Division, City) {
 		return queryParams;
 	};
 });
+
+//////////////////
+// Data factory //
+//////////////////
+
+app.factory('Data', function (City, Store, ToastService) {
+
+	var data = {
+		cities: [],		// Array:	all cities
+		city : 	{},		// Object: 	selected city
+		stores: [],		// Array: 	stores in selected city
+		store: 	{}		// Object: 	selected store
+	};
+
+	data.refreshCities = function () {
+		City.getAll(
+			function (cities) {
+				data.cities = cities;
+			}, onError
+		);
+	};
+
+	data.refreshStores = function () {
+		if (data.city == null) {
+			data.stores = [];
+		} else {
+			Store.getAll({ city: data.city.id },
+				function (stores) {
+					data.stores = stores;
+				}, onError
+			);
+		}
+	};
+
+	function onError(error) {
+		ToastService.Error(error.data.error);
+	}
+
+	return data;
+});
