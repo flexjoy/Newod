@@ -35,16 +35,16 @@
 				<div class="navbar-collapse collapse" id="navbar">
 					<ul class="nav navbar-nav navbar-right" ng-controller="NavBarController">
 						<li ng-class="{active: isActive('/home')}">
-							<a href="#/home">{{'MENU.home' | translate}}</a>
+							<a ui-sref="home">{{'MENU.home' | translate}}</a>
 						</li>
 						<li class="dropdown">
 							<a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="">
 								{{'MENU.entities' | translate}} <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#/divisions">{{'DIVISION.label.many' | translate}}</a></li>
-								<li><a href="#/cities">{{'CITY.label.many' | translate}}</a></li>
-								<li><a href="#/stores">{{'STORE.label.many' | translate}}</a></li>
+								<li><a ui-sref="divisions">{{'DIVISION.label.many' | translate}}</a></li>
+								<li><a ui-sref="cities">{{'CITY.label.many' | translate}}</a></li>
+								<li><a ui-sref="stores">{{'STORE.label.many' | translate}}</a></li>
 							</ul>
 						</li>
 						<li class="dropdown">
@@ -102,7 +102,7 @@
 				<div class="sidebar-list navbar-default">
 					<ul class="sidebar-nav" ng-class="storesBg">
 						<li ng-repeat="store in data.stores">
-							<a href="#/stores/{{store.id}}"
+							<a ui-sref="store-detail({ id: store.id })"
 							   ng-class="{'text-danger' : !store.enabled}">
 								{{store.name}}
 							</a>
