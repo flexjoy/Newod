@@ -1,31 +1,22 @@
 'use strict';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// StoreDetailController																							  //
+// ContactsController																								  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.controller('StoreDetailController', function ($stateParams, $scope, Data) {
-
-	$scope.data = Data;
-
-	this.save = save;
-	this.reset = reset;
+app.controller('ContactsController', function ($stateParams, $scope, Data) {
 
 	// save updated store
-	function save(form) {
+	$scope.save = function save() {
 		var store = Data.saveStore();
 		if (store.id != null) {
-			form.$setPristine();
+			$scope.contacts.$setPristine();
 		}
-	}
+	};
 
 	// reset form
-	function reset(form) {
+	$scope.reset = function reset() {
 		Data.getStore($stateParams.id);
-		form.$setPristine();
-	}
-
-	function onError(error) {
-		ToastService.Error(error.data.error);
-	}
+		$scope.contacts.$setPristine();
+	};
 });

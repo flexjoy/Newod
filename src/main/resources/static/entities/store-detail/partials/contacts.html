@@ -1,5 +1,5 @@
 <div class="row">
-	<form name="contacts" ng-submit="vm.action()" class="col-sm-8 form-horizontal">
+	<form name="contacts" ng-submit="save()" class="col-sm-8 form-horizontal">
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.name' | translate}}</label>
@@ -75,11 +75,11 @@
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-primary" ng-click="vm.save(contacts)" ng-disabled="contacts.$pristine">
+				<button type="submit" class="btn btn-primary" ng-click="save()" ng-disabled="contacts.$pristine">
 					<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
 					{{'ACTION.save' | translate}}
 				</button>
-				<button ng-if="contacts.$dirty" type="button" class="btn btn-warning" ng-click="vm.reset(contacts)">
+				<button ng-if="contacts.$dirty" type="button" class="btn btn-warning" ng-click="reset()">
 					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 					{{'ACTION.reset' | translate}}
 				</button>

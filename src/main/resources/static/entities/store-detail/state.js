@@ -10,12 +10,15 @@ app.config(function ($stateProvider) {
 				Data.getStore($stateParams.id);
 				Data.refreshCities();
 			},
-			controller: 'StoreDetailController',
-			controllerAs: 'vm'
+			controller: function ($scope, Data) {
+				$scope.data = Data;
+			} 
 		})
 		.state('store-detail.contacts', {
 			url: '/contacts',
-			templateUrl: 'entities/store-detail/partials/contacts.html'
+			templateUrl: 'entities/store-detail/partials/contacts.html',
+			controller: 'ContactsController',
+			controllerAs: 'vm'
 		})
 		.state('store-detail.files', {
 			url: '/files'
