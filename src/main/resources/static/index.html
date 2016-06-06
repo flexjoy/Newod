@@ -102,7 +102,7 @@
 				<div class="sidebar-list navbar-default">
 					<ul class="sidebar-nav" ng-class="storesBg">
 						<li ng-repeat="store in data.stores">
-							<a ui-sref="store-detail({ id: store.id })"
+							<a href="#/stores/{{store.id}}/contacts"
 							   ng-class="{'text-danger' : !store.enabled}">
 								{{store.name}}
 							</a>
