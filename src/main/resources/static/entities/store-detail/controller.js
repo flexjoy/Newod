@@ -1,26 +1,27 @@
 'use strict';
 
-app.controller('StoreDetailController', function ($scope, store, cities, Store, ToastService, $filter) {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// StoreDetailController																							  //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	var $translate = $filter('translate');
-	$scope.store = angular.copy(store);
-	$scope.cities = cities;
+app.controller('StoreDetailController', function ($stateParams, $scope, Data) {
+
+	$scope.data = Data;
+
 	this.save = save;
 	this.reset = reset;
 
 	// save updated store
-	function save(store, form) {
-		Store.update(store, function () {
-			ToastService.Success($translate('TEXT.updated'));
+	function save(form) {
+		var store = Data.saveStore();
+		if (store.id != null) {
 			form.$setPristine();
-			$scope.$parent.city = store.city;
-			$scope.sb.changeCity(store.city);
-		}, onError);
+		}
 	}
 
 	// reset form
 	function reset(form) {
-		angular.extend($scope.store, store);
+		Data.getStore($stateParams.id);
 		form.$setPristine();
 	}
 

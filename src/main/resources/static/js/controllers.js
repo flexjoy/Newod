@@ -1,8 +1,8 @@
 'use strict';
 
-//////////////////////
-// NavBarController //
-//////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// NavBarController 																								  //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.controller('NavBarController', function($scope, $location, $translate, $http) {
 
@@ -18,9 +18,9 @@ app.controller('NavBarController', function($scope, $location, $translate, $http
 	}
 });
 
-///////////////////////
-// SidebarController //
-///////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SidebarController																								  //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.controller('SidebarController', function($scope, $timeout, Data) {
 	
@@ -31,17 +31,17 @@ app.controller('SidebarController', function($scope, $timeout, Data) {
 	Data.refreshCities();
 
 	// user change city in select dropdown
-	function changeCity () {
+	function changeCity() {
 		Data.refreshStores();
 	}
 	
-	function refreshCities () {
+	function refreshCities() {
 		$scope.citiesBg = "update";
 		$timeout(removeBg, 1);
 		Data.refreshCities();
 	}
 
-	function refreshStores () {
+	function refreshStores() {
 		$scope.storesBg = "update";
 		$timeout(removeBg, 1);
 		changeCity();

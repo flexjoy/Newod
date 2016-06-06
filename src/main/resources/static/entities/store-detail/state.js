@@ -6,13 +6,9 @@ app.config(function ($stateProvider) {
 		.state('store-detail', {
 			url: "/stores/:id",
 			templateUrl: "entities/store-detail/store.html",
-			resolve: {
-				store: function (Store, $stateParams) {
-					return  Store.get({ id: $stateParams.id }).$promise;
-				},
-				cities: function (City) {
-					return City.getAll().$promise;
-				}
+			onEnter: function ($stateParams, Data) {
+				Data.getStore($stateParams.id);
+				Data.refreshCities();
 			},
 			controller: 'StoreDetailController',
 			controllerAs: 'vm'

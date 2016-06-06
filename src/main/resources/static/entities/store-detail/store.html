@@ -1,9 +1,9 @@
 <!--Header-->
-<h2 class="text-success" ng-class="{'text-danger' : !store.enabled}">
-	{{store.name}}
+<h2 class="text-success" ng-class="{'text-danger' : !data.store.enabled}">
+	{{data.store.name}}
 	<small>
 		<div class="pull-right">
-			<newod-display-enabled entity="store"></newod-display-enabled>
+			<newod-display-enabled entity="data.store"></newod-display-enabled>
 		</div>
 	</small>
 </h2>

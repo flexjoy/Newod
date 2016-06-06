@@ -152,11 +152,13 @@ app.service('ngTableService', function ($filter, ToastService, Division, City) {
 	};
 });
 
-//////////////////
-// Data factory //
-//////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Data factory																										  //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.factory('Data', function (City, Store, ToastService) {
+app.factory('Data', function (City, Store, ToastService, $filter) {
+
+	var $translate = $filter('translate');
 
 	var data = {
 		cities: [],		// Array:	all cities
@@ -183,6 +185,24 @@ app.factory('Data', function (City, Store, ToastService) {
 				}, onError
 			);
 		}
+	};
+
+	data.getStore = function (id) {
+		Store.get({ id: id},
+			function (store) {
+				data.store = store;
+			}, onError
+		);
+	};
+
+	data.saveStore = function () {
+		return Store.update(data.store,
+			function () {
+				ToastService.Success($translate('TEXT.updated'));
+				data.city = data.store.city;
+				data.refreshStores();
+			}, onError
+		);
 	};
 
 	function onError(error) {

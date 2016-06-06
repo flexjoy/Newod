@@ -64,48 +64,51 @@
 
 		<toast></toast>
 
-		<div class="wrapper" ng-controller="SidebarController as sb" ng-cloak>
+		<div class="wrapper" ng-cloak>
 
 			<!-- Sidebar -->
-			<div class="sidebar-header navbar-default">
-				<div class="form-group">
-					<label>{{'CITY.label.one' | translate}}</label>
-					<small class="pull-right">
-						<a href="">{{'ACTION.add' | translate}}</a>
-						|
-						<a href="" ng-click="sb.refreshCities()">
-							{{'ACTION.refresh' | translate}}
-						</a>
-					</small>
-					<select class="form-control"
-							ng-class="citiesBg"
-							ng-change="sb.changeCity(city)"
-							ng-model="data.city"
-							ng-options="city.name for city in data.cities track by city.id">
-						<option value="">-- {{'TEXT.select' | translate}} {{'CITY.label.one' | translate}} --</option>
-					</select>
+			<div ng-controller="SidebarController as sb">
+				<div class="sidebar-header navbar-default">
+					<div class="form-group">
+						<label>{{'CITY.label.one' | translate}}</label>
+						<small class="pull-right">
+							<a href="">{{'ACTION.add' | translate}}</a>
+							|
+							<a href="" ng-click="sb.refreshCities()">
+								{{'ACTION.refresh' | translate}}
+							</a>
+						</small>
+						<select class="form-control"
+								ng-class="citiesBg"
+								ng-change="sb.changeCity(city)"
+								ng-model="data.city"
+								ng-options="city.name for city in data.cities track by city.id">
+							<option value="">-- {{'TEXT.select' | translate}} {{'CITY.label.one' | translate}} --</option>
+						</select>
+					</div>
+
+					<div class="form-group" ng-show="data.city.id">
+						<label>{{'STORE.label.many' | translate}}</label>
+						<small class="pull-right">
+							<a href="">{{'ACTION.add' | translate}}</a>
+							|
+							<a href="" ng-click="sb.refreshStores(city)">
+								{{'ACTION.refresh' | translate}}
+							</a>
+						</small>
+					</div>
 				</div>
 
-				<div class="form-group" ng-show="data.city.id">
-					<label>{{'STORE.label.many' | translate}}</label>
-					<small class="pull-right">
-						<a href="">{{'ACTION.add' | translate}}</a>
-						|
-						<a href="" ng-click="sb.refreshStores(city)">
-							{{'ACTION.refresh' | translate}}
-						</a>
-					</small>
+				<div class="sidebar-list navbar-default">
+					<ul class="sidebar-nav" ng-class="storesBg">
+						<li ng-repeat="store in data.stores">
+							<a href="#/stores/{{store.id}}"
+							   ng-class="{'text-danger' : !store.enabled}">
+								{{store.name}}
+							</a>
+						</li>
+					</ul>
 				</div>
-			</div>
-
-			<div class="sidebar-list navbar-default">
-				<ul class="sidebar-nav" ng-class="storesBg">
-					<li ng-repeat="store in data.stores">
-						<a href="#/stores/{{store.id}}" ng-class="{'text-danger' : !store.enabled}">
-							{{store.name}}
-						</a>
-					</li>
-				</ul>
 			</div>
 			<!--end Sidebar-->
 
