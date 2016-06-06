@@ -1,13 +1,14 @@
 <!--Header-->
-<h2 class="text-success" ng-class="{'text-danger' : !data.store.enabled}">
+<h3 class="text-success" ng-class="{'text-danger' : !data.store.enabled}">
 	{{data.store.name}}
 	<small>
 		<div class="pull-right">
-			<newod-display-enabled entity="data.store"></newod-display-enabled>
+			<span ng-if="data.store.enabled" aria-hidden="true" class="glyphicon glyphicon-ok-sign text-success"></span>
+			<span ng-if="!data.store.enabled" class="label label-danger">{{'TEXT.closed' | translate}}</span>
 		</div>
 	</small>
-</h2>
-<br>
+</h3>
+<hr>
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
 	<li role="presentation" ui-sref-active="active">
