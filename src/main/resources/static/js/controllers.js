@@ -4,12 +4,18 @@
 // NavBarController 																								  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.controller('NavBarController', function($scope, $translate, $http) {
+app.controller('NavBarController', function($scope, $translate, $http, ToastService) {
 
 	// set language for backend
 	$scope.setLanguage = function (locale) {
 		$translate.use(locale);
-		$http.get('/locale/' + locale);
+		$http.get('/locale/' + locale).then(
+			function(success) {
+				console.log(success.statusText);
+			},
+			function(error) {
+				ToastService.Error(error);
+			});
 	}
 });
 
