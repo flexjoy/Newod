@@ -1,12 +1,20 @@
 <div class="row">
-	<form name="contacts" ng-submit="save()" class="col-sm-8 form-horizontal">
+	<form name="contacts" class="col-sm-8 form-horizontal">
 
-		<div class="form-group">
+		<!--Name-->
+
+		<div class="form-group" ng-class="{'has-error' : contacts.name.$invalid}">
 			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.name' | translate}}</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" placeholder="{{'ENTITY_FIELD.name' | translate}}" ng-model="data.store.name">
+				<input type="text" class="form-control" placeholder="{{'ENTITY_FIELD.name' | translate}}" name="name"
+					   ng-model="data.store.name">
+				<div class="alert alert-danger form-error" role="alert" ng-if="contacts.name.$invalid">
+					<div ng-repeat="error in errors.name">{{error}}</div>
+				</div>
 			</div>
 		</div>
+
+		<!--City-->
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label">{{'CITY.label.one' | translate}}</label>
@@ -15,13 +23,20 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<!--Address-->
+
+		<div class="form-group" ng-class="{'has-error' : contacts.address.$invalid}">
 			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.address' | translate}}</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" placeholder="{{'ENTITY_FIELD.address' | translate}}"
+				<input type="text" class="form-control" placeholder="{{'ENTITY_FIELD.address' | translate}}" name="address"
 					   ng-model="data.store.address">
+				<div class="alert alert-danger form-error" role="alert" ng-if="contacts.address.$invalid">
+					<div ng-repeat="error in errors.address">{{error}}</div>
+				</div>
 			</div>
 		</div>
+
+		<!--Enabled-->
 
 		<div class="form-group">
 			<div class="checkbox col-sm-offset-2 col-sm-10">
@@ -30,6 +45,8 @@
 				</label>
 			</div>
 		</div>
+
+		<!--Open Date-->
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.open_date' | translate}}</label>
@@ -48,6 +65,8 @@
 			</div>
 		</div>
 
+		<!--Close Date-->
+
 		<div class="form-group" ng-hide="data.store.enabled">
 			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.close_date' | translate}}</label>
 			<div class="col-sm-10">
@@ -65,13 +84,20 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<!--Note-->
+
+		<div class="form-group" ng-class="{'has-error' : contacts.note.$invalid}">
 			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.note' | translate}}</label>
 			<div class="col-sm-10">
-				<textarea class="form-control" rows="2" placeholder="{{'ENTITY_FIELD.note' | translate}}"
+				<textarea class="form-control" rows="2" placeholder="{{'ENTITY_FIELD.note' | translate}}" name="note"
 						  ng-model="data.store.note"></textarea>
+				<div class="alert alert-danger form-error" role="alert" ng-if="contacts.note.$invalid">
+					<div ng-repeat="error in errors.note">{{error}}</div>
+				</div>
 			</div>
 		</div>
+
+		<!--Action Buttons-->
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">

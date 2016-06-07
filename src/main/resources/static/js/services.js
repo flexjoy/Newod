@@ -156,7 +156,7 @@ app.service('ngTableService', function ($filter, ToastService, Division, City) {
 // Data factory																										  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.factory('Data', function (City, Store, ToastService, $filter) {
+app.factory('Data', function (City, Store, ToastService, $filter, UtilService) {
 
 	var $translate = $filter('translate');
 
@@ -195,13 +195,22 @@ app.factory('Data', function (City, Store, ToastService, $filter) {
 		);
 	};
 
-	data.saveStore = function () {
-		return Store.update(data.store,
+	data.saveStore = function (form, $scope) {
+		Store.update(data.store,
 			function () {
 				ToastService.Success($translate('TEXT.updated'));
 				data.city = data.store.city;
 				data.refreshStores();
-			}, onError
+				form.$setPristine();
+			},
+			function (error) {
+				if (error.data != null && error.data.status == 400) {
+					// HTTP status 400 - validation error. We set server side errors to form fields:
+					$scope.errors = UtilService.SetServerErrors(form, error.data.errors);
+				} else {
+					onError(error);
+				}
+			}
 		);
 	};
 
