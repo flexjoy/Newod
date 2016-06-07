@@ -10,6 +10,7 @@
 		<loadData encoding="UTF-8" file="db/data/store.csv" tableName="store" separator="~" />
 		<loadData encoding="UTF-8" file="db/data/phonetype.csv" tableName="phonetype" separator="~" />
 		<loadData encoding="UTF-8" file="db/data/phone.csv" tableName="phone" separator="~" />
+		<loadData encoding="UTF-8" file="db/data/store_phones.csv" tableName="store_phones" separator="~" />
 	</changeSet>
 
 </databaseChangeLog>
