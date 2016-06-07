@@ -15,7 +15,13 @@ app.service('ToastService', function (ngToast, $filter) {
 	};
 
 	// show message bootstrap `danger` class styled
-	this.Error = function (msg) {
+	this.Error = function (error) {
+		var msg = $translate('TEXT.connection refused');
+
+		if (error.data != null) {
+			msg = error.statusText;
+		}
+
 		var message = '<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> <strong>' +
 			$translate('STATUS.error') + ': </strong>' + msg;
 		ngToast.create({
@@ -96,7 +102,7 @@ app.service('ngTableService', function ($filter, ToastService, Division, City) {
 				}
 			},
 			function (error) {
-				ToastService.Error(error.data.error);
+				ToastService.Error(error);
 			}
 		);
 	};
@@ -215,7 +221,7 @@ app.factory('Data', function (City, Store, ToastService, $filter, UtilService) {
 	};
 
 	function onError(error) {
-		ToastService.Error(error.data.error);
+		ToastService.Error(error);
 	}
 
 	return data;

@@ -74,7 +74,8 @@
     "added": "запись добавлена",
     "search": "Найти...",
     "changed": "Изменен",
-    "select": "Выберите"
+    "select": "Выберите",
+    "connection refused": "в соединении отказано"
   },
 
   "DELETE": {

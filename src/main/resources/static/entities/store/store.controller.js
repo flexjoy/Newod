@@ -37,7 +37,7 @@ app.controller('StoreController', function ($scope, City, Store, ToastService, $
 					return data.content;
 				},
 				function (error) {
-					ToastService.Error(error.data.error);
+					ToastService.Error(error);
 				}
 			);
 		}
@@ -106,7 +106,7 @@ app.controller('StoreDeleteController', function ($scope, $uibModalInstance, sto
 		}
 
 		function onError(error) {
-			ToastService.Error(error.data.error);
+			ToastService.Error(error);
 		}
 	}
 
@@ -156,7 +156,7 @@ app.controller('StoreActionController', function ($scope, $uibModalInstance, sto
 			// HTTP status 400 - validation error. We set server side errors to form fields:
 			$scope.errors = UtilService.SetServerErrors($scope.updateForm, error.data.errors);
 		} else {
-			ToastService.Error(error.data.error);
+			ToastService.Error(error);
 		}
 	}
 
