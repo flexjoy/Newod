@@ -1,11 +1,11 @@
 <div class="row">
-	<form name="contacts" class="col-sm-8 form-horizontal">
+	<form name="contacts" class="col-md-8 form-horizontal">
 
 		<!--Name-->
 
 		<div class="form-group" ng-class="{'has-error' : contacts.name.$invalid}">
-			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.name' | translate}}</label>
-			<div class="col-sm-10">
+			<label class="col-md-2 control-label">{{'ENTITY_FIELD.name' | translate}}</label>
+			<div class="col-md-10">
 				<input type="text" class="form-control" placeholder="{{'ENTITY_FIELD.name' | translate}}" name="name"
 					   ng-model="data.store.name">
 				<div class="alert alert-danger form-error" role="alert" ng-if="contacts.name.$invalid">
@@ -17,8 +17,8 @@
 		<!--City-->
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label">{{'CITY.label.one' | translate}}</label>
-			<div class="col-sm-10">
+			<label class="col-md-2 control-label">{{'CITY.label.one' | translate}}</label>
+			<div class="col-md-10">
 				<select class="form-control" ng-model="data.store.city" ng-options="city.name for city in data.cities track by city.id"></select>
 			</div>
 		</div>
@@ -26,8 +26,8 @@
 		<!--Address-->
 
 		<div class="form-group" ng-class="{'has-error' : contacts.address.$invalid}">
-			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.address' | translate}}</label>
-			<div class="col-sm-10">
+			<label class="col-md-2 control-label">{{'ENTITY_FIELD.address' | translate}}</label>
+			<div class="col-md-10">
 				<input type="text" class="form-control" placeholder="{{'ENTITY_FIELD.address' | translate}}" name="address"
 					   ng-model="data.store.address">
 				<div class="alert alert-danger form-error" role="alert" ng-if="contacts.address.$invalid">
@@ -39,7 +39,7 @@
 		<!--Enabled-->
 
 		<div class="form-group">
-			<div class="checkbox col-sm-offset-2 col-sm-10">
+			<div class="checkbox col-md-offset-2 col-md-10">
 				<label>
 					<input type="checkbox" ng-model="data.store.enabled">{{'ENTITY_FIELD.enabled' | translate}}
 				</label>
@@ -49,8 +49,8 @@
 		<!--Open Date-->
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.open_date' | translate}}</label>
-			<div class="col-sm-10">
+			<label class="col-md-2 control-label">{{'ENTITY_FIELD.open_date' | translate}}</label>
+			<div class="col-md-10">
 				<span class="input-group">
 					<input type="text" class="form-control bg-white" uib-datepicker-popup="dd MMMM yyyy" ng-model="data.store.opendate"
 						   popup-placement="bottom-right"
@@ -68,8 +68,8 @@
 		<!--Close Date-->
 
 		<div class="form-group" ng-hide="data.store.enabled">
-			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.close_date' | translate}}</label>
-			<div class="col-sm-10">
+			<label class="col-md-2 control-label">{{'ENTITY_FIELD.close_date' | translate}}</label>
+			<div class="col-md-10">
 				<span class="input-group">
 					<input type="text" class="form-control bg-white" uib-datepicker-popup="dd MMMM yyyy" ng-model="data.store.closedate"
 						   popup-placement="bottom-right"
@@ -87,8 +87,8 @@
 		<!--Note-->
 
 		<div class="form-group" ng-class="{'has-error' : contacts.note.$invalid}">
-			<label class="col-sm-2 control-label">{{'ENTITY_FIELD.note' | translate}}</label>
-			<div class="col-sm-10">
+			<label class="col-md-2 control-label">{{'ENTITY_FIELD.note' | translate}}</label>
+			<div class="col-md-10">
 				<textarea class="form-control" rows="2" placeholder="{{'ENTITY_FIELD.note' | translate}}" name="note"
 						  ng-model="data.store.note"></textarea>
 				<div class="alert alert-danger form-error" role="alert" ng-if="contacts.note.$invalid">
@@ -100,7 +100,7 @@
 		<!--Action Buttons-->
 
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
+			<div class="col-md-offset-2 col-md-10">
 				<button type="submit" class="btn btn-primary" ng-click="save()" ng-disabled="contacts.$pristine">
 					<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
 					{{'ACTION.save' | translate}}
@@ -117,7 +117,7 @@
 		</div>
 	</form>
 
-	<div class="col-sm-4">
+	<div class="col-md-4">
 		phones table
 	</div>
 </div>
