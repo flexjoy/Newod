@@ -1,5 +1,6 @@
 package flexjoy.newod.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -30,6 +31,7 @@ public class Phone {
 	private PhoneType type;
 
 	@ManyToMany(mappedBy = "phones")
+	@JsonIgnore
 	private Set<Store> stores;
 
 	public int getId() {
